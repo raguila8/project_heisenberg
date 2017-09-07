@@ -4,11 +4,39 @@
   		<%= link_to "Project Heisenberg", root_path, class: "navbar-brand" %>
    	</div>
     <ul class="nav navbar-nav navbar-right">
-    	<li class="active"><%= link_to "About", root_path %></li>
-			<li><%= link_to "Archives", "#" %></li>
-      <li><%= link_to "Recent", "#" %></li>
-      <li><%= link_to "Register", signup_path %></li>
-      <li><%= link_to "Log In", "#" %></li>
+    	<li class="<%= 'active' if current_page?(root_path) %>">
+					<%= link_to "About", root_path %>
+			</li>
+			<li class="<%= 'active' if current_page?('#') %>">
+				<%= link_to "Archives", "#" %>
+			</li>
+      <li class="<%= 'active' if current_page?('#') %>">
+				<%= link_to "Recent", "#" %>
+			</li>
+			<% if logged_in? %>
+				<li class="<%= 'active' if current_page?(current_user) %>">
+					<%= link_to "Progress", current_user %>
+				</li>
+				<li class="<%= 'active' if current_page?('#') %>">
+					<%= link_to "Account", "#" %>
+				</li>
+				<li class="<%= 'active' if current_page?('#') %>">
+					<%= link_to "Friends", "#" %>
+				</li>
+				<li class="<%= 'active' if current_page?('#') %>">
+					<%= link_to "Statistics", "#" %>
+				</li>
+				<li class="<%= 'active' if current_page?('#') %>">
+					<%= link_to "Log out", logout_path, method: :delete %>
+				</li>
+			<% else %>
+				<li class="<%= 'active' if current_page?(signup_path) %>">
+					<%= link_to "Register", signup_path %>
+				</li>
+      	<li class="<%= 'active' if current_page?(login_path) %>">
+					<%= link_to "Log In", login_path %>
+				</li>
+			<% end %>
     </ul>
   </div>
 </nav>
