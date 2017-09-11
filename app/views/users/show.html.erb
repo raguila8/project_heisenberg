@@ -1,2 +1,7 @@
 <% provide(:title, "Progress") %>
 <h1> <%= @user.username %> </h1>
+<% if !current_user.friends?(@user) && current_user != @user %>
+	<%= link_to "Add Friend", friend_path(:id => @user),
+											:method => :post,
+											:class => "my_button" %>
+<% end %>

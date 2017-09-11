@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+	has_many :friendships
+	has_many :friends, through: :friendships
 	attr_accessor :remember_token
 	before_save { self.email = email.downcase }
 	validates :username, presence: true, length: { maximum: 50 },
@@ -8,7 +10,7 @@ class User < ApplicationRecord
 										format: { with: VALID_EMAIL_REGEX }, 
 										uniqueness: { case_sensitive: false }
 	has_secure_password
-	validates :password, presence: true, length: { minimum: 6 }
+	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 	# Returns the hash digest of the given string.
 	def User.digest(string)
@@ -37,5 +39,9 @@ class User < ApplicationRecord
 	# Forgets a user.
 	def forget
 		update_attribute(:remember_digest, nil)
+	end
+
+	def friends?(user)
+		self.friends.include? user
 	end
 end

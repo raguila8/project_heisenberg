@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 	get '/login', to: 'sessions#new'
 	post '/login', to: 'sessions#create'
 	delete '/logout', to: 'sessions#destroy'
-  resources :users
+  resources :users, except: [:index]
+	get '/friends', to: 'users#index'
+	get '/find-friends', to: 'users#find_friends'
+	delete '/unfriend', to: 'friendships#destroy'
+	post '/friend', to: 'friendships#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

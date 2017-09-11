@@ -17,11 +17,11 @@
 				<li class="<%= 'active' if current_page?(current_user) %>">
 					<%= link_to "Progress", current_user %>
 				</li>
-				<li class="<%= 'active' if current_page?('#') %>">
-					<%= link_to "Account", "#" %>
+				<li class="<%= 'active' if current_page?(edit_user_path(current_user)) %>">
+					<%= link_to "Account", edit_user_path(current_user) %>
 				</li>
-				<li class="<%= 'active' if current_page?('#') %>">
-					<%= link_to "Friends", "#" %>
+				<li class="<%= 'active' if current_page?(friends_path) %>">
+					<%= link_to "Friends", friends_path %>
 				</li>
 				<li class="<%= 'active' if current_page?('#') %>">
 					<%= link_to "Statistics", "#" %>

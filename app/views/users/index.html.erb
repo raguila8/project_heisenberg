@@ -1,0 +1,44 @@
+<% provide(:title, 'Friends') %>
+<% if @friendships.size > 0 %>
+  <h1>My Friends</h1>
+
+	<%# will_paginate @friendships%>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Country</th>
+				<th>Solved</th>
+				<th>Score</th>
+				<th>Awards</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @friendships.each do |friend| %>
+				<tr>
+					<td><%= link_to friend.username, friend, class: "user_path" %></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><%= link_to "Remove Friend", unfriend_path(:id => friend), 
+																					:method => :delete,
+																					:data => { :confirm => "Are you sure?" },
+																					:class => "unfriend" %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<%= will_paginate @friendships%>
+
+	<%= link_to "Find Friend", find_friends_path, class: "my_button" %> 
+
+<% else %>
+	<div class="row col-lg-12">
+		<p class="lead"> You do not have any firends yet. Please <a href=<%= find_friends_path %>>add</a> some! </p>
+	</div>
+<% end %>
+<%# button_to "Find Friend", find_friends_path,
+      :class => "col-md-1 col-md-offset-5 find-friend-btn", :method => :get %>
