@@ -11,5 +11,8 @@ Rails.application.routes.draw do
 	get '/find-friends', to: 'users#find_friends'
 	delete '/unfriend', to: 'friendships#destroy'
 	post '/friend', to: 'friendships#create'
+	get '/archives', to: 'problems#index'
+	resources :problems, only: [:show]
+	post '/attempt', to: 'solved_problems#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

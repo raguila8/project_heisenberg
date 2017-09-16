@@ -1,0 +1,6 @@
+<% provide(:title, 'Attempt') %>
+<p> Congradulations, the answer you gave to problem <%= @problem.id %> is correct.</p>
+<br>
+<p>You are the <%= @problem.solved_by.ordinalize %> person to have solved this problem.</p>
+<br>
+<p>Return to <%= link_to "Problems", archives_path %> page.</P>

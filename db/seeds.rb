@@ -21,3 +21,34 @@ User.create!(username:  "raguila8",
                password:              password,
                password_confirmation: password)
 end
+
+100.times do |n|
+	problem = Problem.new
+	num1 = Faker::Number.between(1,5)
+	num2 = Faker::Number.between(1,5)
+	problem.question = "What is #{num1} + #{num2}?"
+	problem.answer = num1 + num2
+	problem.subject = "Basic Math"
+	problem.difficulty = Faker::Number.between(1,3)
+	problem.title = "Addition"
+	problem.solved_by = 0
+	problem.save
+end
+
+100.times do |n|
+	user = User.find(n + 1)
+	answer = Faker::Number.between(1,10)
+	100.times do |i|
+		problem = Problem.find(i + 1)
+		if problem.answer == answer
+			user.problems << problem
+			user.solved += 1
+			user.score += problem.difficulty * 20
+			problem.solved_by += 1
+			problem.save
+			user.save
+		end
+	end
+end
+
+

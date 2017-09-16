@@ -34,8 +34,8 @@
 					<tr>							
 						<td><%= link_to user.username, user, class: "user_path" %></td>
 						<td></td>
-						<td></td>
-						<td></td>
+						<td><%= user.solved %></td>
+						<td><%= user.score %></td>
 						<td></td>
 						<td><%= link_to "Add Friend", friend_path(:id => user),
 																					:method => :post,

@@ -38,6 +38,21 @@ input, textarea, select, .uneditable-input {
 	@include box_sizing;
 }
 
+.problem-form {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 15%;
+}
+
+.check {
+	margin-top: -10px;
+	width: 45%;
+	font-size: 15px;
+	padding: 0;
+	
+}
+
 input {
   height: auto !important;
 }
@@ -132,14 +147,108 @@ h1 {
 	color: black;
 }
 
+/* progress view */
+
+.form_box {
+	position: relative;
+	background-color: #ffefbd;
+  border: 1px solid #bbb;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #bbb;	
+	display:inline-block;
+	text-align:center;
+	margin-left: 50%;
+	left: -14%;
+	width:28%;
+	margin-bottom: 5%;
+}
+
+.stats {
+	text-align:center;
+	text-shadow:1px 1px 0px #fff;
+	margin-top: 25px;
+}
+
+ul.inline {
+	margin-left: 0;
+	list-style: none;
+}
+
+.stats li {
+	width: 125px;
+}
+
+ul.inline>li {
+	display: inline-block;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+
+.stats span {
+	font-family: Helvetica;
+	font-weight: bold;
+	text-shadow: 1px 1px 0px #fff;
+	font-size: 4em;
+	display: block;
+	line-height: 1em;
+}
+
+#problems_solved_section {
+	margin-bottom: 50px;
+}
+
+.problem_info {
+	position: relative;
+	/*display: block;*/
+}
+
+.infobox {
+	font-size: 85%;
+	visibility: hidden;
+  width: 200px;
+	top: 150%;
+	left: 50%;
+	margin-left: -100px;
+  background-color:LightGrey;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+	border:1px solid black;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.problem_info:hover .infobox{
+	visibility: visible;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width:768px) and (max-width:979px) {
+}
+/* Landscape phone to portrait tablet */
+
+/* Landscape phone and down */
+
 /* tables */
 
-.table {
+.table-striped {
   margin-top: 5%;
 }
 
 .find-friend-btn {
 	text-align: left;
+}
+
+.table-bordered {
+	font-size: 85%;
 }
 
 .my_button {
@@ -162,4 +271,77 @@ h1 {
 	text-decoration: none;
 	color: white;
 	opacity: 0.8;
+}
+
+.problems_solved_table {
+	display: table;
+	border-collapse: collapse;
+	border-spacing: 2px;
+	border-color: grey;	
+}
+
+.problems_solved_table td {
+	width: 25px;
+  height: 20px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 90%;
+  color: #333;
+	padding: 10px;
+	border: 1px solid #bbb;
+	display: table-cell;
+}
+
+.problem_solved {
+	background-color: #cee7b6;
+}
+
+.problem_unsolved {
+	background-color: #fff;
+}
+
+/* Problem/:id */
+
+blockquote {
+  display: block;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 40px;
+  -webkit-margin-end: 40px;
+}
+
+.problem_content {
+  background-color: #fff;
+  font-size: 110%;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 1px #aaa;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #aaa;
+  padding: 10px;
+}
+
+.problem-solved {
+	position:relative;
+	text-align: center;
+	top:50px;
+}
+
+#problems-nav {
+	position: relative;
+	margin-bottom: 50px;
+	font-size: 200%;
+
+}
+
+#prev {
+	position: relative;
+	float: left;
+	color:green;
+	
+}
+
+#next {
+	position: relative;
+	float: right;
+	color: green;
 }

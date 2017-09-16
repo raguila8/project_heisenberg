@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911120516) do
+ActiveRecord::Schema.define(version: 20170912004103) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
@@ -22,6 +22,26 @@ ActiveRecord::Schema.define(version: 20170911120516) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
+  create_table "problems", force: :cascade do |t|
+    t.text "question"
+    t.float "answer"
+    t.string "subject"
+    t.integer "difficulty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.integer "solved_by", default: 0
+  end
+
+  create_table "solved_problems", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_solved_problems_on_problem_id"
+    t.index ["user_id"], name: "index_solved_problems_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -30,6 +50,8 @@ ActiveRecord::Schema.define(version: 20170911120516) do
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.integer "solved", default: 0
+    t.integer "score", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

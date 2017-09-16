@@ -1,0 +1,72 @@
+<% provide(:title, 'Archives') %>
+<h2> Problems Archives </h2>
+<p> To view details and submit your answer click on the description/title of 
+		the problem.
+</p>
+
+<%= will_paginate @problems %>
+
+<% if !logged_in? %>
+	<table class="table table-striped problems-index">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Description / Title</th>
+				<th>Solved By</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @problems.each do |problem| %>
+				<tr>
+					<td><%= problem.id %></td>
+					<td><%= link_to problem.title, problem, class: "user_path" %></td>
+					<td><%= problem.solved_by %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% else %>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Description / Title</th>
+				<th>Solved By</th>
+				<th>Difficulty</th>
+				<th>Solved</th>
+				<th>Discussion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% index = 0 %>
+			<% @problems.each do |problem| %>
+				<tr>
+					<td><%= problem.id %></td>
+					<td><%= link_to problem.title, problem, class: "user_path" %></td>
+					<td><%= problem.solved_by %></td>
+					<td>
+						<% problem.difficulty.downto(1) do |i| %>
+							<span class="glyphicon glyphicon-star"></span>
+						<% end %>
+						<% (3 - problem.difficulty).downto(1) do |i| %>
+							<span class="glyphicon glyphicon-star-empty"></span>
+						<% end %>
+					</td>
+					<td>
+						<% if @solved_problems[index] == problem %>
+							<span class="glyphicon glyphicon-ok" style="color:green"></span>
+							<% index += 1 %>
+						<% else %>
+							<span class="glyphicon glyphicon-remove" style="color:red"></span>
+						<% end %>
+					</td>
+					<td></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+<% end %>
+
+
+<%= will_paginate @problems %>

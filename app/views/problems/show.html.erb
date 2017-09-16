@@ -1,0 +1,38 @@
+<% provide(:title, "Problem #{@problem.id}") %>
+<div id="problems-nav">
+	<% if @problem.id != Problem.first.id %>
+		<a href=<%= problem_path(@problem.id - 1) %>><span id="prev" class="glyphicon glyphicon-arrow-left"></span></a>
+	<% end %>
+	<% if @problem.id != Problem.last.id %>
+		<a href=<%= problem_path(@problem.id + 1) %>><span id="next" class="glyphicon glyphicon-arrow-right"></span></a>
+	<% end %>
+</div>
+
+
+<h3>
+	<%= @problem.title %>
+</h3>
+<h5>
+	Problem <%= @problem.id %> 
+</h5>
+
+<div class="problem_content">
+	<%= raw @problem.question %>
+</div>
+
+<% if logged_in? %>
+	<% if solved_problem = SolvedProblem.find_by(user_id: current_user.id, problem_id: @problem.id) %>
+		<div class="problem-solved">
+			<p> Answer: <b><%= @problem.answer %> </b></p>
+			<p style="font-size: 90%; color: #999;"> Completed on <%= solved_problem.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> </p>
+		</div>
+	<% else %>
+
+		<div style="text-align:center;" class="problem-form">
+			<%= form_tag attempt_path(:id => @problem), :method => 'post' do %>
+				<%= text_field_tag :answer, params[:answer] %>
+				<%= submit_tag "Check", :name => nil, class: "btn btn-primary check" %>
+			<% end %>
+		</div>
+	<% end %>
+<% end %>
