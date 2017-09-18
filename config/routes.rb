@@ -14,5 +14,7 @@ Rails.application.routes.draw do
 	get '/archives', to: 'problems#index'
 	resources :problems, only: [:show]
 	post '/attempt', to: 'solved_problems#create'
+	resources :topics, only: [:show]
+	resources :posts, only: [:new, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

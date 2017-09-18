@@ -3,6 +3,7 @@ class User < ApplicationRecord
 	has_many :friends, through: :friendships
 	has_many :solved_problems
 	has_many :problems, through: :solved_problems
+	has_many :posts
 	attr_accessor :remember_token
 	before_save { self.email = email.downcase }
 	validates :username, presence: true, length: { maximum: 50 },

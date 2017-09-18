@@ -11,7 +11,7 @@ User.create!(username:  "raguila8",
              password:              "foobar",
              password_confirmation: "foobar",
 						 admin: true)
-
+Forum.create(name: "Problems", description: "Problems Forum")
 99.times do |n|
   username  = Faker::Internet.user_name
   email = "example-#{n+1}@railstutorial.org"
@@ -38,7 +38,12 @@ end
 100.times do |n|
 	user = User.find(n + 1)
 	answer = Faker::Number.between(1,10)
+	name = "Problem #{n + 1}"
+	topic = Topic.create(name: name, forum_id: 1)
+
 	100.times do |i|
+		content = Faker::Lorem.paragraph
+		Post.create(content: content, topic_id: topic.id, user_id: i + 1)
 		problem = Problem.find(i + 1)
 		if problem.answer == answer
 			user.problems << problem

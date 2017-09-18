@@ -60,7 +60,7 @@
 							<span class="glyphicon glyphicon-remove" style="color:red"></span>
 						<% end %>
 					</td>
-					<td></td>
+					<td><a href="topics/<%= problem.id %>"><%= image_tag "forum_icon.png", alt: "Forum Icon" %><span style="float:right"><%= Topic.find(problem.id).posts.length %> posts</span></td></a>
 				</tr>
 			<% end %>
 		</tbody>

@@ -1,0 +1,49 @@
+<% provide(:title, "Thread #{@thread.id}") %>
+
+<h2>
+	<%= link_to "Problem #{@thread.id}", problem_path(@thread.id) %>
+</h2>
+
+<%= will_paginate @posts %>
+<% @posts.each do |post| %>
+	<div class="post">
+		<table class="forum_table">
+			<tbody>
+				<tr>
+					<td rowspan="2" class="forum_info">
+						<div style="font-size:85%;">
+							<%= post.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> 
+						</div>
+						<span style="font-weight:bold;">
+							<%= post.user.username %>
+						</span>
+						<br>
+						<div style="font-size:95%">
+							<%= post.user.score %> &nbsp;
+						</div>
+						flag
+					</td>
+					<td>
+						<div class="action_buttons">
+							&nbsp; &nbsp;
+							<a href="#">Report</a> &nbsp; &nbsp;
+							<a title="Upvote" href="#">Upvote</a> &nbsp; 0
+						</div>
+					</td>			
+				</tr>
+				<tr>
+					<td>
+						<div	class="forum_message"><%= post.content %>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<% end %>
+
+<%= will_paginate @posts %>
+
+<div style="text-align:right; margin-top: 35px;">
+	<%= link_to "Post Reply", new_post_path(:topic_id => @thread.id) %>
+</div>
