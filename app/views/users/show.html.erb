@@ -78,7 +78,7 @@
 
 <div id="problems_solved_section">
 	<h4>Problems Solved</h4>
-	<% problems = Problem.all %>
+	<% problems = Problem.all.order(:id) %>
 	<% index = 0 %>
 	<% problems.each do |problem| %>
 		<% solved = false %>
