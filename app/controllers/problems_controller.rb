@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
 	#before_action :logged_in_user, only: [:show]
 	def index
-		@problems = Problem.all.paginate(page: params[:page], :per_page => 30)
+		@problems = Problem.all.order(:id).paginate(page: params[:page], :per_page => 30)
 		if logged_in? 
 			@solved_problems = current_user.problems.order(:id)
 		end
