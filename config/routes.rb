@@ -16,5 +16,8 @@ Rails.application.routes.draw do
 	post '/attempt', to: 'solved_problems#create'
 	resources :topics, only: [:show]
 	resources :posts, only: [:new, :create]
+	post '/message', to: 'conversations#create'
+	resources :messages, only: [:create]
+	resources :conversations, only: [:show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

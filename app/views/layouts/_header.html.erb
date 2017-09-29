@@ -7,7 +7,7 @@
     	<li class="<%= 'active' if current_page?(root_path) %>">
 					<%= link_to "About", root_path %>
 			</li>
-			<li class="<%= 'active' if current_page?('#') %>">
+			<li class="<%= 'active' if current_page?(archives_path) %>">
 				<%= link_to "Archives", archives_path %>
 			</li>
       <li class="<%= 'active' if current_page?('#') %>">
@@ -16,6 +16,22 @@
 			<% if logged_in? %>
 				<li class="<%= 'active' if current_page?(current_user) %>">
 					<%= link_to "Progress", current_user %>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu scrollable-menu">
+						<% conversations = Conversation.where("sender_id = #{current_user.id}").or(Conversation.where("recipient_id = #{current_user.id}")).order(updated_at: :desc) %>
+						<% conversations.each do |conversation| %>
+							<% message = conversation.messages.order(updated_at: :desc).first %>
+							<% next if message.nil? %>
+							<% if message.read || current_user.id == message.user_id%>
+								<li class="read"><a href="#"><%= raw notifications(conversation, message) %></a></li>
+							<% else %>
+								<li class="not_read"><a href="#"><%= raw notifications(conversation, message) %></a></li>
+							<% end %>
+						<% end %>
+					</ul>
 				</li>
 				<li class="<%= 'active' if current_page?(edit_user_path(current_user)) %>">
 					<%= link_to "Account", edit_user_path(current_user) %>

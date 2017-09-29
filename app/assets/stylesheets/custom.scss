@@ -29,6 +29,29 @@
 	font-weight: bold;
 }
 
+.dropdown-menu{
+	padding: 0;
+	margin:0;
+}
+
+.dropdown-menu > li > a:hover {
+	opacity: 0.5;
+}
+
+.dropdown-menu li:not(:first-child) {
+	border-top: 1px solid black;
+}
+
+.scrollable-menu {
+	height: auto;
+	max-height: 200px;
+	overflow-x: hidden;
+}
+
+.not_read {
+	background-color: #87ceeb;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {

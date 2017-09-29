@@ -1,0 +1,101 @@
+<% provide(:title, "Conversation") %>
+
+<% @messages.each do |message| %>
+	<div class="post">
+		<table class="forum_table">
+			<tbody>
+				<tr>
+					<td rowspan="2" class="forum_info">
+						<div style="font-size:85%;">
+							<%= message.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> 
+						</div>
+						<span style="font-weight:bold;">
+							<%= message.user.username %>
+						</span>
+						<br>
+						<div style="font-size:95%">
+							<%= message.user.score %> &nbsp;
+						</div>
+						flag
+					</td>
+					<td>
+						<div class="action_buttons">
+							&nbsp; &nbsp;
+							<a href="#">Report</a> &nbsp; &nbsp;
+							<a title="Upvote" href="#">Upvote</a> &nbsp; 0
+						</div>
+					</td>			
+				</tr>
+				<tr>
+					<td>
+						<div	class="forum_message"><%= message.body %>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<% end %>
+
+<% if @message.body && !@message.body.empty? %>
+	<div class="post" style="margin-bottom: 40px;">
+		<table class="forum_table">
+			<tbody>
+				<tr>
+					<td rowspan="2" class="forum_info">
+						<div style="font-size:85%;">
+							<%= Time.now.strftime("%a, %d %b %Y, %I:%M %p") %> 
+						</div>
+						<span style="font-weight:bold;">
+							<%= @message.user.username %>
+						</span>
+						<br>
+						<div style="font-size:95%">
+							<%= @message.user.score %> &nbsp;
+						</div>
+						flag
+					</td>
+					<td>
+						<div class="action_buttons">
+							&nbsp; &nbsp;
+							<a href="#">Report</a> &nbsp; &nbsp;
+							<a title="Upvote" href="#">Upvote</a> &nbsp; 0
+						</div>
+					</td>			
+				</tr>
+				<tr>
+					<td>
+						<div	class="forum_message"><%= @message.body %>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+<% end %>
+
+
+<div style="text-align:center; margin-top: 50px;">
+	
+	<%= render 'shared/error_messages' %>
+	<div style="font-size:90%;color:#aaa;">Please remember to be courteous and respectful in making messages.</div>
+	<%= form_for(@message) do |f| %>
+		<%= hidden_field_tag 'conversation_id', @conversation.id %>
+		<%= hidden_field_tag 'user_id', current_user.id %>
+
+		<%= f.text_area :body, cols: 100, rows: 20 %>
+		<div class="col-md-offset-4 col-md-2">
+		<%= f.submit "Preview Message", class: "btn btn-primary" %>
+		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="col-md-2">
+		<%= f.submit "Post Message", class: "btn btn-primary" %>
+		</div>
+	<% end %>
+	<br>
+	<p style="font-size:90%">
+		<b>NOTE:</b>
+		" You have full access to your own messages and you will be able to edit/delete them at any time. "
+	</p>
+</div>

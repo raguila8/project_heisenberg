@@ -2,6 +2,8 @@
 	<% model = @user %>
 <% elsif @post %>
 	<% model = @post %>
+<% elsif @message %>
+	<% model = @message %>
 <% end %>
 <% if model.errors.any? %>
   <div id="error_explanation">
