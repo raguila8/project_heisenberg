@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	acts_as_voter
 	has_many :friendships, dependent: :destroy
 	has_many :friends, through: :friendships
 	has_many :solved_problems, dependent: :destroy

@@ -29,7 +29,16 @@
 						<div class="action_buttons">
 							&nbsp; &nbsp;
 							<a href="#">Report</a> &nbsp; &nbsp;
-							<a title="Upvote" href="#">Upvote</a> &nbsp; 0
+							<% @post = post %>
+							<%= link_to like_path(:post => post), method: :put, remote: true do %>
+								<% if current_user.liked? post %>
+									<span class="glyphicon glyphicon-thumbs-up like-btn<%="#{post.id}"%> liked"></span>
+								<% else %>
+									<span class="glyphicon glyphicon-thumbs-up like-btn<%="#{post.id}"%>"></span>
+								<% end %>
+							<% end %>
+							&nbsp;
+							<span class="likes-count<%= post.id %>"><%= post.get_upvotes.size %> </span>
 						</div>
 					</td>			
 				</tr>

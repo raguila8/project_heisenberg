@@ -14,7 +14,10 @@ gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
-#Provides a simple helper to get an HTML select list of countries
+# Allows posts to be voted on
+gem 'acts_as_votable'
+
+# Provides a simple helper to get an HTML select list of countries
 gem 'country_select'
 # a collection of all country flags in SVG 
 gem 'flag-icons-rails'

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'upvotes/new'
+
   get 'sessions/new'
 
   get '/signup', to: 'users#new'
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
 	post '/attempt', to: 'solved_problems#create'
 	resources :topics, only: [:show]
 	resources :posts, only: [:new, :create]
+	put 'like', to: 'topics#vote'
 	post '/message', to: 'conversations#create'
 	resources :messages, only: [:create]
 	resources :conversations, only: [:show]

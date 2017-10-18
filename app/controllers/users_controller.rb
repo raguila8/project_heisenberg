@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		@problems = @user.problems.order(:id)
+		@kudos = user_kudos(@user)
 	end
 
   def new
@@ -77,5 +78,13 @@ class UsersController < ApplicationController
 		def correct_user
 			@user = User.find(params[:id])
 			redirect_to(root_url) unless @user == current_user
+		end
+
+		def user_kudos(user)
+			kudos = 0
+			user.posts.each do |post|
+				kudos += post.cached_votes_up
+			end
+			return kudos
 		end
 end
