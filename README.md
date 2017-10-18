@@ -8,11 +8,11 @@ Each problem has its own discussion thread that is only available to those who h
 
 [View Project](https://mighty-wave-85570.herokuapp.com/) 
 
+## Running Locally
+
 * Ruby version - 2.3.3
 
 * Rails version - 5.1.4
-
-## Running Locally
 
 * Configuration - run `bundle install` to install and include the gems specified in the `Gemfile`, while skipping the installation gems using the option `--without production`:
 
@@ -33,7 +33,7 @@ There are a total of 10 tables that store all the data. To seed the database I u
 $ rails db:seed
 ```
 
-## TODO
+## Next Steps
 
 * Make site responsive
 * Allow users to report posts
