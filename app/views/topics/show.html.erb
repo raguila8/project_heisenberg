@@ -21,7 +21,9 @@
 						<div style="font-size:95%">
 							<%= post.user.score %> &nbsp;
 						</div>
-						flag
+						<% if !post.user.country.empty? %>
+							<%= flag_icon(:"#{post.user.country}", class: 'strong') %>
+						<% end %>
 					</td>
 					<td>
 						<div class="action_buttons">

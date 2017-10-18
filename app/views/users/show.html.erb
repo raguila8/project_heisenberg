@@ -7,7 +7,11 @@
 			<div class="col-md-4">
 				<h2 style="font-weight:bold"><%= @user.username %></h2>
 				<ul class="list-unstyled">
-					<li>Country</li>
+					<li>
+						<% if !@user.country.empty? %>
+							<%= flag_icon(:"#{@user.country}", class: 'strong') %>
+						<% end %>
+					</li>
 				</ul>
 			</div>
 			<div class="col-md-6">
