@@ -12,7 +12,7 @@ User.create!(username:  "raguila8",
              password_confirmation: "foobar",
 						 admin: true)
 Forum.create(name: "Problems", description: "Problems Forum")
-99.times do |n|
+49.times do |n|
   username  = Faker::Internet.user_name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -22,7 +22,7 @@ Forum.create(name: "Problems", description: "Problems Forum")
                password_confirmation: password)
 end
 
-100.times do |n|
+50.times do |n|
 	problem = Problem.new
 	num1 = Faker::Number.between(1,5)
 	num2 = Faker::Number.between(1,5)
@@ -35,13 +35,13 @@ end
 	problem.save
 end
 
-100.times do |n|
+50.times do |n|
 	user = User.find(n + 1)
 	answer = Faker::Number.between(1,10)
 	name = "Problem #{n + 1}"
 	topic = Topic.create(name: name, forum_id: 1)
 
-	100.times do |i|
+	50.times do |i|
 		content = Faker::Lorem.paragraph
 		Post.create(content: content, topic_id: topic.id, user_id: i + 1)
 		problem = Problem.find(i + 1)
@@ -55,5 +55,3 @@ end
 		end
 	end
 end
-
-
