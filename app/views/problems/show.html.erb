@@ -1,3 +1,8 @@
+<% content_for :mathjax do %>
+	<%= mathjax_tag %>
+<% end %>
+
+
 <% provide(:title, "Problem #{@problem.id}") %>
 <div id="problems-nav">
 	<% if @problem.id != Problem.first.id %>

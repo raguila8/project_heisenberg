@@ -10,9 +10,7 @@
 			<li class="<%= 'active' if current_page?(archives_path) %>">
 				<%= link_to "Archives", archives_path %>
 			</li>
-      <li class="<%= 'active' if current_page?('#') %>">
-				<%= link_to "Recent", "#" %>
-			</li>
+      
 			<% if logged_in? %>
 				<li class="<%= 'active' if current_page?(current_user) %>">
 					<%= link_to "Progress", current_user %>
@@ -26,9 +24,9 @@
 							<% message = conversation.messages.order(updated_at: :desc).first %>
 							<% next if message.nil? %>
 							<% if message.read || current_user.id == message.user_id%>
-								<li class="read"><a href="#"><%= raw notifications(conversation, message) %></a></li>
+								<li class="read"><a href="<%=conversation_path(conversation.id)%>"><%= raw notifications(conversation, message) %></a></li>
 							<% else %>
-								<li class="not_read"><a href="#"><%= raw notifications(conversation, message) %></a></li>
+								<li class="not_read"><a href="<%=conversation_path(conversation.id)%>"><%= raw notifications(conversation, message) %></a></li>
 							<% end %>
 						<% end %>
 					</ul>
@@ -39,9 +37,7 @@
 				<li class="<%= 'active' if current_page?(friends_path) %>">
 					<%= link_to "Friends", friends_path %>
 				</li>
-				<li class="<%= 'active' if current_page?('#') %>">
-					<%= link_to "Statistics", "#" %>
-				</li>
+				
 				<li class="<%= 'active' if current_page?('#') %>">
 					<%= link_to "Log out", logout_path, method: :delete %>
 				</li>

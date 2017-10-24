@@ -17,10 +17,14 @@ Rails.application.routes.draw do
 	resources :problems, only: [:show]
 	post '/attempt', to: 'solved_problems#create'
 	resources :topics, only: [:show]
-	resources :posts, only: [:new, :create]
+	resources :posts, only: [:new, :edit, :create, :update, :destroy]
+	#get '/posts/:id/edit', to: 'posts#edit'
 	put 'like', to: 'topics#vote'
 	post '/message', to: 'conversations#create'
 	resources :messages, only: [:create]
 	resources :conversations, only: [:show]
+
+	# script tags
+	mathjax 'mathjax'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

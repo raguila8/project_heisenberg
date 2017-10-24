@@ -14,6 +14,9 @@ gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+# Javascript display engine for mathematics
+gem 'mathjax-rails'
+
 # Allows posts to be voted on
 gem 'acts_as_votable'
 

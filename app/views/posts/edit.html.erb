@@ -2,7 +2,9 @@
 	<%= mathjax_tag %>
 <% end %>
 
-<% provide(:title, 'New Post') %>
+<% provide(:title, 'Edit Post') %>
+
+
 <% if @post.content && !@post.content.empty? %>
 	<div class="post" style="margin-bottom: 40px;">
 		<table class="forum_table">
@@ -22,12 +24,7 @@
 						flag
 					</td>
 					<td>
-						<div class="action_buttons">
-							&nbsp; &nbsp;
-							<a href="#">Report</a> &nbsp; &nbsp;
-							<a title="Upvote" href="#">Upvote</a> &nbsp; 0
-						</div>
-					</td>			
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -45,7 +42,6 @@
 	<%= render 'shared/error_messages' %>
 	<div style="font-size:90%;color:#aaa;">Please remember to be courteous and respectful in making posts.</div>
 	<%= form_for(@post) do |f| %>
-		<%= hidden_field_tag 'topic_id', params[:topic_id] %>
 		<% #f.label :content %>
 		<%= f.text_area :content, cols: 100, rows: 20 %>
 		<div class="col-md-offset-3 col-md-2">
@@ -53,7 +49,7 @@
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="col-md-2">
-		<%= f.submit "Post Message", class: "btn btn-primary" %>
+		<%= f.submit "Save Changes", class: "btn btn-primary" %>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="col-md-2">

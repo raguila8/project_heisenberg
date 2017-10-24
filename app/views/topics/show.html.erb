@@ -1,3 +1,7 @@
+<% content_for :mathjax do %>
+	<%= mathjax_tag %> 	
+<% end %>
+
 <% provide(:title, "Thread #{@thread.id}") %>
 
 <h2>
@@ -28,6 +32,11 @@
 					<td>
 						<div class="action_buttons">
 							&nbsp; &nbsp;
+							<% if current_user.id == post.user_id %>
+								<%= link_to "Delete", post_path(post), 																		:method => :delete,
+																	 :data => { :confirm => "Are you sure?" } %>
+								&nbsp; &nbsp;<%= link_to "Edit", edit_post_path(post) %> &nbsp; &nbsp;
+							<% end %>
 							<a href="#">Report</a> &nbsp; &nbsp;
 							<% @post = post %>
 							<%= link_to like_path(:post => post), method: :put, remote: true do %>
@@ -58,3 +67,8 @@
 <div style="text-align:right; margin-top: 35px;">
 	<%= link_to "Post Reply", new_post_path(:topic_id => @thread.id) %>
 </div>
+
+<script>
+  	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);	
+</script>
+
