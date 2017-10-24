@@ -9,3 +9,9 @@ archer:
   username: rodrigo69
   email: duchess@example.gov
   password_digest: <%= User.digest('password') %>
+
+rodrigo:
+  username: rodrigo11
+   email: random@email.com
+   password_digest: <%= User.digest('password') %>
+   admin: true
