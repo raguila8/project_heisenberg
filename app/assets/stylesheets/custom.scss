@@ -52,6 +52,20 @@
 	background-color: #87ceeb;
 }
 
+/* make the badge float in the top right corner of the message button */
+.button_badge {
+	background-color: #fa3e3e;
+  border-radius: 3px;
+  color: white;
+ 
+  padding: 1px 3px;
+  font-size: 10px;
+  
+  position: absolute;
+  top: 20%;
+  right: 7%;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {

@@ -10,7 +10,6 @@ class ConversationsController < ApplicationController
 		else
 			@conversation = Conversation.create!(sender_id: sender.id, recipient_id: params[:recipient_id])
 		end
-
 		
 
 		redirect_to conversation_path(@conversation.id)
@@ -19,6 +18,10 @@ class ConversationsController < ApplicationController
 	def show
 		@conversation = Conversation.find(params[:id])
 		@messages = @conversation.messages
+		@messages.each do |message|
+			message.read = true
+			message.save
+		end
 		@message = Message.new
 	end
 

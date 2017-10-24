@@ -17,9 +17,13 @@
 				</li>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages
-					<span class="caret"></span></a>
-					<ul class="dropdown-menu scrollable-menu">
-						<% conversations = Conversation.where("sender_id = #{current_user.id}").or(Conversation.where("recipient_id = #{current_user.id}")).order(updated_at: :desc) %>
+					<!--<span class="caret"></span>--></a>
+					<% conversations = Conversation.where("sender_id = #{current_user.id}").or(Conversation.where("recipient_id = #{current_user.id}")).order(updated_at: :desc) %>
+					<% if (count = unreadMessagesCount(conversations)) > 0 %>
+					
+						<span class="button_badge"><%= count %></span>
+					<% end %>
+					<ul class="dropdown-menu scrollable-menu">	
 						<% conversations.each do |conversation| %>
 							<% message = conversation.messages.order(updated_at: :desc).first %>
 							<% next if message.nil? %>

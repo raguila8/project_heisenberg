@@ -16,6 +16,7 @@ class MessagesController < ApplicationController
 			@message = Message.new(user_params)
 			@message.conversation_id = params[:conversation_id]
 			@message.user_id = current_user.id
+			@message.read = true
 			@conversation = Conversation.find(params[:conversation_id])
 
 			if @message.save

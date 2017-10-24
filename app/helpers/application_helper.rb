@@ -11,6 +11,18 @@ module ApplicationHelper
 		return conversation.sender
 	end
 
+	def unreadMessagesCount(conversations)
+		count = 0
+		conversations.each do |conversation|
+			message = conversation.messages.order(updated_at: :desc).first
+			next if message.nil?
+			if !message.read
+				count += 1
+			end
+		end
+		return count
+	end
+
 	def notifications(conversation, message)
 		html = ""
 		html += "<span style=\"float:left; font-weight:bold;font-size:85%;\">" +
