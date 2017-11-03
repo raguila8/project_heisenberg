@@ -6,6 +6,12 @@
 
 <%= will_paginate @problems %>
 
+<% count = 1 %>
+<% if @problems.current_page > 1 %>
+	<!-- Each page has at most 30 problems -->
+	<% count = (@problems.current_page - 1) * 30  + 1 %>
+<% end %>
+
 <% if !logged_in? %>
 	<table class="table table-striped problems-index">
 		<thead>
@@ -38,10 +44,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% index = 0 %>
 			<% @problems.each do |problem| %>
 				<tr>
-					<td><%= problem.id %></td>
+					<td><%= count %></td>
 					<td><%= link_to problem.title, problem, class: "user_path" %></td>
 					<td><%= problem.solved_by %></td>
 					<td>
@@ -53,15 +58,19 @@
 						<% end %>
 					</td>
 					<td>
-						<% if @solved_problems[index] == problem %>
+						<% if @solved_problems.include? problem %>
 							<span class="glyphicon glyphicon-ok" style="color:green"></span>
-							<% index += 1 %>
 						<% else %>
 							<span class="glyphicon glyphicon-remove" style="color:red"></span>
 						<% end %>
 					</td>
 					<td><a href="topics/<%= problem.id %>"><%= image_tag "forum_icon.png", alt: "Forum Icon" %><span style="float:right"><%= Topic.find(problem.id).posts.length %> posts</span></td></a>
+					<% if current_user.admin? %>
+						<td><%= link_to "Delete", problem, method: :delete,
+																				data: { confirm: "You sure?" } %></td>
+					<% end %>
 				</tr>
+				<% count += 1 %>
 			<% end %>
 		</tbody>
 	</table>

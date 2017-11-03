@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 	delete '/unfriend', to: 'friendships#destroy'
 	post '/friend', to: 'friendships#create'
 	get '/archives', to: 'problems#index'
-	resources :problems, only: [:show]
+	resources :problems
 	post '/attempt', to: 'solved_problems#create'
 	resources :topics, only: [:show]
 	resources :posts, only: [:new, :edit, :create, :update, :destroy]

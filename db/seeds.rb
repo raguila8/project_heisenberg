@@ -48,7 +48,13 @@ end
 		if problem.answer == answer
 			user.problems << problem
 			user.solved += 1
-			user.score += problem.difficulty * 20
+			if problem.difficulty == 1
+				user.score += 20
+			elsif problem.difficulty == 2
+				user.score += 40
+			elsif problem.difficulty == 3
+				user.score += 80
+			end
 			problem.solved_by += 1
 			problem.save
 			user.save
