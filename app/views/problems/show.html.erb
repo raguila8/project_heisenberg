@@ -4,10 +4,14 @@
 
 
 <% provide(:title, "Problem #{@problem.id}") %>
+
 <div id="problems-nav">
+	<!-- Puts previous problem button except for first problem-->
 	<% if @problem.id != Problem.first.id %>
 		<a href=<%= problem_path(@problem.id - 1) %>><span id="prev" class="glyphicon glyphicon-arrow-left"></span></a>
 	<% end %>
+
+	<!-- Puts next problem button except for last problem-->
 	<% if @problem.id != Problem.last.id %>
 		<a href=<%= problem_path(@problem.id + 1) %>><span id="next" class="glyphicon glyphicon-arrow-right"></span></a>
 	<% end %>
@@ -17,12 +21,13 @@
 <h3>
 	<%= @problem.title %>
 </h3>
+
 <h5>
-	Problem <%= @problem.id %> 
+	Problem <%= @problem.number %> 
 </h5>
 
 <div class="problem_content">
-	<%= raw @problem.question %>
+	<%=@problem.question %>
 </div>
 
 <% if logged_in? %>

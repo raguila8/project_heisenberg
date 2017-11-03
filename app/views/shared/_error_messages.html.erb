@@ -4,6 +4,8 @@
 	<% model = @post %>
 <% elsif @message %>
 	<% model = @message %>
+<% elsif @problem %>
+	<% model = @problem %>
 <% end %>
 <% if model.errors.any? %>
   <div id="error_explanation">

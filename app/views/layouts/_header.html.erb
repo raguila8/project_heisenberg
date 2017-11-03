@@ -12,6 +12,11 @@
 			</li>
       
 			<% if logged_in? %>
+				<% if current_user.admin? %>
+					<li class="<%= 'active' if current_page?(new_problem_path) %>">
+					<%= link_to "New Problem", new_problem_path %></li>
+
+				<% end %>
 				<li class="<%= 'active' if current_page?(current_user) %>">
 					<%= link_to "Progress", current_user %>
 				</li>

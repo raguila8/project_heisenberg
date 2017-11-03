@@ -1,8 +1,8 @@
+<% provide(:title, 'New Post') %>
 <% content_for :mathjax do %>
 	<%= mathjax_tag %>
 <% end %>
 
-<% provide(:title, 'New Post') %>
 <% if @post.content && !@post.content.empty? %>
 	<div class="post" style="margin-bottom: 40px;">
 		<table class="forum_table">

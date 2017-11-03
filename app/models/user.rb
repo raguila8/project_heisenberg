@@ -3,7 +3,7 @@ class User < ApplicationRecord
 	has_many :friendships, dependent: :destroy
 	has_many :friends, through: :friendships
 	has_many :solved_problems, dependent: :destroy
-	has_many :problems, through: :solved_problems
+	has_many :problems, {:through => :solved_problems, :source => "problem"}
 	has_many :posts, dependent: :destroy
 	has_many :messages, dependent: :destroy
 	attr_accessor :remember_token

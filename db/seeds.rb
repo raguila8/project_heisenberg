@@ -32,6 +32,7 @@ end
 	problem.difficulty = Faker::Number.between(1,3)
 	problem.title = "Addition"
 	problem.solved_by = 0
+	problem.number = n + 1
 	problem.save
 end
 
@@ -39,7 +40,7 @@ end
 	user = User.find(n + 1)
 	answer = Faker::Number.between(1,10)
 	name = "Problem #{n + 1}"
-	topic = Topic.create(name: name, forum_id: 1)
+	topic = Topic.create(name: name, forum_id: 1, problem_id: n + 1)
 
 	50.times do |i|
 		content = Faker::Lorem.paragraph

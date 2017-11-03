@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018022408) do
+ActiveRecord::Schema.define(version: 20171103190656) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer "sender_id"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20171018022408) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.integer "solved_by", default: 0
+    t.integer "number"
   end
 
   create_table "solved_problems", force: :cascade do |t|
@@ -99,7 +100,9 @@ ActiveRecord::Schema.define(version: 20171018022408) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "forum_id"
+    t.integer "problem_id"
     t.index ["forum_id"], name: "index_topics_on_forum_id"
+    t.index ["problem_id"], name: "index_topics_on_problem_id"
   end
 
   create_table "upvotes", force: :cascade do |t|

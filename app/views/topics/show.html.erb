@@ -5,7 +5,7 @@
 <% provide(:title, "Thread #{@thread.id}") %>
 
 <h2>
-	<%= link_to "Problem #{@thread.id}", problem_path(@thread.id) %>
+	<%= link_to "Problem #{(Problem.find(@thread.problem_id)).number}", problem_path(@thread.problem_id) %>
 </h2>
 
 <%= will_paginate @posts %>

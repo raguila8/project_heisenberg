@@ -68,6 +68,7 @@
 					<% if current_user.admin? %>
 						<td><%= link_to "Delete", problem, method: :delete,
 																				data: { confirm: "You sure?" } %></td>
+						<td><%= link_to "Edit", edit_problem_path(problem) %></td>
 					<% end %>
 				</tr>
 				<% count += 1 %>
