@@ -1,0 +1,54 @@
+<% provide(:title, "Formatting") %>
+<% content_for :mathjax do %>
+	<%= mathjax_tag %>
+<% end %>
+
+<h1>About... Displaying Math</h1>
+<h3>MathJax</h3>
+<p>
+	Project Heisenberg uses the Javascript display engine MathJax in order to 
+	render mathematics in all browsers.
+</p>
+
+<h3>TeX and LaTeX support</h3>
+<p>
+	By default, MathJax defines the LaTeX math delimiters, which are <code class="tex2jax_ignore">\(...\)</code> for 
+	in-line math, and <code class="tex2jax_ignore">\[...\]</code> for displayed equations. It also defines the TeX 
+	delimiters <code class="tex2jax_ignore">$$...$$</code> for displayed equations, but it does not define $...$ as 
+	in-line math delimiters.
+</p>
+
+<p>
+	For example, <code class="tex2jax_ignore">\(x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}/)</code> produces \(x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\).
+</p>
+<p>
+	<code class="tex2jax_ignore">\[x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\]</code> produces the following: \[x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}\].
+</p>
+
+<p>
+	<code class="tex2jax_ignore">$$x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$$</code> produces the following: $$x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$$.
+</p>
+	
+<p>
+	However, <code class="tex2jax_ignore">$x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$</code> produces the following: $x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}$.
+
+</p>
+<p>
+	Since MathJax renders for the web and TeX is a print layout engine, there 
+	are natural limitations of which parts of TeX can be supported in a 
+	reasonable way. Accordingly, there are several differences between “real” 
+	TeX/LaTeX systems and MathJax’s TeX Input.
+
+	MathJax only processes macros in math-mode. The TeX input processor 
+	implements only the math-mode macros of TeX and LaTeX, not the text-mode 
+	macros. 
+</p>
+
+<p> 
+	For more information about TeX and LaTeX support in MathJax visit: 
+	<%= link_to "http://docs.mathjax.org/en/latest/tex.html", "http://docs.mathjax.org/en/latest/tex.html" %>.
+</p>
+
+<p>
+	If you are not familiar with <%= link_to "TeX/LaTeX", "https://en.wikipedia.org/wiki/TeX" %> a good starting point is the <%= link_to "LaTeX Wiki book", "https://en.wikibooks.org/wiki/LaTeX" %>.
+</p>

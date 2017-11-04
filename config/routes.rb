@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 	resources :messages, only: [:create]
 	resources :conversations, only: [:show]
 
+	get '/math-formatting', to: 'static_pages#math_formatting'
+
 	# script tags
 	mathjax 'mathjax'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
