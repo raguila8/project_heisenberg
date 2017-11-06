@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 			@users = User.where("username like ?", 
 				"%#{params[:search]}%").paginate(page: params[:page], :per_page => 10)
 		else
-			@users = User.all.paginate(page: params[:page], :per_page => 10)
+			@users = User.all_except(current_user).paginate(page: params[:page], :per_page => 10)
 		end
 
 	end

@@ -69,10 +69,12 @@ class ProblemsController < ApplicationController
 			@problem = Problem.new(problem_params)
 			@problem.number = lastNumber + 1
 			@topic = Topic.new
-			@topic.problem_id = @problem.id
+			#@topic.problem_id = @problem.id
 			@topic.name = "Problem #{@problem.number}"
 			@topic.forum_id = 1
-			if @problem.save && @topic.save
+			if @problem.save
+				@topic.problem_id = @problem.id
+				@topic.save
 				flash[:success] = "New Problem created!"
 				redirect_to archives_path
 			else

@@ -50,4 +50,9 @@ class User < ApplicationRecord
 	def friends?(user)
 		self.friends.include? user
 	end
+
+	scope :all_except, -> (user) do 
+		where.not(id: user) && where.not(id: user.friends.select(:id))
+	end
+
 end
