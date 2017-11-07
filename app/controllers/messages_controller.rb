@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
 			@conversation = Conversation.find(params[:conversation_id])
 			@messages = @conversation.messages
 			render 'conversations/show'
-		elsif params[:commit] == "Post Message"
+		elsif params[:commit] == "Send Message"
 			@message = Message.new(user_params)
 			@message.conversation_id = params[:conversation_id]
 			@message.user_id = current_user.id

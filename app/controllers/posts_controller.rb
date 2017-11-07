@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 	def create
 		if params[:commit] == "Cancel"
 			redirect_to topic_path(params[:topic_id])
-		elsif params[:commit] == "Preview Message"
+		elsif params[:commit] == "Preview Post"
 			@post = Post.new(user_params)
 			@post.user_id = current_user.id
 			@post.topic_id = params[:topic_id]
@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 				@post.errors.add(:content, :blank, message: "can't be blank")
 			end
 			render 'new'
-		elsif params[:commit] == "Post Message"
+		elsif params[:commit] == "Post"
 			@post = Post.new(user_params)
 			@post.user_id = current_user.id
 			@post.topic_id = params[:topic_id]
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 		if params[:commit] == "Cancel"
 			redirect_to topic_path(@post.topic_id)
-		elsif params[:commit] == "Preview Message"
+		elsif params[:commit] == "Preview Post"
 			if params[:post][:content].empty?
 			#if @post.content.empty?
 				@post.errors.add(:content, :blank, message: "Can't be blank")

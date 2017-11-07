@@ -63,8 +63,10 @@
 						<% else %>
 							<span class="glyphicon glyphicon-remove" style="color:red"></span>
 						<% end %>
-					</td>
-					<td><a href="topics/<%= problem.id %>"><%= image_tag "forum_icon.png", alt: "Forum Icon" %><span style="float:right"><%= Topic.find(problem.id).posts.length %> posts</span></td></a>
+					</td>	
+					<% if current_user.problems.exists? problem.id %>
+						<td><a data-toggle="tooltip" title="Go to the discussion thread" href="topics/<%= (Topic.find_by problem_id: problem.id, forum_id: 1).id %>"><%= image_tag "forum_icon.png", alt: "Forum Icon" %><span style= "float: right;"><%= pluralize(Topic.find(problem.id).posts.length, 'post') %></span></a></td>
+					<% end %>
 					<% if current_user.admin? %>
 						<td><%= link_to "Delete", problem, method: :delete,
 																				data: { confirm: "You sure?" } %></td>

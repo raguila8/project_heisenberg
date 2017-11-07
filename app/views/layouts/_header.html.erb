@@ -28,7 +28,11 @@
 					
 						<span class="button_badge"><%= count %></span>
 					<% end %>
-					<ul class="dropdown-menu scrollable-menu">	
+					<ul class="dropdown-menu scrollable-menu">
+						<% if conversations.length == 0 %>
+							<span style="font-size: 90%; color: red">You have no messages.</span>
+							<span style= "font-size: 90%">Send a message to a <%= link_to "friend", friends_path, style: "color: #337ab7" %>!</span>
+						<% end %>
 						<% conversations.each do |conversation| %>
 							<% message = conversation.messages.order(updated_at: :desc).first %>
 							<% next if message.nil? %>

@@ -72,13 +72,14 @@ class ProblemsController < ApplicationController
 		elsif params[:commit] == "Create Problem"
 			@problem = Problem.new(problem_params)
 			@problem.number = lastNumber + 1
-			@topic = Topic.new
+			# Answer Thread
+			@topic1 = Topic.new
 			#@topic.problem_id = @problem.id
-			@topic.name = "Problem #{@problem.number}"
-			@topic.forum_id = 1
+			@topic1.name = "Problem #{@problem.number}"
+			@topic1.forum_id = 1
 			if @problem.save
-				@topic.problem_id = @problem.id
-				@topic.save
+				@topic1.problem_id = @problem.id
+				@topic1.save
 				flash[:success] = "New Problem created!"
 				redirect_to archives_path
 			else
