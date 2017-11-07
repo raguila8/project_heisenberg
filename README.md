@@ -14,20 +14,36 @@ Each problem has its own discussion thread that is only available to those who h
 
 * Rails version - 5.1.4
 
-* Configuration - run `bundle install` to install and include the gems specified in the `Gemfile`, while skipping the installation gems using the option `--without production`:
+To get started with the app, clone the repo and then install the needed gems:
+
+run `bundle install` to install and include the gems specified in the `Gemfile`, while skipping the installation gems using the option `--without production`:
 
 ```linux
 $ bundle install --without production
 ```
 
-This arranges to skip the pg gem for PostgreSQL in development and use SQLite for development and testing. In case you've previously installed a version of a gem (such as Rails) other than the one specified by the Gemfile, it's a good idea to update the fems with `bundle install` to make sure the versions match:
+This arranges to skip the pg gem for PostgreSQL in development and use SQLite for development and testing. In case you've previously installed a version of a gem (such as Rails) other than the one specified by the Gemfile, it's a good idea to update the gems with `bundle update` to make sure the versions match:
 
 ```linux
 $ bundle update
 ```
+
+Finally, run the test suite to verify that everything is working correctly:
+
+```
+$ rails test
+```
+
+If the test suite passes, you'll be ready to run the app in a local server:
+
+```
+$ rails server
+```
+
+
 ### Database
 
-There are a total of 10 tables that store all the data. To seed the database I use the standard ruby file `db/seeds.rb` along with the `Faker` gem to make sample users, posts and problems.
+To seed the database I use the standard ruby file `db/seeds.rb` along with the `Faker` gem to make sample users, posts and problems.
 
 ```linux
 $ rails db:seed
@@ -39,4 +55,3 @@ $ rails db:seed
 * Allow users to report posts
 * Make a `recent` page where users can see recent friend activity as well as site wide anouncements
 * Make a statistics page that shows the combined stats of all users
-* Posts should support markup for Math symbols and notation
