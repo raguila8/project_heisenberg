@@ -56,7 +56,11 @@ class ProblemsController < ApplicationController
 	end
 
 	def create
-		lastNumber = (Problem.last).number
+		if Problem.count > 0
+			lastNumber = (Problem.last).number
+		else
+			lastNumber = 0
+		end
 		if params[:commit] == "Cancel"
 			redirect_to root_path
 		elsif params[:commit] == "Preview Problem"

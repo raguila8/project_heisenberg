@@ -1,4 +1,8 @@
 <% provide(:title, "Edit problem") %>
+<% content_for :mathjax do %>
+	<%= mathjax_tag %>
+<% end %>
+
 <h1>Edit Problem</h1>
 
 <% if @problem.question && !@problem.question.empty? %>
