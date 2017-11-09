@@ -1,7 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+post_one:
   content: MyText
+  topic: topic_one
+  user: rodrigo
+  
 
-two:
+post_two:
   content: MyText
+  topic: topic_two
+  user: rodrigo
+
+post_three:
+  content: MyText
+  topic: topic_one
+  user: michael
+  
+
+post_four:
+  content: MyText
+  topic: topic_two
+  user: michael

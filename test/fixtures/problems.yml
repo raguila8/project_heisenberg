@@ -1,13 +1,36 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+problem_one:
   question: MyText
   answer: 1.5
   subject: MyString
   difficulty: 1
+  title: MyString
+  number: 3
 
-two:
+problem_two:
   question: MyText
   answer: 1.5
   subject: MyString
   difficulty: 1
+  title: MyString
+  number: 4
+
+problem_three:
+  question: MyText
+  answer: 1.5
+  subject: MyString
+  difficulty: 1
+  title: MyString
+  number: 5
+
+problem_four:
+  question: MyText
+  answer: 1.5
+  subject: MyString
+  difficulty: 1
+  title: MyString
+  number: 6
+
+
+

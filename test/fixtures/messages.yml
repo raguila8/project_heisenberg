@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+message_one:
   body: MyText
-  read: false
+  read: true
+  conversation: conversation_one
+  user: rodrigo
 
-two:
+message_two:
   body: MyText
-  read: false
+  read: true
+  conversation: conversation_two
+  user: rodrigo

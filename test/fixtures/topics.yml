@@ -1,7 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+topic_one:
   name: MyString
+  forum: forum_one
+  problem: problem_one
+  
 
-two:
+topic_two:
   name: MyString
+  forum: forum_one
+  problem: problem_two
