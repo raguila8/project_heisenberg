@@ -1,24 +1,85 @@
-<% provide(:title, "Log in") %>
+<% provide(:title, "Login") %>
+<div class = "custom-form">
+<div class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100">
+			<div class="login100-form-title" style="background-image: url(/form-bg1.jpg);">
+				<span class="login100-form-title-1">
+					Sign in
+				</span>
+			</div>
+
+			<%= form_for(:session, :html => { :class => 'login100-form validates-form', novalidate: :true }, url: login_path) do |f| %>
+
+				<%= content_tag(:div, flash[:error], :id => "error_explanation") if flash[:error] %>
+				<%= content_tag(:div, flash[:alert], :id => "error_explanation") if flash[:alert] %>
+  
+				<div class="field wrap-input100 validate-input m-b-26" data-validate="Email is required">
+					<span class="label-input100">Username</span>
+    			<%= f.text_field :username,  class: "input100", placeholder: "Enter username"%>
+					<span class="focus-input100"></span>
+  			</div>
+
+  			<div class="field wrap-input100 validate-input m-b-18" data-validate="Password is required">
+  				<span class="label-input100">Password</span>
+    			<%= f.password_field :password, class: "input100", placeholder: "Enter password" %>
+					<span class="focus-input100"></span>
+  			</div>
+
+  			<%# if devise_mapping.rememberable? -%>
+    			<div class="flex-sb-m w-full p-b-30">
+						<div class="contact100-form-checkbox">
+
+							<label class="label-checkbox100" for="ckb1">Remember me
+								<input class="input-checkbox100" id="ckb1" type="checkbox" name="user[remember_me]">
+								<span class="checkmark"></span>
+							</label>
+    				</div>
+					<%# end -%>
+					<%# if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+
+						<div>
+							<%# link_to "Forgot your password?", new_password_path(resource_name), class: "txt1" %>
+						</div>
+					<%# end -%>
+					</div>	
+
+  			<div class="actions container-login100-form-btn">
+    			<%= f.submit "Log in", class: "login100-form-btn" %>
+  			</div>
+				<div id="signup-login-div">
+					<span id="signup-login-span">New user? <%= link_to "Sign up now!", signup_path, id: "signup-login-link" %></span>
+				</div>
+
+			<% end %>
+		</div>
+	</div>
+</div>	
+</div>
+
+
+<!--
+<%# provide(:title, "Log in") %>
 <h1>Log in</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:session, url: login_path) do |f| %>
+    <%# form_for(:session, url: login_path) do |f| %>
 
-      <%= f.label :username %>
-      <%= f.text_field :username, class: 'form-control' %>
+      <%# f.label :username %>
+      <%# f.text_field :username, class: 'form-control' %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%# f.label :password %>
+      <%# f.password_field :password, class: 'form-control' %>
 
-			<%= f.label :remember_me, class: "checkbox inline" do %>
-				<%= f.check_box :remember_me %>
+			<%# f.label :remember_me, class: "checkbox inline" do %>
+				<%# f.check_box :remember_me %>
 				<span>Remember me on this computer </span>
-			<% end %>
+			<%# end %>
 
-      <%= f.submit "Log in", class: "btn btn-primary" %>
-    <% end %>
+      <%# f.submit "Log in", class: "btn btn-primary" %>
+    <%# end %>
 
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <p>New user? <%# link_to "Sign up now!", signup_path %></p>
   </div>
-</div>
+</div>-->
