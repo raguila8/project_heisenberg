@@ -3,6 +3,138 @@
 <% end %>
 
 <% provide(:title, "Thread #{@thread.id}") %>
+<div class = "thread-body">
+	<% post_count = 0 %>
+	<% @posts.each do |post| %>
+		<div class="row">
+			<div class="col-md-offset-2 col-lg-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 post-container" id="post-count-<%=post_count%>">
+				<div class="thumbnail">
+						<div class="modal-header">
+							<a href=<%=user_path(post.user)%>>
+								<%# if !post.profile.profile_image %>
+									<%#= image_tag post.profile.profile_image.profile_post2.url %>
+								<%# else %>
+									<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<%# end %>
+								<span class="username-feed"><%=post.user.username%></span>
+								<%# if current_profile == post.profile %>
+								<%# end %>
+							</a>
+	
+							<div class="vote-container-post">
+								<p class="glyphicon glyphicon-triangle-top"></p>
+								<p style="text-align: center;"><%= post.get_upvotes.size %> </p>
+								<p class="glyphicon glyphicon-triangle-bottom"></p>
+							</div>
+
+		
+							<div class="action_buttons">
+								&nbsp; &nbsp;
+								<% if current_user.id == post.user_id %>
+									<%= link_to "Delete", post_path(post), 																		:method => :delete,
+																	 :data => { :confirm => "Are you sure?" } %>
+								&nbsp; &nbsp;<%= link_to "Edit", edit_post_path(post) %> &nbsp; &nbsp;
+								<% end %>
+								<a href="#">Report</a> &nbsp; &nbsp;
+								<%# @post = post %>
+								<!--<%#= link_to like_path(:post => post), method: :put, remote: true do %>
+									<%# if current_user.liked? post %>
+										<span class="glyphicon glyphicon-thumbs-up like-btn<%#="#{post.id}"%> liked"></span>
+									<%# else %>
+										<span class="glyphicon glyphicon-thumbs-up like-btn<%#="#{post.id}"%>"></span>
+									<%# end %>
+								<%# end %>
+								&nbsp;
+								<span class="likes-count<%#= post.id %>"><%#= post.get_upvotes.size %> </span>-->
+							</div>
+
+	<!--	
+							<div class="vote-container">
+								<p class="glyphicon glyphicon-triangle-top"></p>
+								<p style="text-align: center;"><%#= post.get_upvotes.size %> </p>
+								<p class="glyphicon glyphicon-triangle-bottom"></p>
+							</div>-->
+<!--
+							<span title="Post settings" id = "post-settings-<%=post.id%>" class="glyphicon glyphicon-cog" style="float: right;"></span>
+-->
+						</div>
+						<%# image_tag post.image.profile_post1.url, class: "img-responsive feed-img"%>
+						<div	class="forum_message">
+							<p> <%= post.content %> </p>
+						</div>
+
+					<div class="caption">
+						<!--<div class="vote-container">
+							<p class="glyphicon glyphicon-triangle-top"></p>
+							<p><%= post.get_upvotes.size %> </p>
+							<p class="glyphicon glyphicon-triangle-bottom"></p>
+						</div>-->
+						<!--<p>
+							<div class="like-container">
+								<a href="<%#=vote_path(:post => post)%>" data-remote="true"><%#= image_tag "/dog-pawprint-on-a-heart.png", style: "float: left; margin-right: 15px;" %>
+								<%# if current_profile.liked? post %>
+									<div class="like-btn like-btn<%#=post.id%> liked">
+								<%# else %>
+									<div class="like-btn like-btn<%#=post.id%>">
+								<%# end %>
+										<img src="/dog-pawprint-on-a-heart1.png" style="width: 25px; height: auto;">
+									</div>
+							</div>
+							</a>
+							<a class="glyphicon glyphicon-comment" style="width: 32px; height: auto; cursor: pointer; font-size: 25px;"></a>
+						</p>-->
+						<!--
+						<span style="clear:both; padding-top: 10px;", class="bold-text likes-count-<%#=post.id%>"> <%#=post.get_upvotes.size%> <%#="like".pluralize(post.get_upvotes.size)%></span><br><br>
+						<%# if !post.description.blank? %>
+						<p>
+						<span style="clear:both; margin-top: 25px; padding-right: 6px;", class="bold-text"> <%#=post.profile.username%></span> <span class="comment-styles"><%#=post.description%></span>
+						</p>
+						<%# end %>
+						<div style="clear: both"></div>-->
+						<div class="comment-section" id="comment-section-<%=post.id%>">
+							<% if post.comments.size > 5 %>
+								<span style="clear:both; padding-top: 10px; padding-bottom: 10px; margin-bottom: 10px; bottom: 10px;", class="more-comments-link" id="more-comments-<%=post.id%>">Load more comments</span>
+							<% end %>
+						<% post.comments.order(created_at: :desc)[0..4].reverse.each do |comment| %>
+							<%= render partial: '/comments/comments', locals:  { comment: comment } %>
+						<% end %>
+						</div>
+							<p class="time-ago" style="float:right; margin-right: 20px;"><%= time_ago_in_words(post.created_at) %> ago</p>
+							<div class="comment-form-container">
+								<%= form_for Comment.new, html: { multipart: true, class: "comment-form" }, :remote => true, :authenticity_token => true do |f| %>
+									<%= f.text_area :content, placeholder: "Add a comment...", class: "comment-text-area", id: "comment-text-area-#{post.id}" %>
+									<%= f.hidden_field :post_id, :value => post.id %>
+									<%= f.hidden_field :user_id, :value => current_user.id %>
+									<div class="comment-actions">
+									<div>
+										<span class="btn btn-md comment-btn comment-preview">Preview</span>
+      							<%= f.submit "Submit", class: "btn btn-md comment-btn comment-submit" %>
+    							</div>
+									</div>
+
+								<% end %>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% post_count = post_count + 1 %>
+	<% end %>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h2>
 	<%= link_to "Problem #{(Problem.find(@thread.problem_id)).number}", problem_path(@thread.problem_id) %>

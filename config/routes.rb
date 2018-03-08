@@ -26,6 +26,12 @@ Rails.application.routes.draw do
 
 	get '/math-formatting', to: 'static_pages#math_formatting'
 
+	post '/comments', to: 'comments#create', as: :comments
+	delete '/comments', to: 'comments#destroy', as: :destroy_comment
+	get '/get_comments', to: 'comments#get_comments', as: :get_comments
+
+
+
 	# script tags
 	mathjax 'mathjax'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

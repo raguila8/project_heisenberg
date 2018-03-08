@@ -30,8 +30,7 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-.custom-form {
-	height: 100%;
+.custom-form, .comment-form-container {
 	font-family: Poppins-Regular, sans-serif;
 
 	/*---------------------------------------------*/
@@ -76,6 +75,7 @@
   
   
   /*---------------------------------------------*/
+	.container-login100 {
   input {
   	outline: none;
   	border: none;
@@ -126,6 +126,8 @@
     display: block;
     margin: 0;
   }
+
+	}
   
   /*---------------------------------------------*/
   button {

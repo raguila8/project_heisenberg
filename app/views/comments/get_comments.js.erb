@@ -1,0 +1,6 @@
+$("#more-comments-<%=@post.id%>").after("<%= escape_javascript render(:partial => '/comments/comments', collection:  @comments, as: :comment ) %>");
+
+<% if !@more %>
+	$('#more-comments-<%=@post.id%>').html('');
+<% end %>
+
