@@ -1,0 +1,7 @@
+<% if !@errors %>
+		$('.post-textarea').val('');
+		$('.new-post-container').after("<%= escape_javascript render(:partial => '/topics/more_posts', locals: { post_count: @post_count, post: @post}) %>");
+<% else %>
+	$('.thread-body').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', locals: { :@post => @post}) %>");
+<% end %>
+

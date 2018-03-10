@@ -1,57 +1,4 @@
-<%# content_for :mathjax do %>
-	<%#= mathjax_tag %> 	
-<%# end %>
-
-<%= render '/topics/preview' %>
-<% provide(:title, "Thread #{@thread.id}") %>
-<div class = "thread-body">
-	<p style="text-align:right;">
-		<a href="/math-formatting"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;Formatting Posts...</a>
-	</p>
-
-	<div class="row new-post-container">
-		<div class="col-md-offset-2 col-lg-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 post-container">
-			<div class="thumbnail">
-				<div class="modal-header">
-					<a href=<%=user_path(current_user.id)%>>
-						<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
-						<span class="username-feed"><%=current_user.username%></span>
-					</a>
-				</div>
-				<div	class="forum_message">
-					<div style="text-align:center;">
-	
-					<%= render 'shared/error_messages' %>
-						<div style="font-size:90%;color:#aaa;">Please remember to be courteous and respectful in making posts.</div>
-						<%= form_for(@post, :remote => true, html: {id: "posts-form", 'data-type': 'json'}) do |f| %>
-							<%= hidden_field_tag 'topic_id', @thread.id %>
-							<%= hidden_field_tag 'user_id', current_user.id %>
-							<%= f.text_area :content, placeholder: "Add a post...", class: "post-textarea" %>
-
-
-							<div class="post-actions">
-									<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
-									<%= f.submit "Post", class: "btn btn-md general-post-btn submit-btn submit-post-btn" %>
-							</div>
-
-
-
-
-
-						<% end %>
-						<p style="font-size:90%">
-							<b>NOTE:</b>
-							 You have full access to your own posts and you will be able to edit/delete them at any time.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<% post_count = 0 %>
-	<% @posts.each do |post| %>
-		<div class="row">
+<div class="row">
 			<div class="col-md-offset-2 col-lg-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 post-container" id="post-count-<%=post_count%>">
 				<div class="thumbnail">
 						<div class="modal-header">
@@ -151,8 +98,10 @@
 									<%= f.hidden_field :post_id, :value => post.id %>
 									<%= f.hidden_field :user_id, :value => current_user.id %>
 									<div class="comment-actions">
-										<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
+									<div>
+										<span class="btn btn-md general-post-btn preview-btn">Preview</span>
       							<%= f.submit "Submit", class: "btn btn-md general-post-btn submit-btn" %>
+    							</div>
 									</div>
 
 								<% end %>
@@ -161,17 +110,4 @@
 				</div>
 			</div>
 		</div>
-		<% post_count = post_count + 1 %>
-	<% end %>
-		<div class="more-posts-container" style="text-align: center;">
-			<span class="btn btn-md general-post-btn preview-btn more-posts-btn" id="more-posts-btn-<%=@thread.id%>">Load More Posts</span>
-    </div>
-</div>
-
-
-
-<!--
-<script>
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);	
-</script>-->
 

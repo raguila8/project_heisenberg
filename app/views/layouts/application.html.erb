@@ -7,7 +7,8 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-		<%= content_for :mathjax %>
+		<%= mathjax_tag %>
+		<%# content_for :mathjax %>
 		<%= render 'layouts/shim' %>
   </head>
 

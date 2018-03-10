@@ -1,1 +1,5 @@
-$('#comment-section-<%=@comment.post_id%>').append("<%= escape_javascript render(:partial => '/comments/comments', locals: { comment: @comment }) %>");
+<% if !@comment.nil? %>
+	$('#comment-section-<%=@comment.post_id%>').append("<%= escape_javascript render(:partial => '/comments/comments', locals: { comment: @comment }) %>");
+	$('#comment-text-area-<%=@comment.post_id%>').val('');
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+<% end %>

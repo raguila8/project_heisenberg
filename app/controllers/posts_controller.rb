@@ -6,6 +6,24 @@ class PostsController < ApplicationController
 	end
 
 	def create
+		respond_to do |format|
+			@post = Post.new(user_params)
+			@post.user_id = current_user.id
+			@post.topic_id = params[:topic_id].to_i
+			@post_count = params[:post_count]
+			@errors = false;
+			if @post.save
+				format.js {
+					# The flash message will be generated dynamically 
+					flash.now[:success] = "New post created!"
+				}
+			else
+				# Bad request
+				format.json { render json: {errors: @errors, message: @post.errors.full_messages.first }
+				}
+			end
+		end
+=begin
 		if params[:commit] == "Cancel"
 			redirect_to topic_path(params[:topic_id])
 		elsif params[:commit] == "Preview Post"
@@ -16,17 +34,7 @@ class PostsController < ApplicationController
 				@post.errors.add(:content, :blank, message: "can't be blank")
 			end
 			render 'new'
-		elsif params[:commit] == "Post"
-			@post = Post.new(user_params)
-			@post.user_id = current_user.id
-			@post.topic_id = params[:topic_id]
-			if @post.save
-				flash[:success] = "New post created!"
-				redirect_to topic_path(@post.topic_id)
-			else
-				render 'new'
-			end
-		end
+=end
 	end
 
 	def edit

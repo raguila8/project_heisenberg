@@ -1,0 +1,11 @@
+<% if !@posts.nil? %>
+	<% @posts.each do |post| %>
+		$('.more-posts-container').before("<%= escape_javascript render(:partial => '/topics/more_posts', locals: { post_count: @post_count, post: post}) %>");
+		<% @post_count = @post_count + 1 %>
+	<% end %>
+<% end %>
+
+<% if !@more %>
+	$('.more-posts-container').html('');
+<% end %>
+
