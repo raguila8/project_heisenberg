@@ -701,17 +701,39 @@ img {
 	vertical-align: middle;
 	float: right;
 	margin-top: -15px;
+}
 
+.vote-container {
 	.glyphicon {
 		cursor: pointer;
+		font-weight: 800;
+		display: block;
+		overflow: hidden;
+		margin-top: 0;
+		margin-bottom: 0;
+		font-weight: 400;
+		font-size: 14px;
+		color: #333;
 	}
-	
+
 	p {
 		display: block;
 		margin-top: 0;
 		margin-bottom: 0;
 		font-weight: 400;
 	}
+
+
+	a {
+		.glyphicon:hover {
+			color: #9c6283;
+		}
+	}
+}
+
+.light-purple {
+	color: #9c6283 !important;
+	font-weight: 800;
 }
 
 .vote-container-comment {
@@ -722,11 +744,6 @@ img {
 	vertical-align: middle;
 	float: left;
 	font-size: 12px;
-
-	.glyphicon {
-		cursor: pointer;
-		font-weight: 800;
-	}
 	
 	p {
 		display: block;
@@ -752,6 +769,9 @@ img {
 	margin-left: 10px;
 }
 
+.more-posts-btn {
+		background-image: linear-gradient(to right, #9c6283, #834d74, #6a3a66, #512858, #37174a);
+}
 
 
 .forum_message {

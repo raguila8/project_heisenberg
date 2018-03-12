@@ -19,15 +19,15 @@ $(document).on('turbolinks:load', function() {
 
 		/****** Load comment buttons on input focus *************/
 	
-		$('.comment-text-area')
-		.focus(function() { 
+		$('.thread-body').on('focus', '.comment-text-area', function() {
 			$(this).css("background", "none");
-			$(this).closest('.comment-form').find('.comment-actions').slideDown(1000);
-		})
-  	.blur(function() { 
+			$(this).closest('.comments-form').find('.comment-actions').slideDown(1000);
+		});
+
+  	$('.thread-body').on('blur', '.comment-text-area', function() {
 			if ($(this)[0].value == '') { 
 				$(this).css("background-color", "#F5F5F5");
-				$(this).closest('.comment-form').find('.comment-actions').slideUp(1000);
+				$(this).closest('.comments-form').find('.comment-actions').slideUp(1000);
 			} 
 		});
 
@@ -127,34 +127,59 @@ $(document).on('turbolinks:load', function() {
 
     $postForm.on('ajax:success', function(e) {
     	if (typeof(e.detail[0].errors) != "undefined") {
-				var html = "<div class='alert alert-danger'>" + e.detail[0].message + "</div>";
+				var html = "<div class='post-post-alert alert alert-danger'>" + e.detail[0].message + "</div>";
 
 				// On successful submission reload Mathjax, add a slot to postPages and 
 			// add a success msg"
 			} else {
 				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 				postPages.push(2);
-				var html = "<div class='alert alert-success'> New post created!</div>";
+				var html = "<div class='post-post-alert alert alert-success'> New post created!</div>";
 			}
 
-			// replaces the current msg if there is one
+			// delete the current msg if there is one
 			if ($('.alert').length) {
-				$('.alert').replaceWith(html);
-			} else {
-				$('.thread-body').prepend(html);
+				$('.alert').remove();
 			}
 
+			$('.thread-body').prepend(html);
     });
+
+		/******  Post Update *************/
+		
+
+		$('.thread-body').on('ajax:success', '.update-posts-form', function (e) {
+			if (typeof(e.detail[0].errors) != "undefined") {
+				var html = "<div class='post-update-alert alert alert-danger'>" + e.detail[0].message + "</div>";
+				if ($('.alert').length) {
+					$('.alert').remove();
+				}
+				$(html).insertBefore($(this).closest('.update-post-container'));
+			} 		
+		}); 
+
+		/*************** Comment Update ********************/
+
+		$('.thread-body').on('ajax:success', '.update-comments-form', function (e) {
+			if (typeof(e.detail[0].errors) != "undefined") {
+				var html = "<div class='comment-update-alert alert alert-danger'>" + e.detail[0].message + "</div>";
+				if ($('.alert').length) {
+					$('.alert').remove();
+				}
+				$(html).insertBefore($(this).closest('.edit-comment-container'));
+			} 		
+		}); 
+
 
 		/*************** Preview Markdown ***********************/
 
 		$('.thread-body').on('click', '.preview-btn', function() {
 			$form = $(this).closest('form')[0];
 			var content = '';
-			if ($(this).parent()[0].isEqualNode($('.post-actions')[0])) {
-				content = $($form).find('textarea[name="post[content]"]').val();
+			if ($($form).hasClass('posts-form') || $($form).hasClass('update-posts-form')) {
+				content = $($form).find('textarea[name="post[content]"]:first').val();
 			} else {
-				content = $($form).find('textarea[name="comment[content]"]').val();	
+				content = $($form).find('textarea[name="comment[content]"]:first').val();	
 			}
 			$('#post-preview-modal .forum_message > p').text(content);
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);

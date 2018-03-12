@@ -13,10 +13,22 @@
 								<%# end %>
 							</a>
 	
-							<div class="vote-container-post">
-								<p class="glyphicon glyphicon-triangle-top"></p>
-								<p style="text-align: center;"><%= post.get_upvotes.size %> </p>
-								<p class="glyphicon glyphicon-triangle-bottom"></p>
+							<div class="vote-container vote-container-post">
+								<%= link_to like_path(:vote_type => "like", :votable_type => "post", :id => post.id ), method: :put, remote: true do %>
+									<% if !current_user.liked? post %>
+										<p class="glyphicon glyphicon-triangle-top" id= "post-upvote-<%=post.id%>"></p>
+									<% else %>
+										<p class="glyphicon glyphicon-triangle-top light-purple" id= "post-upvote-<%=post.id%>"></p>
+									<% end %>
+								<% end %>
+								<p id="post-vote-count-<%=post.id%>" style="text-align: center;"><%= post.cached_votes_score %> </p>
+								<%= link_to like_path(:vote_type => "dislike", :votable_type => "post", :id => post.id ), method: :put, remote: true do %>
+									<% if !current_user.voted_down_on? post %>
+										<p class="glyphicon glyphicon-triangle-bottom" id="post-downvote-<%=post.id%>"></p>
+									<% else %>
+										<p class="glyphicon glyphicon-triangle-bottom light-purple" id="post-downvote-<%=post.id%>"></p>
+									<% end %>
+								<% end %>
 							</div>
 
 		
@@ -25,7 +37,7 @@
 								<% if current_user.id == post.user_id %>
 									<%= link_to "Delete", post_path(post), 																		:method => :delete,
 																	 :data => { :confirm => "Are you sure?" } %>
-								&nbsp; &nbsp;<%= link_to "Edit", edit_post_path(post) %> &nbsp; &nbsp;
+								&nbsp; &nbsp;<%= link_to "Edit", edit_post_path(id: post.id, post_count: post_count), remote: true, class: "edit-post-link" %> &nbsp; &nbsp;
 								<% end %>
 								<a href="#">Report</a> &nbsp; &nbsp;
 								<%# @post = post %>
@@ -93,13 +105,13 @@
 						</div>
 							<p class="time-ago" style="float:right; margin-right: 20px;"><%= time_ago_in_words(post.created_at) %> ago</p>
 							<div class="comment-form-container">
-								<%= form_for Comment.new, html: { multipart: true, class: "comment-form" }, :remote => true, :authenticity_token => true do |f| %>
+								<%= form_for Comment.new, html: { multipart: true, class: "comments-form" }, :remote => true, :authenticity_token => true do |f| %>
 									<%= f.text_area :content, placeholder: "Add a comment...", class: "comment-text-area", id: "comment-text-area-#{post.id}" %>
 									<%= f.hidden_field :post_id, :value => post.id %>
 									<%= f.hidden_field :user_id, :value => current_user.id %>
 									<div class="comment-actions">
 									<div>
-										<span class="btn btn-md general-post-btn preview-btn">Preview</span>
+										<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal" >Preview</span>
       							<%= f.submit "Submit", class: "btn btn-md general-post-btn submit-btn" %>
     							</div>
 									</div>

@@ -1,7 +1,21 @@
-console.log("hello");
-<% if current_user.liked? @post %>
-	$(".like-btn" + <%= @post.id %>).addClass("liked");
-<% else %>
-	$(".like-btn" + <%= @post.id %>).removeClass("liked");
+<% if @voted %>
+	<% if @post %>
+		<% if @vote_type == "like" %>
+			$('#post-upvote-<%=@post.id%>').addClass('light-purple');
+			$('#post-downvote-<%=@post.id%>').removeClass('light-purple');
+		<% else %>
+			$('#post-downvote-<%=@post.id%>').addClass('light-purple');
+			$('#post-upvote-<%=@post.id%>').removeClass('light-purple');
+		<% end %>
+		$('#post-vote-count-<%=@post.id%>').text("<%=@post.cached_votes_score%>");
+	<% else %>
+		<% if @vote_type == "like" %>
+			$('#comment-upvote-<%=@comment.id%>').addClass('light-purple');
+			$('#comment-downvote-<%=@comment.id%>').removeClass('light-purple');
+		<% else %>
+			$('#comment-downvote-<%=@comment.id%>').addClass('light-purple');
+			$('#comment-upvote-<%=@comment.id%>').removeClass('light-purple');
+		<% end %>
+		$('#comment-vote-count-<%=@comment.id%>').text("<%=@comment.cached_votes_score%>");
+	<% end %>	
 <% end %>
-$(".likes-count" + <%= @post.id %>).html("<%=@post.get_upvotes.size %>");

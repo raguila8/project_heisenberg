@@ -1,0 +1,35 @@
+<div class="row update-post-container">
+	<div class="col-md-offset-2 col-lg-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 post-container" id="post-count-<%=@post_count%>">
+		<div class="thumbnail">
+			<div class="modal-header">
+				<a href=<%=user_path(current_user.id)%>>
+					<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+					<span class="username-feed"><%=current_user.username%></span>
+				</a>
+			</div>
+			<div	class="forum_message">
+				<div style="text-align:center;">
+	
+				<%= render 'shared/error_messages' %>
+					<div style="font-size:90%;color:#aaa;">Please remember to be courteous and respectful in making posts.</div>
+					<%= form_for(@post, :remote => true, html: {class: "update-posts-form", 'data-type': 'json'}) do |f| %>
+						<%= hidden_field_tag 'post_count', @post_count %>
+						<%= hidden_field_tag 'id', @post.id %>
+						<%= f.text_area :content, placeholder: "Add a post...", class: "post-textarea" %>
+
+
+						<div class="post-actions">
+							<%= f.submit "Cancel", class: "btn btn-md general-post-btn submit-btn submit-post-btn" %>
+							<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
+								<%= f.submit "Update", class: "btn btn-md general-post-btn submit-btn submit-post-btn" %>
+						</div>
+					<% end %>
+					<p style="font-size:90%">
+						<b>NOTE:</b>
+						 You have full access to your own posts and you will be able to edit/delete them at any time.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

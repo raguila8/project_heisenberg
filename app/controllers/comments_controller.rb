@@ -64,11 +64,38 @@ class CommentsController < ApplicationController
 			end
 		end
 	end
+	
+	def edit
+		@comment = Comment.find(params[:id])
+	end
+
+	def update
+		@comment = Comment.find(params[:id])	
+		@cancel = false
+		if params[:commit] == "Cancel"
+			@cancel = true
+		elsif params[:commit] == "Update"
+			@errors = false
+			respond_to do |format|
+				if @comment.update_attributes(update_comment_params)
+					format.js {}
+				else
+					@errors = true
+					format.json { render json: {errors: @errors, message: @comment.errors.full_messages.first }
+					}
+				end
+			end
+		end
+	end
 
 	private
 
 	def comment_params
 		params.require(:comment).permit(:content, :user_id, :post_id)
+	end
+
+	def update_comment_params
+		params.require(:comment).permit(:content)
 	end
 
 

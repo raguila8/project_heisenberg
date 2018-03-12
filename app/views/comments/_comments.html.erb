@@ -1,8 +1,20 @@
 <div class="comment-item" id="comment-<%=comment.id%>">
-	<div class="vote-container-comment" style="float: left;">
-		<p class="glyphicon glyphicon-triangle-top"></p>
-		<p style="text-align: center;">5</p>
-		<p class="glyphicon glyphicon-triangle-bottom"></p>
+	<div class="vote-container vote-container-comment" style="float: left;">
+		<%= link_to like_path(:vote_type => "like", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+			<% if !current_user.liked? comment %>
+				<p class="glyphicon glyphicon-triangle-top" id= "comment-upvote-<%=comment.id%>"></p>
+			<% else %>
+				<p class="glyphicon glyphicon-triangle-top light-purple" id= "comment-upvote-<%=comment.id%>"></p>
+			<% end %>
+		<% end %>
+		<p id="comment-vote-count-<%=comment.id%>" style="text-align: center;"><%= comment.cached_votes_score %> </p>
+		<%= link_to like_path(:vote_type => "dislike", :votable_type => "comment", :id => comment.id ), method: :put, remote: true do %>
+			<% if !current_user.voted_down_on? comment %>
+				<p class="glyphicon glyphicon-triangle-bottom" id="comment-downvote-<%=comment.id%>"></p>
+			<% else %>
+				<p class="glyphicon glyphicon-triangle-bottom light-purple" id="comment-downvote-<%=comment.id%>"></p>
+			<% end %>
+		<% end %>
 	</div>
 
 	<div class="comment-text">
@@ -15,7 +27,8 @@
 		<div class="action_buttons">
 			&nbsp; &nbsp;
 			<% if current_user.id == comment.user_id %>
-				&nbsp; &nbsp;<%= link_to "Edit", "#" %> &nbsp; &nbsp;
+				&nbsp; &nbsp;<%= link_to "Edit", edit_comment_path(comment.id), 
+													remote: true, class: "edit-comment-link" %> &nbsp; &nbsp;
 			<% end %>
 			<a href="#">Report</a> &nbsp; &nbsp;
 		</div>

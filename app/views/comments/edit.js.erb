@@ -1,0 +1,3 @@
+<% if !@comment.nil? %>
+	$('#comment-<%=@comment.id%>').replaceWith("<%= escape_javascript render(:partial => '/comments/edit', :locals => { :@comment => @comment }) %>");
+<% end %>

@@ -12,7 +12,6 @@ User.create!(username:  "raguila8",
              password_confirmation: "foobar",
 						 admin: true)
 Forum.create(name: "Problems", description: "Problems Forum")
-=begin
 
 49.times do |n|
   username  = Faker::Internet.user_name
@@ -26,21 +25,32 @@ end
 
 50.times do |n|
 	problem = Problem.new
-	num1 = Faker::Number.between(1,5)
-	num2 = Faker::Number.between(1,5)
+	num1 = Faker::Number.between(1,1000)
+	num2 = Faker::Number.between(1,1000)
 	problem.question = "What is #{num1} + #{num2}?"
 	problem.answer = num1 + num2
 	problem.subject = "Basic Math"
 	problem.difficulty = Faker::Number.between(1,3)
-	problem.title = "Addition"
+	problem.title = "Addition#{n}"
 	problem.solved_by = 0
 	problem.number = n + 1
-	problem.save
+	while !problem.save
+		problem = Problem.new
+		num1 = Faker::Number.between(1,1000)
+		num2 = Faker::Number.between(1,1000)
+		problem.question = "What is #{num1} + #{num2}?"
+		problem.answer = num1 + num2
+		problem.subject = "Basic Math"
+		problem.difficulty = Faker::Number.between(1,3)
+		problem.title = "Addition#{n}"
+		problem.solved_by = 0
+		problem.number = n + 1
+	end
 end
 
 50.times do |n|
 	user = User.find(n + 1)
-	answer = Faker::Number.between(1,10)
+	answer = Faker::Number.between(1,2000)
 	name = "Problem #{n + 1}"
 	topic = Topic.create(name: name, forum_id: 1, problem_id: n + 1)
 
@@ -64,5 +74,4 @@ end
 		end
 	end
 end
-=end
 

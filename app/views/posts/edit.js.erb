@@ -1,0 +1,4 @@
+<% if !@post.nil? %>
+	$('#post-count-<%=@post_count%>').closest('.row').replaceWith("<%= escape_javascript render(:partial => '/posts/edit', :locals => { :@post => @post, :@post_count => @post_count }) %>");
+<% end %>
+

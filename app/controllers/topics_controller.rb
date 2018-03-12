@@ -22,12 +22,35 @@ class TopicsController < ApplicationController
 	end
 
 	def vote
-		@post = Post.find(params[:post])
-		if !current_user.liked? @post
-			@post.liked_by current_user
-		elsif current_user.liked? @post
-			@post.unliked_by current_user
-		end
+		@vote_type = params[:vote_type]
+		@votable_type = params[:votable_type]
+		if @votable_type == "post"
+			@post = Post.find(params[:id])
+			if @vote_type == "like"
+				if !current_user.liked? @post
+					@post.liked_by current_user
+					@voted = true
+				end
+			else
+				if !current_user.voted_down_on? @post
+					@post.downvote_from current_user
+					@voted = true
+				end
+			end
+		else 
+			@comment = Comment.find(params[:id])
+			if @vote_type == "like"
+				if !current_user.liked? @comment
+					@comment.liked_by current_user
+					@voted = true
+				end
+			else
+				if !current_user.voted_down_on? @comment
+					@comment.downvote_from current_user
+					@voted = true
+				end
+			end
+		end	
 
 		respond_to do |format|
 			format.js

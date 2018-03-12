@@ -13,10 +13,7 @@ class PostsController < ApplicationController
 			@post_count = params[:post_count]
 			@errors = false;
 			if @post.save
-				format.js {
-					# The flash message will be generated dynamically 
-					flash.now[:success] = "New post created!"
-				}
+				format.js {}
 			else
 				# Bad request
 				format.json { render json: {errors: @errors, message: @post.errors.full_messages.first }
@@ -39,25 +36,26 @@ class PostsController < ApplicationController
 
 	def edit
 		@post = Post.find(params[:id])
+		@thread = Topic.find(@post.topic_id)
+		@post_count = params[:post_count]
 	end
 
 	def update
 		@post = Post.find(params[:id])
+		@post_count = params[:post_count]
+		@cancel = false
 		if params[:commit] == "Cancel"
-			redirect_to topic_path(@post.topic_id)
-		elsif params[:commit] == "Preview Post"
-			if params[:post][:content].empty?
-			#if @post.content.empty?
-				@post.errors.add(:content, :blank, message: "Can't be blank")
-			end
-			@post.update_attributes(post_update_params)
-			render 'edit'
-		elsif params[:commit] == "Save Changes"
-			if @post.update_attributes(post_update_params)
-				flash[:success] = "Post Updated"
-				redirect_to topic_path(@post.topic_id)
-			else
-				render 'edit'
+			@cancel = true
+		elsif params[:commit] == "Update"
+			@errors = false
+			respond_to do |format|
+				if @post.update_attributes(post_update_params)
+					format.js {}
+				else
+					@errors = true
+					format.json { render json: {errors: @errors, message: @post.errors.full_messages.first }
+					}
+				end
 			end
 		end
 	end

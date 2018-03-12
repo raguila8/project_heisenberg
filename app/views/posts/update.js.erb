@@ -1,0 +1,12 @@
+if ($('.alert').length) {
+	$('.alert').remove();
+}
+
+$('#post-count-<%=@post_count%>').closest('.row').replaceWith("<%= escape_javascript render(:partial => '/topics/more_posts', :locals => { :post => @post, :post_count => @post_count }) %>");
+<% if !@cancel %>
+	var html = "<div class='post-update-alert alert alert-success'> Post was updated!</div>";
+	$(html).insertBefore('#post-count-<%=@post_count%>').closest('.row');
+
+<% end %>
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+
