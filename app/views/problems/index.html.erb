@@ -5,6 +5,7 @@
 	<% branch_num = 1 %>
 	<% @branches.each do |branch| %>
 		<div class="row">
+			<%= link_to branch_path(branch) do %>
 			<div class="col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8 col-sm-12 col-xs-12 branch-card">
 				<div class= "dash-icon" style="background-image: url(/dash_icon<%=branch_num%>.png)"></div>
 				<h3 class="branch-name" ><%=branch.name%></h3>
@@ -19,6 +20,7 @@
 				<% end %>
 				<button type="button" class="btn btn-lg btn-defaulti dash-btn">Browse Problems</button>
 			</div>
+			<% end %>
 		</div>
 		<% branch_num = branch_num + 1 %>
 	<% end %>

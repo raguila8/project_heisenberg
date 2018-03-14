@@ -30,7 +30,7 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-.custom-form, .comment-form-container {
+.custom-form, .comment-form-container, .branch-page {
 	font-family: Poppins-Regular, sans-serif;
 
 	/*---------------------------------------------*/
@@ -350,8 +350,8 @@
 		top: 0;
     left: 0;
 		margin: 0;
-    height: 15px;
-    width: 15px;
+    height: 12px;
+    width: 12px;
     background-color: #ede7f6;
 		border: 1px solid #b39ddb;
 	}	
@@ -375,10 +375,10 @@
 
 	/* Style the checkmark/indicator */
 	.label-checkbox100 .checkmark:after {
-    left: 5.4px;
-    top: 3px;
-    width: 4px;
-    height: 8px;
+    left: 4.32px;
+    top: 2.4px;
+    width: 3.3px;
+    height: 6.4px;
     border: solid white;
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);

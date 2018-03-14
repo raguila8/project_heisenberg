@@ -1,2 +1,62 @@
 <% provide(:title, @branch) %>
+<div class="branch-page" id="branch-<%=@branch.id%>">
+	<div class="problem-filter-card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<%= form_tag "/problems_filter", method: "get", remote: true, id:"problems-filter-form" do %>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			<h5>SubDomains</h5>
+				<% @branch.unique_topics.each do |topic| %>
+				<div class="form-check contact100-form-checkbox">
+					<label class="label-checkbox100"><%=topic.name%>
+						<input class="topic-input input-checkbox100" id="<%=topic.name%>"  type="checkbox" name="<%=topic.name%>"> <span class="label-text checkmark"></span>
+					</label>
+				</div>
+		<% end %>
 
+	</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+			<h5>Status</h5>
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">Solved
+					<input class="status-input input-checkbox100" id="solved"  type="checkbox" name="solved"> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">Unsolved
+					<input class="status-input input-checkbox100" id="unsolved"  type="checkbox" name="unsolved"> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+			<h5>Difficulty</h5>
+			<% [1, 2, 3].each do |n| %>
+
+				<div class="form-check contact100-form-checkbox">
+					<label class="label-checkbox100">
+						<% n.times do %>
+							<span class="glyphicon glyphicon-star"></span>
+						<% end %>
+						<% (3 - n).times do %>
+							<span class="glyphicon glyphicon-star-empty"></span>
+						<% end %>
+						<input class="difficulty-input input-checkbox100" id="difficulty-<%=n%>"  type="checkbox" name="difficulty-<%=n%>"> <span class="label-text checkmark"></span>
+					</label>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+	<br>
+	<div style="text-align: center;">
+			<button type="button" class="btn btn-lg btn-defaulti dash-btn" id="problems-filter-submit">Search</button>
+		</div>
+
+	</div>
+	<div class="filtered-problems-list">
+	<% @branch.problems.each do |problem| %>
+		
+		 <%= render partial: '/branches/problem_card', locals:  { problem: problem } %>
+
+	<% end %>
+	</div>
+</div>

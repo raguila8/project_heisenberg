@@ -862,7 +862,7 @@ img {
 	}
 }
 
-.branch-card {
+.branch-card, .problem-filter-card {
 	cursor: pointer;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	margin-bottom: 20px;
@@ -890,18 +890,6 @@ img {
 	}
 	.progress-bar {
 		background-image: linear-gradient(to right, #9c6283, #834d74, #6a3a66, #512858, #37174a);
-	}
-
-	.percent-solved {
-		color: #34282C;
-		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-		font-weight: 900;
-	}
-
-	.problems-solved {
-		color: #34282C;
-		opacity: 0.8;
-		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	}
 
 	.dash-btn {
@@ -946,4 +934,187 @@ img {
 		opacity: 0.4;
 
 	}
+}
+
+.percent-solved {
+		color: #34282C;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-weight: 900 !important;
+}
+
+.problems-solved {
+	color: #34282C;
+	opacity: 0.8;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+/************** Branch Page *******************/
+
+.branch-page {
+	.problem-filter-card {
+		cursor: inherit;
+		border: 5px solid #37174a;
+    overflow: hidden;
+		margin-top: 15px;
+		margin-bottom: 15px;
+
+	}
+	form {
+		text-align: center;
+		.dash-btn:hover {
+			font-weight: 900;
+		}
+	}
+	h5 {
+		font-size: 120%;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		color: #34282C;
+		font-weight: 900;
+		margin-top: 10px;
+		margin-bottom: 15px;
+	}
+
+	.form-check {
+		display: inline-block;
+		margin-right: 12px;
+		margin-bottom: 10px;
+
+		.label-checkbox100 {
+			padding-left: 20px;
+		}
+	}
+	.dash-btn {
+		clear: both;
+		margin-top: 3%;
+		margin-bottom: 20px;
+		&:hover {
+			font-weight: 900;
+			margin-bottom: 16px;
+		}
+	}
+
+	.problem-item-card {
+		border: 2px solid #37174a;
+
+		li {
+			display: inline;
+			list-style-type: none;
+			padding-right: 20px;
+			float: left;
+
+			&:last-child {
+				margin-bottom: 10px;
+			}
+		}
+
+		@media (max-width: 850px) {
+			.btn-container .dash-btn {
+				margin-top: 10px;
+			}
+		}
+
+
+		.branch-name {
+			color: rgba(55,23,74, 0.8);
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+
+		.btn-container {
+			margin-top: 10px;
+		}
+	
+		.dash-btn {
+			font-size: 16px;
+			margin-bottom: 20px;
+			clear: inherit;
+			vertical-align: middle;
+			margin-top: -10px;
+			float: right;
+
+			&:hover {
+				border: 2px solid #37174a;
+				margin-bottom: 18px;
+			}
+		}
+	}
+
+	.problem-solved-icon {
+		display: inline-block;
+		margin-right: 3px;
+		width: 18px;
+		height: 18px;
+		background-image: url("/checked-symbol.png");
+		background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+		vertical-align: middle;
+		margin-bottom: 3px;
+	}
+}
+
+.no-results {
+	clear: both;
+	padding-top: 50px;
+	text-align: center;
+	font-size: 150%;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: #37174a;
+	font-weight: 900;
+}
+
+/************************* Loader ********************/
+
+.spinner {
+  margin: 100px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #37174a;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% { 
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% { 
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
 }

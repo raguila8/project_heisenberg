@@ -1,0 +1,35 @@
+<div class="problem-item-card problem-filter-card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<%=link_to problem_path(problem.id) do %>
+		<h3 class="branch-name">
+			<% if logged_in? and problem.solved?(current_user) %>
+				<div class="problem-solved-icon"></div>
+			<% end %>
+			<%=problem.title%>
+		</h3>
+	<% end %>
+
+	<div style="margin-bottom: 15px; padding-bottom: 15px;">
+		<li class="percent-solved">Solved by <span class="problems-solved"><%=problem.solved_by%></span> users </li>
+		<li class="percent-solved">Success rate: <span class="problems-solved">69%</span></li>
+		<li class="percent-solved">Difficulty: 
+			<span class="problems-solved">
+				<% problem.difficulty.downto(1) do |i| %>
+					<span class="glyphicon glyphicon-star"></span>
+				<% end %>
+				<% (3 - problem.difficulty).downto(1) do |i| %>
+					<span class="glyphicon glyphicon-star-empty"></span>
+				<% end %>
+			</span>
+		</li>				
+		<div class="btn-container" style="text-align: center;">
+			<%= link_to problem_path(problem.id) do %>
+				<% if logged_in? && problem.solved?(current_user) %>
+					<button type="button" class="btn btn-lg btn-default dash-btn">Visit Problem</button>
+				<% else %>
+					<button type="button" class="btn btn-lg btn-default dash-btn">Solve Problem</button>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+

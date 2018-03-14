@@ -31,6 +31,9 @@ Rails.application.routes.draw do
 	get '/get_comments', to: 'comments#get_comments', as: :get_comments
 	get '/comments/:id/edit', to: 'comments#edit', as: :edit_comment
 	patch '/comments/:id', to: 'comments#update', as: :comment
+	resources :subtopics, only: [:show]
+	resources :branches, only: [:show, :index]
+	get '/problems_filter', to: 'branches#problems_filter', as: :problems_filter
 
 
 

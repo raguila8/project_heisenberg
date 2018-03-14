@@ -189,4 +189,58 @@ $(document).on('turbolinks:load', function() {
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		});
 	}
+
+	/***************** Branch page **************/
+	if ($('.branch-page').length) {
+
+		/********************** Submit problems filter form ***************/
+
+		$('#problems-filter-submit').on('click', function() {
+			var id = $('.branch-page').attr('id');
+			var branch_id = parseInt(id.substring(7, id.length));
+
+
+			var topics = [];
+			var problem_status = [];
+			var difficulties = [];
+			$('.topic-input').each(function() {
+				if ($(this)[0].checked) {
+					var id = $(this).attr('id');
+					topics.push(id);
+				}
+			});
+
+			$('.status-input').each(function() {
+				if ($(this)[0].checked) {
+					var id = $(this).attr('id');
+					problem_status.push(id);
+				}
+			});
+
+			$('.difficulty-input').each(function() {
+				if ($(this)[0].checked) {
+					var id = $(this).attr('id');
+					difficulty = parseInt(id.substring(11, id.length));
+
+					difficulties.push(difficulty);
+				}
+			});
+
+			$.ajax({
+				type: "GET",
+				url: "/problems_filter",
+				headers: {
+					Accept: "text/javascript; charset=utf-8",
+					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				data: {
+					branch_id: branch_id,
+					problem_status: problem_status,
+					topics: topics,
+					difficulties: difficulties
+				}
+			});
+
+		});
+	}
 });

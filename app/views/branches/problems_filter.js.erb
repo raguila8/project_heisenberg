@@ -1,0 +1,7 @@
+$('.filtered-problems-list').empty();
+<% if @problems.length > 0 %>
+	$('.filtered-problems-list').append("<%= escape_javascript render(:partial => '/branches/problem_card', collection:  @problems, as: :problem ) %>");
+
+<% else %>
+	$('.filtered-problems-list').append("<h4 class='no-results'>There are no matching problems.</h4>");
+<% end %>
