@@ -4,9 +4,12 @@ if ($('.alert').length) {
 
 $('#post-count-<%=@post_count%>').closest('.row').replaceWith("<%= escape_javascript render(:partial => '/topics/more_posts', :locals => { :post => @post, :post_count => @post_count }) %>");
 <% if !@cancel %>
-	var html = "<div class='post-update-alert alert alert-success'> Post was updated!</div>";
-	$(html).insertBefore('#post-count-<%=@post_count%>').closest('.row');
-
+	var html = "<div class='flash-top alert alert-success'> Post was updated!</div>";
+	$('body').append(html);
+	$('.flash-top').slideDown(500);
+	setTimeout(function(){
+    $('.flash-top').slideUp(500);
+  }, 3500);	
 <% end %>
 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 

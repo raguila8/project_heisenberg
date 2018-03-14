@@ -51,6 +51,14 @@ class User < ApplicationRecord
 		self.friends.include? user
 	end
 
+	# Returns the number of solved problems in a branch
+	def problems_solved(branch)
+		problems = SolvedProblem.select("ps.problem_id").
+							where("ps.user_id = #{self.id}").
+							joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id AND branch_id = #{branch.id}")
+		return problems.count
+	end
+
 	scope :all_except, -> (user) do 
 		where.not(id: user) && where.not(id: user.friends.select(:id))
 	end

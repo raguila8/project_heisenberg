@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312203026) do
+ActiveRecord::Schema.define(version: 20180313053150) do
+
+  create_table "branches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_branches_on_name"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -101,7 +108,6 @@ ActiveRecord::Schema.define(version: 20180312203026) do
   create_table "problems", force: :cascade do |t|
     t.text "question"
     t.float "answer"
-    t.string "subject"
     t.integer "difficulty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -119,23 +125,25 @@ ActiveRecord::Schema.define(version: 20180312203026) do
     t.index ["user_id"], name: "index_solved_problems_on_user_id"
   end
 
+  create_table "subtopics", force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "branch_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_subtopics_on_branch_id"
+    t.index ["name"], name: "index_subtopics_on_name"
+    t.index ["problem_id"], name: "index_subtopics_on_problem_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "forum_id"
+    t.integer "forum_id", default: 1
     t.integer "problem_id"
     t.index ["forum_id"], name: "index_topics_on_forum_id"
     t.index ["problem_id"], name: "index_topics_on_problem_id"
-  end
-
-  create_table "upvotes", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_upvotes_on_post_id"
-    t.index ["user_id"], name: "index_upvotes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

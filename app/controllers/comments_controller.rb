@@ -4,6 +4,10 @@ class CommentsController < ApplicationController
 		@comment = Comment.new(comment_params)
 		respond_to do |format|
 			if @comment.save
+				@saved = true
+			else
+				@saved = false
+			end
 =begin
 					if current_profile != @comment.post.profile
 						@notification = Notification.new
@@ -14,23 +18,15 @@ class CommentsController < ApplicationController
 						@notification.save
 					end
 =end
-				format.html {
-					#flash[:success] = "New comment posted!"
-					#redirect_to home_path
-				}
-				format.json { 
-					render json: @comment 
-				}
-				format.js {
-			
-				}
-			end	
+			format.js {}
 		end
 
 	end
 
 	def destroy
-
+		comment = Comment.find(params[:id])
+		@comment_id = comment.id
+		comment.destroy
 	end
 
 	def get_comments

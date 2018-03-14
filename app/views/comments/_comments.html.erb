@@ -19,7 +19,7 @@
 
 	<div class="comment-text">
 		<% if current_user == comment.user %>	
-			<%= link_to destroy_comment_path(:comment_id => comment.id), style: "float: right;", :method => :delete, :data => { :confirm => "Are you sure?" }, :remote  => true do %>
+			<%= link_to destroy_comment_path(:id => comment.id), style: "float: right;", :method => :delete, :data => { :confirm => "Are you sure?" }, :remote  => true do %>
 				<span class="glyphicon glyphicon-remove"></span>
 
 			<% end %>

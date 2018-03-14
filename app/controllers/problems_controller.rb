@@ -6,6 +6,7 @@ class ProblemsController < ApplicationController
 	# displays all problems in database. If the user is signed in, user can
 	# see whether or not they have solved certain problems.
 	def index
+		@branches = Branch.all
 		@problems = Problem.all.order(:id).paginate(page: params[:page], :per_page => 30)
 		if logged_in? 
 			@solved_problems = current_user.problems.order(:id)

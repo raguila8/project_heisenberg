@@ -1,8 +1,57 @@
-<% provide(:title, 'Archives') %>
-<h2> Problems Archives </h2>
-<p> To view details and submit your answer click on the description/title of 
-		the problem.
-</p>
+<% provide(:title, 'Dashboard') %>
+<h2> Dashboard </h2>
+
+<div class="container dashboard-page">
+	<% branch_num = 1 %>
+	<% @branches.each do |branch| %>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8 col-sm-12 col-xs-12 branch-card">
+				<div class= "dash-icon" style="background-image: url(/dash_icon<%=branch_num%>.png)"></div>
+				<h3 class="branch-name" ><%=branch.name%></h3>
+				<% if logged_in? %>
+					<% problems_solved = current_user.problems_solved(branch) %>
+					<% branch_count = Problem.branch_count(branch) %>
+					<div class="progress">
+  					<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<%=perc = percentage(problems_solved, branch_count) %>%">
+					 	</div>
+					</div>
+					<p class="problems-solved"><span class="percent-solved"><%=perc.round(2)%>%</span> (<%="#{problems_solved}/#{branch_count}" %> problems solved)</p>
+				<% end %>
+				<button type="button" class="btn btn-lg btn-defaulti dash-btn">Browse Problems</button>
+			</div>
+		</div>
+		<% branch_num = branch_num + 1 %>
+	<% end %>
+<!--
+		<div class="col-md-6">
+			<div class="col-md-12"style="background-color:white;">
+				Two
+			</div>
+		</div>
+-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <%= will_paginate @problems %>
 

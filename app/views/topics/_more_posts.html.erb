@@ -35,7 +35,7 @@
 							<div class="action_buttons">
 								&nbsp; &nbsp;
 								<% if current_user.id == post.user_id %>
-									<%= link_to "Delete", post_path(post), 																		:method => :delete,
+									<%= link_to "Delete", post_path(id: post, post_count: post_count), 																		:method => :delete, remote: true, 
 																	 :data => { :confirm => "Are you sure?" } %>
 								&nbsp; &nbsp;<%= link_to "Edit", edit_post_path(id: post.id, post_count: post_count), remote: true, class: "edit-post-link" %> &nbsp; &nbsp;
 								<% end %>

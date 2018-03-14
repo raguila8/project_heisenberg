@@ -62,10 +62,11 @@ class PostsController < ApplicationController
 
 	def destroy 
 		post = Post.find(params[:id])
-		topic_id = post.topic_id
+		@post_count = params[:post_count]
+		#topic_id = post.topic_id
 		post.destroy
-		flash[:success] = "Your post was deleted"
-		redirect_to topic_path(topic_id)
+		#flash[:success] = "Your post was deleted"
+		#redirect_to topic_path(topic_id)
 	end
 
 	private

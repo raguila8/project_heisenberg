@@ -126,35 +126,39 @@ $(document).on('turbolinks:load', function() {
 		var $postForm = $('#posts-form');
 
     $postForm.on('ajax:success', function(e) {
-    	if (typeof(e.detail[0].errors) != "undefined") {
-				var html = "<div class='post-post-alert alert alert-danger'>" + e.detail[0].message + "</div>";
-
-				// On successful submission reload Mathjax, add a slot to postPages and 
-			// add a success msg"
-			} else {
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-				postPages.push(2);
-				var html = "<div class='post-post-alert alert alert-success'> New post created!</div>";
-			}
-
 			// delete the current msg if there is one
 			if ($('.alert').length) {
 				$('.alert').remove();
 			}
 
-			$('.thread-body').prepend(html);
-    });
+    	if (typeof(e.detail[0].errors) != "undefined") {
+				var html = "<div id='error_explanation'><ul><li>" + e.detail[0].message + "</li></ul></div>";
+				$(this).closest('.forum_message').prepend(html);
+				// On successful submission reload Mathjax, add a slot to postPages and 
+			// add a success msg"
+			} else {
+				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+				postPages.push(2);
+				var html = "<div class='flash-top post-post-alert alert alert-success'> New post created!</div>";
+				$('body').append(html);
+				$('.flash-top').slideDown(500);
+				setTimeout(function(){
+    			$('.flash-top').slideUp(500);
+  			}, 3500);
+
+			}
+		});
 
 		/******  Post Update *************/
 		
 
 		$('.thread-body').on('ajax:success', '.update-posts-form', function (e) {
 			if (typeof(e.detail[0].errors) != "undefined") {
-				var html = "<div class='post-update-alert alert alert-danger'>" + e.detail[0].message + "</div>";
+				var html = "<div id='error_explanation'><ul><li>" + e.detail[0].message + "</li></ul></div>";
 				if ($('.alert').length) {
 					$('.alert').remove();
 				}
-				$(html).insertBefore($(this).closest('.update-post-container'));
+				$(this).closest('.forum_message').prepend(html);
 			} 		
 		}); 
 
@@ -162,11 +166,11 @@ $(document).on('turbolinks:load', function() {
 
 		$('.thread-body').on('ajax:success', '.update-comments-form', function (e) {
 			if (typeof(e.detail[0].errors) != "undefined") {
-				var html = "<div class='comment-update-alert alert alert-danger'>" + e.detail[0].message + "</div>";
+				var html = "<div id='error_explanation'><ul><li>" + e.detail[0].message + "</li></ul></div>";
 				if ($('.alert').length) {
 					$('.alert').remove();
 				}
-				$(html).insertBefore($(this).closest('.edit-comment-container'));
+				$(this).closest('.forum_message').prepend(html);
 			} 		
 		}); 
 

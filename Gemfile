@@ -20,6 +20,9 @@ gem 'mathjax-rails'
 # Allows posts to be voted on
 gem 'acts_as_votable'
 
+# Bootstrap progress Bar
+gem 'bootstrap_progressbar'
+
 # Provides a simple helper to get an HTML select list of countries
 gem 'country_select'
 # a collection of all country flags in SVG 

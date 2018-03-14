@@ -1,5 +1,16 @@
-<% if !@comment.nil? %>
+$('.alert, #error_explanation').remove();
+<% if @saved %>
 	$('#comment-section-<%=@comment.post_id%>').append("<%= escape_javascript render(:partial => '/comments/comments', locals: { comment: @comment }) %>");
 	$('#comment-text-area-<%=@comment.post_id%>').val('');
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	var html = "<div class='flash-top alert alert-success'> New comment created!</div>";
+	$('body').append(html);
+	$('.flash-top').slideDown(500);
+	setTimeout(function(){
+    $('.flash-top').slideUp(500);
+  }, 3500);
+
+<% else %>
+	var html = "<div id='error_explanation'><ul style='margin:0;'><li>" + "<%=@comment.errors.full_messages.first%>" + "</li></ul></div>";
+	$('#comment-text-area-<%=@comment.post_id%>').closest('.comments-form').prepend(html);
 <% end %>

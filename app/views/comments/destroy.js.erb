@@ -1,0 +1,8 @@
+$('#comment-<%=@comment_id%>').remove();
+var html = "<div class='flash-top alert alert-success'> Your comment was deleted. </div>";
+$('body').append(html);
+$('.flash-top').slideDown(500);
+setTimeout(function(){
+	$('.flash-top').slideUp(500);
+}, 3500);
+

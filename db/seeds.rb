@@ -13,7 +13,21 @@ User.create!(username:  "raguila8",
 						 admin: true)
 Forum.create(name: "Problems", description: "Problems Forum")
 
-49.times do |n|
+branches = ["Classical Mechanics", "Electromagnetism", "Thermodynamics and Statistical Mechanics", "Quantum Mechanics", "Special Relativity"]
+subtopic1 = ["Energy", "Oscillations", "kinematics", "Lagrange's Equation", "Momentum and Angular Momentum"]
+subtopic2 = ["Charges and Fields", "The Electric Potential", "Electric Fields Around Conductors", "Electric Currents", "Magnetic Fields"]
+subtopic3 = ["Probability Theory", "Statistical Mechanics", "Heat and Work", "Statistical Thermodynamics", "Classical Thermodynamics"]
+subtopic4 = ["The Wave Function", "Time Independent Schrodinger Equation", "Identical Particles", "The Variational Principle", "Scattering"]
+subtopic5 = ["Time Dilation", "Length Contraction", "The Lorentz Transformation", "Collisions", "Four Vectors"]
+subtopics = [subtopic1, subtopic2, subtopic3, subtopic4, subtopic5]
+
+5.times do |n|
+	branch = Branch.new
+	branch.name = branches[n]
+	branch.save
+end
+
+19.times do |n|
   username  = Faker::Internet.user_name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -23,38 +37,42 @@ Forum.create(name: "Problems", description: "Problems Forum")
                password_confirmation: password)
 end
 
-50.times do |n|
+20.times do |n|
 	problem = Problem.new
-	num1 = Faker::Number.between(1,1000)
-	num2 = Faker::Number.between(1,1000)
+	num1 = Faker::Number.between(1,2)
+	num2 = Faker::Number.between(1,2)
 	problem.question = "What is #{num1} + #{num2}?"
 	problem.answer = num1 + num2
-	problem.subject = "Basic Math"
 	problem.difficulty = Faker::Number.between(1,3)
 	problem.title = "Addition#{n}"
 	problem.solved_by = 0
-	problem.number = n + 1
+	num = Random.new.rand(0..4)
+	subtopic = Subtopic.new
+	subtopic.branch_id = num + 1
+	subtopic.name = subtopics[num][Random.new.rand(0..4)]
+	
 	while !problem.save
+		puts problem
 		problem = Problem.new
-		num1 = Faker::Number.between(1,1000)
-		num2 = Faker::Number.between(1,1000)
+		num1 = Faker::Number.between(1,2)
+		num2 = Faker::Number.between(1,2)
 		problem.question = "What is #{num1} + #{num2}?"
 		problem.answer = num1 + num2
-		problem.subject = "Basic Math"
 		problem.difficulty = Faker::Number.between(1,3)
 		problem.title = "Addition#{n}"
 		problem.solved_by = 0
-		problem.number = n + 1
 	end
+	subtopic.problem_id = problem.id
+	puts ("#{subtopic.save} problem_id: #{problem.id}  branch_id: #{num + 1}  subtopic: #{subtopic.name}")
 end
 
-50.times do |n|
+20.times do |n|
 	user = User.find(n + 1)
-	answer = Faker::Number.between(1,2000)
+	answer = Faker::Number.between(1,4)
 	name = "Problem #{n + 1}"
 	topic = Topic.create(name: name, forum_id: 1, problem_id: n + 1)
 
-	50.times do |i|
+	20.times do |i|
 		content = Faker::Lorem.paragraph
 		Post.create(content: content, topic_id: topic.id, user_id: i + 1)
 		problem = Problem.find(i + 1)

@@ -1,0 +1,8 @@
+$('#post-count-<%=@post_count%>').closest('.row').remove();
+var html = "<div class='flash-top alert alert-success'> Your post was deleted. </div>";
+$('body').append(html);
+$('.flash-top').slideDown(500);
+setTimeout(function(){
+	$('.flash-top').slideUp(500);
+}, 3500);
+
