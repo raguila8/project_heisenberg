@@ -10,7 +10,7 @@
 				<div class= "dash-icon" style="background-image: url(/dash_icon<%=branch_num%>.png)"></div>
 				<h3 class="branch-name" ><%=branch.name%></h3>
 				<% if logged_in? %>
-					<% problems_solved = current_user.problems_solved(branch) %>
+					<% problems_solved = current_user.branch_problems_solved(branch) %>
 					<% branch_count = Problem.branch_count(branch) %>
 					<div class="progress">
   					<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<%=perc = percentage(problems_solved, branch_count) %>%">

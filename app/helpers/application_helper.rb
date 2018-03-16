@@ -23,6 +23,28 @@ module ApplicationHelper
 		return count
 	end
 
+	# Used to get the percentage of problems solved in a specific
+	# category
+	def percentage(problems_solved, problems_count)
+		if problems_count == 0
+			return 0
+		else
+			perc = (problems_solved.to_f / problems_count) * 100
+		end
+		return perc
+	end
+	
+	def color(percentage)
+		if percentage >= 80
+			return "green"
+		elsif percentage >= 50
+			return "orange"
+		else
+			return "red"
+		end
+	end
+
+
 	def notifications(conversation, message)
 		html = ""
 		html += "<span style=\"float:left; font-weight:bold;font-size:85%;\">" +

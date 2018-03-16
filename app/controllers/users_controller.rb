@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		@problems = @user.problems.order(:id)
 		@kudos = user_kudos(@user)
+		@problems_solved = @user.solved_problems.order(created_at: :desc).limit(10)
 	end
 
   def new

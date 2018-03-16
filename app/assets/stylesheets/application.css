@@ -13,6 +13,7 @@
  *= require forms/normalize.css
  *= require bootstrap.min.css
  *= require flag-icon
+ *= require circle
  *= require forms/main.scss
  *= require forms/util.scss
  *= require_tree .

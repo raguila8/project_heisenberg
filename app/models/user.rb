@@ -52,11 +52,19 @@ class User < ApplicationRecord
 	end
 
 	# Returns the number of solved problems in a branch
-	def problems_solved(branch)
+	def branch_problems_solved(branch)
 		problems = SolvedProblem.select("ps.problem_id").
 							where("ps.user_id = #{self.id}").
 							joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id AND branch_id = #{branch.id}")
 		return problems.count
+	end
+
+	# Returns the number of solved problems in a topic
+	def topic_problems_solved(topic_name)
+		count = SolvedProblem.select("ps.problem_id").
+											where("ps.user_id = #{self.id}").
+											joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id AND st.name = '#{topic_name}'").count
+	return count
 	end
 
 	scope :all_except, -> (user) do 

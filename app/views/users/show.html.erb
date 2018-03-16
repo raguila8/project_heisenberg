@@ -1,121 +1,168 @@
 <% provide(:title, "Progress") %>
-<div class="profile">
-<div class="row">
-<div class="col-md-12">
-	<div class="well well-small clearfix">
-		<div class="row-fluid">
-			<div class="col-md-4">
-				<h2 style="font-weight:bold"><%= @user.username %></h2>
-				<ul class="list-unstyled">
-					<li>
-						<% if !@user.country.empty? %>
-							<%= flag_icon(:"#{@user.country}", class: 'strong') %>
-						<% end %>
-					</li>
-				</ul>
-			</div>
-			<div class="col-md-6">
-				<ul class="inline stats">
-					<li>
-						<span><%= @user.score %> </span>
-						Score
-					</li>
-					<li>
-						<span><%= @user.solved %> </span>
-						Problems Solved
-					</li>	
-					<li>
-						<span><%= @kudos %></span>
-						Kudos
-					</li>
-				</ul>
-			</div>
-			<div class="col-md-2">
-				<% if current_user != @user && !current_user.friends.include?(@user) %>
-					<%= button_to "Add Friend", friend_path(:id => @user),
-																		:method => :post,
-																		:class => "btn btn-default",
-																		:style => "margin-left:50%; width:60%;" %>
-				<% elsif current_user != @user && current_user.friends.include?(@user) %>
-					<%= button_to "Message", message_path(:recipient_id => @user.id),
-																		:method => :post,
-																		:class => "btn btn-default",
-																		:style => "margin-left:50%; width:60%;margin-top:5%;" %>
-				<% end %>
 
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-</div>
-
-<% if @user.solved > 0 %>
-	<% problems = problems_to_display(@user) %>
-	<div class="form_box">
-		<div id="problem_history">
-			<h5>Last <%= pluralize(problems.length, 'problem') %> Solved</h3>
-			<table class="table table-bordered">
-					<% count = 1 %>
-					<% problems.each do |problem_solved| %>
-						<tr>
-							<td><%= count %></td>
-							<td>Problem <%=problem_solved.problem_id %></td>
-							<td><%= problem_solved.created_at.strftime("%a, %d %b %Y, %I:%M %p") %></td>
-						</tr>
-						<% count += 1 %>
+	<div class="profile-main-div g-mb-40 g-primary-card g-pa-20">
+		<div class="row">
+			<div class="col-lg-3 col-md-3">
+				<!-- User Image -->
+				<div class="profile-img-container g-mb-40">
+					<img class="profile-img img-responsive w-100" src="/john_doe.jpg">
+				</div>
+				<!-- End User Image -->
+				<!-- User Contact Buttons -->
+				<div class="user-contact-btns">
+					<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary">Follow</button>
+					<% if @user != current_user %>
+						<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-dark">Message</button>
 					<% end %>
+				</div>
+				<!-- End User Contact Buttons -->
 				
-			</table>
+			</div>
+			<div class="col-lg-9 col-md-9">
+			<div class="col-md-10 col-lg-10">
+
+				<!-- User details -->
+				<h2 class="font-weight-600 g-mb-10"><%=@user.username%></h2>
+				<!-- End User details -->
+				<!-- User position -->
+				<ul class="list-inline g-mb-10 font-weight-200">
+					<li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-briefcase g-mr-8"></span>My job </li>
+					<li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-education g-mr-8"></span>My university</li>
+				</ul>
+				<!-- End User position -->
+				</div>
+
+				<div class="col-md-2 col-lg-2 text-center">
+					<div class="text-center inline-block max-width-150 vertical-align-top">
+						<% percent = percentage(@user.solved_problems.count, Problem.all.count).round(2) %>
+						<div class="c100 p<%=percent.round%> small center <%=color(percent)%>">
+							<span><%=percent.round%>%</span>
+							<div class="slice">
+								<div class="bar"></div>
+								<div class="fill"></div>
+							</div>
+						</div>
+						<p class="g-mt-5">Completion</p>
+					</div>
+				</div>
+
+				
+				<hr class="g-mv-20 light-gray-border clear-both">
+
+				<!-- User Bio -->
+				<p>This is going to be the user bio. I do not have a bio column for the user model at the moment. I am going to add this later...</p>
+				<!-- End User Bio -->
+
+				<hr class="g-mv-20 light-gray-border">
+
+				<!-- General Branch User stats -->
+				<div class="w-100 text-center">
+					<div class="col-md-4 col-lg-4">
+							<h1 class="font-weight-900 g-mb-20"><%=@user.score%></h1>
+							<h4 class="font-weight-300"><img class="inline-icon" title="User Score"src="/score_icon.png"></h4>
+
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<h1 class="font-weight-900 g-mb-20"><%=@user.solved%></h1>
+						<h4 class="font-weight-300"><img class="inline-icon" title="Problems Solved" src="/count_icon.png"></h4>
+					</div>
+					<div class="col-md-4 col-md-4">
+						<h1 class="font-weight-900 g-mb-20"><%=@kudos%></h1>
+						<h4 class="font-weight-300"><img class="inline-icon" title="Kudos Points" src="/kudos_icon.png"></h4>
+					</div>
+				</div>
+				<!-- General Branch User stats -->
+			</div>
 		</div>
-
 	</div>
-<% end %>
 
-<div id="progress">
-	<h4>Solved <%= @user.solved %> out of <%= Problem.count %> problems</h4>
-	<div class="progress">
-	<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%=@user.solved / Problem.count.to_f * 100  %>" aria-valuemin="0" aria-valuemax="100" style="width:<%=@user.solved / Problem.count.to_f * 100  %>%"> 
-  </div>
-	</div>	
-</div>
+	<!-- Overall Stats -->
+	<div class="overall-stats-container g-mb-40 g-pb-20 g-primary-card"> 
+		<!-- Overall stats Header -->
+		<h3 class="stats-title text-center navbar-gradient w-100 g-pa-20 font-weight-600 g-mt-0">
+			Overall Progress
+		</h3>
+		<!-- End overall stats header -->
+		<div class="row text-center">
+			
+			<% Branch.all.each_with_index do |branch, index| %>
+				<% if index == 0 %>
+				<div class="col-lg-2 col-md-2 col-lg-offset-1 col-md-offset-1 text-center break-word">
+				<% else %>
+				<div class="col-lg-2 col-md-2 text-center break-word left-border">
+				<% end %>
+					<h4 class="font-weight-600 break-word font-size-16"><%= branch.name%></h4>
+					<% percent = percentage(@user.branch_problems_solved(branch), Problem.branch_count(branch)).round(1) %>
+					<div class="g-mr-40 g-mb-20 text-center inline-block max-width-150 vertical-align-top">
+						<div class="c100 p<%=percent.round%> small center <%=color(percent)%> ">
+							<span><%=percent.round%>%</span>
+							<div class="slice">
+								<div class="bar"></div>
+								<div class="fill"></div>
+							</div>
+						</div>
+					</div>
 
-<div id="problems_solved_section">
-	<h4>Problems Solved</h4>
-	<% problems = Problem.all.order(:id) %>
-	<% index = 0 %>
-	<% problems.each do |problem| %>
-		<% solved = false %>
-		<% if (problem.id - 1) % 100 == 0 %>
-			<% if (problem.id / 100) >= 1 %>
-				</tbody>
-				</table>
+				
+					<% branch.unique_topics.each do |topic| %>
+						<div class="">
+							<h5 class="font-weight-600 left-align"><%=topic.name%></h5>
+							<% percent = percentage(@user.topic_problems_solved(topic.name), Problem.topic_count(topic.name)).round(2) %>
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%=percent%>%; background-color: <%=color(percent)%>;">
+									<span class="show"><%=percent.round%>%</span>
+								</div>
+							</div>
+						</div>
+					<% end %>
+				</div>
 			<% end %>
-			<table class="problems_solved_table">
-			<tbody>
-		<% end %>
-		<% if (problem.id - 1) % 20 == 0 %>
-			<% if (problem.id / 20) >= 1 %>
-				</tr>
-			<% end %>
-			<tr>
-		<% end %>
-		<% if @problems[index] == problem %>
-			<td class="problem_solved">
-			<% index += 1 %>
-			<% solved = true %>
-		<% else %>
-			<td class="problem_unsolved">
-		<% end %>
-			<a href=<%= problem_path(problem.id) %> style="color:inherit;text-decoration:none;">
-				<div class="problem_info">
-					<%= problem.id  %>
-					<span class="infobox">
-						<%= raw put_info(@user, problem, solved) %>
+		</div>
+	</div>
+	<!-- End Overall Stats -->
+
+	<% if @user.solved > 0 %>
+	<!-- Recently Solved List -->
+	<div class="recently-solved-container g-mb-40 g-pb-20 g-primary-card"> 
+		<!-- List Header -->
+		<h3 class="stats-title text-center navbar-gradient w-100 g-pa-20 font-weight-600 g-mt-0">
+			Recently Solved
+		</h3>
+		<!-- End list header -->
+	<ul class="g-mb-0 list-style-none">
+		<% @problems_solved.each do |problem| %>
+		<li class="profile-li">
+			<div class="profile-item-container">
+				<div class="profile-info-container">
+					<a href="<%=branch_path(problem.problem.branches.first.id)%>"class="profile-thumb-container">
+						<img class="profile-thumb" src="/dash_icon<%=problem.problem.branches.first.id%>.png"></img>
+					</a>
+					<div class="profile-information-container">
+						<div class="profile-information-username">
+							<a href="<%=problem_path(problem.problem.id)%>"class="username-link"><%=problem.problem.title%></a>
+						</div>
+						<div class="profile-information-name"><%=problem.problem.created_at.strftime("%a, %d %b %Y, %I:%M %p")%></div>
+					</div>
+				</div>
+				<div class="float-right">
+					<span>
+						<% problem.problem.difficulty.downto(1) do |i| %>
+							<span class="glyphicon glyphicon-star"></span>
+						<% end %>
+						<% (3 - problem.problem.difficulty).downto(1) do |i| %>
+							<span class="glyphicon glyphicon-star-empty"></span>
+						<% end %>
+
 					</span>
 				</div>
-			</a>
-		</td>
+			</div>
+		</li>
+		<% end %>
+		<li class="text-center g-mt-20">
+			<button class="btn g-rounded-50 g-pv-12 g-btn-primary vertical-align-middle">Load More</button>
+		</li>
+	</ul>
+	</div>
+	<!-- End Recently solved list -->
 	<% end %>
 </div>
-

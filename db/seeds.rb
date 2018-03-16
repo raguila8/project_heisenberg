@@ -13,7 +13,7 @@ User.create!(username:  "raguila8",
 						 admin: true)
 Forum.create(name: "Problems", description: "Problems Forum")
 
-branches = ["Classical Mechanics", "Electromagnetism", "Thermodynamics and Statistical Mechanics", "Quantum Mechanics", "Special Relativity"]
+branches = ["Classical Mechanics", "Electromagnetism", "Thermodynamics", "Quantum Mechanics", "Special Relativity"]
 subtopic1 = ["Energy", "Oscillations", "kinematics", "Lagrange's Equation", "Momentum and Angular Momentum"]
 subtopic2 = ["Charges and Fields", "The Electric Potential", "Electric Fields Around Conductors", "Electric Currents", "Magnetic Fields"]
 subtopic3 = ["Probability Theory", "Statistical Mechanics", "Heat and Work", "Statistical Thermodynamics", "Classical Thermodynamics"]

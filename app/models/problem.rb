@@ -19,6 +19,11 @@ class Problem < ApplicationRecord
 		return count
 	end
 
+	def self.topic_count(topic_name)
+		count = Problem.select("p.id").joins("as p inner join subtopics as st on p.id = st.problem_id AND st.name = '#{topic_name}'").count
+	return count
+	end
+
 	# Checks if the problem has been solved by user
 	def solved?(user)
 		if SolvedProblem.find_by(user_id: user.id, problem_id: self.id)
