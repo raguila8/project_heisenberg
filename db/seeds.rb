@@ -31,10 +31,15 @@ end
   username  = Faker::Internet.user_name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
-  User.create!(username:  username,
+  user = User.create(username:  username,
                email: email,
                password:              password,
                password_confirmation: password)
+
+	con = Conversation.create!(sender_id: user.id, recipient_id: User.first.id)
+	body = Faker::Lorem.paragraph
+	Message.create!(body: body, user_id: user.id, conversation_id: con.id)
+
 end
 
 20.times do |n|
@@ -91,5 +96,9 @@ end
 			user.save
 		end
 	end
+end
+
+20.times do |i|
+	
 end
 

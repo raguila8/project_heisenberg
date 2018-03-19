@@ -3,7 +3,7 @@
 		<div id="profile">
 			<div class="wrap">
 				<img id="profile-img" src="/john_doe.jpg" alt="" />
-				<h4 class="g-ml-10 font-weight-600"><%=current_user.username%></h4>
+				<p><%=current_user.username%></p>
 			</div>
 		</div>
 		<div id="contacts">
@@ -13,7 +13,7 @@
 						<div class="wrap">
 							<img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
 							<div class="meta">
-								<p class="name"><%=conversation.other_user(current_user).username%></p>
+								<p class="name"><%=conversation.other_user.username%></p>
 								<p class="preview"><%=conversation.messages.last%></p>
 							</div>
 						</div>
@@ -32,7 +32,7 @@
 			</ul>
 		</div>
 		<div id="bottom-bar">
-			<button id="" class="g-btn-primary"><span style= "color: #D8D8D8;"> <img class="inline-icon" title="New Conversation"src="/new_message_icon.png"> <span id="new-msg-btn" class="g-ml-5">New</span></span></button>
+			<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
 		</div>
 	</div>
 	<div class="content">
@@ -73,13 +73,23 @@
 			</ul>
 		</div>
 		<div class="comment-form-container">
-			<%= form_for @message, html: { multipart: true, class: "comments-form" }, :remote => true, :authenticity_token => true do |f| %>
-				<%= f.text_area :body, placeholder: "Add a message...", class: "comment-text-area" %>
+			<%= form_for Comment.new, html: { multipart: true, class: "comments-form" }, :remote => true, :authenticity_token => true do |f| %>
+				<%= f.text_area :content, placeholder: "Add a comment...", class: "comment-text-area", id: "comment-text-area-#{post.id}" %>
+				<%= f.hidden_field :post_id, :value => post.id %>
+				<%= f.hidden_field :user_id, :value => current_user.id %>
+				<div class="comment-actions">
+					<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
+      		<%= f.submit "Submit", class: "btn btn-md general-post-btn submit-btn" %>
+				</div>
 			<% end %>
 		</div>
-		<div class="msg-actions">
-			<button id="">Preview</button>
-			<button id="">Submit</button>
+
+		<div class="message-input">
+			<div class="wrap">
+			<input type="text" placeholder="Write your message..." />
+			<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+			<button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+			</div>
 		</div>
 	</div>
 </div>

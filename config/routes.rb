@@ -21,8 +21,8 @@ Rails.application.routes.draw do
 	#get '/posts/:id/edit', to: 'posts#edit'
 	put 'like', to: 'topics#vote'
 	post '/message', to: 'conversations#create'
-	resources :messages, only: [:create]
-	resources :conversations, only: [:show]
+	resources :messages, only: [:create, :index]
+	resources :conversations, only: [:show, :index]
 
 	get '/math-formatting', to: 'static_pages#math_formatting'
 

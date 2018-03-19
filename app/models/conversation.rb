@@ -25,5 +25,15 @@ class Conversation < ApplicationRecord
 		errors.add(:sender_id, "is invalid") unless User.exists?(self.sender_id)
   end
 
+	public
+
+	def other_user(user)
+		if self.sender_id == user.id
+			return User.find(self.reipient_id)
+		else
+			return User.find(sender_id)
+		end
+	end
+
 
 end

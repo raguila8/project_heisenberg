@@ -29,11 +29,6 @@
 									<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
 									<%= f.submit "Post", class: "btn btn-md general-post-btn submit-btn submit-post-btn" %>
 							</div>
-
-
-
-
-
 						<% end %>
 						<p style="font-size:90%">
 							<b>NOTE:</b>
@@ -52,10 +47,7 @@
 				<div class="thumbnail">
 						<div class="modal-header">
 							<a href=<%=user_path(post.user)%>>
-								<%# if !post.profile.profile_image %>
-									<%#= image_tag post.profile.profile_image.profile_post2.url %>
-								<%# else %>
-									<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
 								<%# end %>
 								<span class="username-feed"><%=post.user.username%></span>
 								<%# if current_profile == post.profile %>

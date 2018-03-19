@@ -23,6 +23,11 @@ class ConversationsController < ApplicationController
 			message.save
 		end
 		@message = Message.new
+		@conversations = Conversation.where("sender_id = #{current_user.id} OR recipient_id = #{current_user.id}").order(updated_at: :desc)
+	end
+
+	def index
+		@conversations = Conversation.where("sender_id = #{current_user.id} OR recipient_id = #{current_user.id}").order(updated_at: :desc)
 	end
 
 	def correct_conversation
