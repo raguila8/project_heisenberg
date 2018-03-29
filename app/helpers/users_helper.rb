@@ -17,4 +17,12 @@ module UsersHelper
 		html += "<p>" + problem.title + "</p>"
 		return html
 	end
+
+	def search(pattern)
+		users_query = "(SELECT users.username AS label, users.id AS id, 'Users' AS category, '/default_profile_image.png' AS image_url FROM users WHERE users.username LIKE '#{pattern}' LIMIT 5) "
+		problems_query = "(SELECT problems.title AS label, problems.id AS id, 'Problems' AS category, '/problem_icon.png' AS image_url FROM problems WHERE problems.title LIKE '#{pattern}' LIMIT 5)"
+		query = "SELECT * FROM #{users_query} UNION SELECT * FROM #{problems_query}"
+		suggestions = ActiveRecord::Base.connection.execute(query)
+		return suggestions
+	end
 end

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
 	post '/follow', to: 'relationships#create', as: :follow
 	get '/unfollow', to: 'relationships#destroy', as: :unfollow
+	get '/autocomplete', to: 'users#autocomplete', as: :autocomplete
 
 
 	# script tags

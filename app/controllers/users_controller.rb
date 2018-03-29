@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	include UsersHelper
 	before_action :logged_in_user, only: [:index, :edit, :update, :show, :find_friends, :destroy]
 	before_action :correct_user,	 only: [:edit, :update]
 	before_action :admin_user, only: :destroy
@@ -79,6 +80,15 @@ class UsersController < ApplicationController
 			@users = @users.paginate(page: params[:page], :per_page => 10)
 		else
 			@users = User.filter_ranks(branches, users, leaderboard).paginate(page: params[:page], :per_page => 10)
+		end
+	end
+
+	def autocomplete
+		respond_to do |format|
+			format.json {
+				@suggestions = search("%#{params[:query]}%")
+				render json: {suggestions: @suggestions }
+			}
 		end
 	end
 
