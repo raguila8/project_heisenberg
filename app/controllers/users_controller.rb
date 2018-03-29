@@ -92,6 +92,26 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def recently_solved_problems
+		@user = User.find(params[:user_id])
+		page = params[:page].to_i
+		@more = false
+		respond_to do |format|
+			if @user && !page.nil?	
+				format.js {
+					offset = page * 10 - 1
+					solved_problems = @user.solved_problems
+					
+					@problems_solved = solved_problems.order(created_at: :desc)[(offset - 9)..offset].reverse
+					if solved_problems.size > offset + 1
+						@more = true
+					end
+				}
+			end
+		end
+
+	end
+
   private
 
 		def user_params

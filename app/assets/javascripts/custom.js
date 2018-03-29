@@ -72,25 +72,25 @@ $(document).on('turbolinks:load', function() {
 			var id = $(this).attr('id');
 			var thread_id = parseInt(id.substring(15, id.length));
 
-		$.ajax({
-			type: "GET",
-			url: "/topics/" + thread_id,
-			headers: {
-				Accept: "text/javascript; charset=utf-8",
-				"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
-			},
-			data: {
-				page: currentPostPage
-			},
-			success: function(myData) {
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-				currentPostPage = currentPostPage + 1;
-				for (var i = 0; i < 10; i++) {
-					postPages.push(2);
+			$.ajax({
+				type: "GET",
+				url: "/topics/" + thread_id,
+				headers: {
+					Accept: "text/javascript; charset=utf-8",
+					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				data: {
+					page: currentPostPage
+				},
+				success: function(myData) {
+					MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+					currentPostPage = currentPostPage + 1;
+					for (var i = 0; i < 10; i++) {
+						postPages.push(2);
+					}
 				}
-			}
+			});
 		});
-	});
 
 		/***************** Submit Post With ajax *********/
 /*
@@ -476,6 +476,30 @@ $(document).on('turbolinks:load', function() {
 			data: {	
 				authenticity_token: AUTH_TOKEN,
 				followed: user_id
+			}
+		});
+	});
+
+	/* Load more recently solved problems */
+
+	var currentRecentlySolvedPage = 2;
+	$('.load-more-problems-solved').on('click', function() {
+		var id = $(this).attr('id');
+		var user_id = parseInt(id.substring(26, id.length));
+
+		$.ajax({
+			type: "GET",
+			url: "/recently_solved_problems",
+			headers: {
+				Accept: "text/javascript; charset=utf-8",
+				"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			data: {
+				page: currentRecentlySolvedPage,
+				user_id: user_id
+			},
+			success: function(myData) {
+				currentRecentlySolvedPage = currentRecentlySolvedPage + 1;
 			}
 		});
 	});

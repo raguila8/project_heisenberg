@@ -1,0 +1,11 @@
+<% if !@problems_solved.nil? %>
+	<% @problems_solved.each do |problem| %>
+		$('.recently-solved-problems').append("<%= escape_javascript render(:partial => '/users/recently_solved_problem', locals: { problem: problem }) %>");
+	<% end %>
+<% end %>
+
+<% if !@more %>
+	if ($('.more-recently-solved-container').length) {
+		$('.more-recently-solved-container').remove();
+	}
+<% end %>

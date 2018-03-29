@@ -1,0 +1,26 @@
+<li class="profile-li">
+	<div class="profile-item-container">
+		<div class="profile-info-container">
+			<a href="<%=branch_path(problem.problem.branches.first.id)%>"class="profile-thumb-container">
+				<img class="profile-thumb" src="/dash_icon<%=problem.problem.branches.first.id%>.png"></img>
+			</a>
+			<div class="profile-information-container">
+				<div class="profile-information-username">
+					<a href="<%=problem_path(problem.problem.id)%>"class="username-link"><%=problem.problem.title%></a>
+				</div>
+				<div class="profile-information-name"><%=problem.problem.created_at.strftime("%a, %d %b %Y, %I:%M %p")%></div>
+			</div>
+		</div>
+		<div class="float-right">
+			<span>
+				<% problem.problem.difficulty.downto(1) do |i| %>
+					<span class="glyphicon glyphicon-star"></span>
+				<% end %>
+				<% (3 - problem.problem.difficulty).downto(1) do |i| %>
+					<span class="glyphicon glyphicon-star-empty"></span>
+				<% end %>
+			</span>
+		</div>
+	</div>
+</li>
+

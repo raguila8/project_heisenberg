@@ -34,6 +34,16 @@ module ApplicationHelper
 		return perc
 	end
 	
+	def bg_color(percentage)
+		if percentage >= 80
+			return "green-bg"
+		elsif percentage >= 50
+			return "orange-bg"
+		else
+			return "red-bg"
+		end
+	end
+
 	def color(percentage)
 		if percentage >= 80
 			return "green"

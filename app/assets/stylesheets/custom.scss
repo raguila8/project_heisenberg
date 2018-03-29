@@ -247,6 +247,22 @@ button:focus {outline:0 !important; }
 	background-image: linear-gradient(to top, #0f1638, #17213e, #212c44, #2c3749, #39424e);
 }
 
+.green-bg {
+	background-color: #1ba94c;
+}
+
+.orange-bg {
+	background-color: #FFAE00;
+}
+
+.red-bg {
+	background-color: #E11C1C;
+}
+
+.dark-grey-bg {
+	background-image: linear-gradient(to left bottom, #0f1638, #17213e, #212c44, #2c3749, #39424e);
+}
+
 /************ Padding and Margins *****************/
 
 .g-mt-50 {
@@ -376,6 +392,10 @@ button:focus {outline:0 !important; }
 	width: 100% !important;
 }
 
+.height-100 {
+	height: 100% !important;
+}
+
 .max-width-150 {
 	max-width: 150px;
 }
@@ -463,7 +483,7 @@ button:focus {outline:0 !important; }
 	
 	border: 1px solid #39424e !important;
 
-	background-image: linear-gradient(to left bottom, #0f1638, #17213e, #212c44, #2c3749, #39424e);
+	background-image: radial-gradient(circle, #39424e, #2c3749, #212c44, #17213e, #0f1638);
 
 	&:hover {
 		color: #fff;
@@ -579,10 +599,41 @@ button:focus {outline:0 !important; }
 	border-width: 3px !important;
 }
 
+.navbar-grey {
+	color: #0f1638 !important;
+}
+
 /* Lists */
 
 .list-style-none {
 	list-style: none;
+}
+
+/* text wrap */
+
+.ellipsis-wrap {
+	overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dont-break-out {
+	/* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
 }
 
 /* forms */
@@ -1828,6 +1879,11 @@ img {
   white-space: nowrap;
   padding-left: 5px;
   margin-left: -5px;
+	color: #4691F9;
+	&:hover {
+		opacity: 0.9;
+		color: #4691F9 !important;
+	}
 }
 
 .profile-information-name {
@@ -1839,6 +1895,12 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@media (max-width: 416px) {
+	.profile-information-name {
+		font-size: 13px;
+	}
 }
 
 /* Message index */
