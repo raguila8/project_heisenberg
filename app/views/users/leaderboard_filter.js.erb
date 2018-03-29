@@ -1,0 +1,20 @@
+<% if @users.length %>
+	$('.leaderboard').empty();
+	<% if logged_in? && !@my_rank.nil? %>
+		$('.leaderboard').prev().remove();
+		$('.leaderboard').before("<%= escape_javascript render(:partial => '/users/rank_card', locals: { user: current_user, score: @score, rank: @my_rank, rank_preview: true }) %>");	
+	<% end %>
+	<% @users.each_with_index do |user, index| %>
+		<% score = user["score"] %>
+		<% user = User.find(user["id"]) %>
+		$('.leaderboard').append("<%= escape_javascript render(:partial => '/users/rank_card', locals: { user: user, score: score, rank: (index + 1) + ((@users.current_page - 1) * 10), rank_preview: false }) %>");	
+	<% end %>
+	$('.leaderboard').append("<div class='pagination-container text-center'></div>");
+	$('.pagination-container').append("<%= escape_javascript will_paginate(@users) %>");	
+<% else %>
+	$('.leaderboard').empty();
+	<% if logged_in? %>
+		$('.leaderboard').prev().remove();
+	<% end %>
+	$('.leaderboard').next("<h4 class='no-results'>There are no matching results.</h4>");
+<% end %>

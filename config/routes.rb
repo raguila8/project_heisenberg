@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 	post '/login', to: 'sessions#create'
 	delete '/logout', to: 'sessions#destroy'
   resources :users, except: [:index]
+	get '/leaderboards', to: 'users#leaderboards', as: :leaderboards
+	get '/leaderboard_filter', to: 'users#leaderboard_filter', as: :leaderboard_filter
 	get '/friends', to: 'users#index'
 	get '/find-friends', to: 'users#find_friends'
 	delete '/unfriend', to: 'friendships#destroy'
@@ -20,9 +22,8 @@ Rails.application.routes.draw do
 	resources :posts, only: [:new, :edit, :create, :update, :destroy]
 	#get '/posts/:id/edit', to: 'posts#edit'
 	put 'like', to: 'topics#vote'
-	post '/message', to: 'conversations#create'
 	resources :messages, only: [:create, :index]
-	resources :conversations, only: [:show, :index]
+	resources :conversations, only: [:show, :index, :create]
 
 	get '/math-formatting', to: 'static_pages#math_formatting'
 
@@ -35,6 +36,8 @@ Rails.application.routes.draw do
 	resources :branches, only: [:show, :index]
 	get '/problems_filter', to: 'branches#problems_filter', as: :problems_filter
 
+	post '/follow', to: 'relationships#create', as: :follow
+	get '/unfollow', to: 'relationships#destroy', as: :unfollow
 
 
 	# script tags

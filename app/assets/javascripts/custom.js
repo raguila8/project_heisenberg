@@ -127,9 +127,11 @@ $(document).on('turbolinks:load', function() {
 
     $postForm.on('ajax:success', function(e) {
 			// delete the current msg if there is one
-			if ($('.alert').length) {
+			if ($('.alert').length || $('#error_explanation').length) {
 				$('.alert').remove();
+				$('#error_explanation').remove();
 			}
+
 
     	if (typeof(e.detail[0].errors) != "undefined") {
 				var html = "<div id='error_explanation'><ul><li>" + e.detail[0].message + "</li></ul></div>";
@@ -155,8 +157,9 @@ $(document).on('turbolinks:load', function() {
 		$('.thread-body').on('ajax:success', '.update-posts-form', function (e) {
 			if (typeof(e.detail[0].errors) != "undefined") {
 				var html = "<div id='error_explanation'><ul><li>" + e.detail[0].message + "</li></ul></div>";
-				if ($('.alert').length) {
+				if ($('.alert').length || $('#error_explanation').length) {
 					$('.alert').remove();
+					$('#error_explanation').remove();
 				}
 				$(this).closest('.forum_message').prepend(html);
 			} 		
@@ -167,27 +170,15 @@ $(document).on('turbolinks:load', function() {
 		$('.thread-body').on('ajax:success', '.update-comments-form', function (e) {
 			if (typeof(e.detail[0].errors) != "undefined") {
 				var html = "<div id='error_explanation'><ul><li>" + e.detail[0].message + "</li></ul></div>";
-				if ($('.alert').length) {
+				if ($('.alert').length || $('#error_explanation').length) {
 					$('.alert').remove();
+					$('#error_explanation').remove();
 				}
 				$(this).closest('.forum_message').prepend(html);
 			} 		
 		}); 
 
 
-		/*************** Preview Markdown ***********************/
-
-		$('.thread-body').on('click', '.preview-btn', function() {
-			$form = $(this).closest('form')[0];
-			var content = '';
-			if ($($form).hasClass('posts-form') || $($form).hasClass('update-posts-form')) {
-				content = $($form).find('textarea[name="post[content]"]:first').val();
-			} else {
-				content = $($form).find('textarea[name="comment[content]"]:first').val();	
-			}
-			$('#post-preview-modal .forum_message > p').text(content);
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		});
 	}
 
 	/***************** Branch page **************/
@@ -244,62 +235,250 @@ $(document).on('turbolinks:load', function() {
 		});
 	}
 
+	/* Leaderboard Page */
+
+	if ($('.leaderboard-page').length) {
+		$('#leaderboards-filter-submit').on('click', function() {
+
+			var branches = [];
+			var users = [];
+			var leaderboard = "";
+			$('.branch-input').each(function() {
+				if ($(this)[0].checked) {
+					var id = $(this).attr('id');
+					var branch_id = parseInt(id.substring(7, id.length));
+					branches.push(branch_id);
+				}
+			});
+
+			$('.users-input').each(function() {
+				if ($(this)[0].checked) {
+					var id = $(this).attr('id');
+					users.push(id);
+				}
+			});
+
+			$('.leaderboard-input').each(function() {
+				if ($(this)[0].checked) {
+					leaderboard = $(this).attr('id');
+				}
+			});
+
+			$.ajax({
+				type: "GET",
+				url: "/leaderboard_filter",
+				headers: {
+					Accept: "text/javascript; charset=utf-8",
+					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				data: {
+					branches: branches,
+					users: users,
+					leaderboard: leaderboard
+				}
+			});
+
+		});
+
+	}
+
 	if ($('#frame').length) {
 		
 		$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
 		$("#profile-img").click(function() {
-	$("#status-options").toggleClass("active");
-});
+			$("#status-options").toggleClass("active");
+		});
 
-$(".expand-button").click(function() {
-  $("#profile").toggleClass("expanded");
-	$("#contacts").toggleClass("expanded");
-});
+		$(".expand-button").click(function() {
+  		$("#profile").toggleClass("expanded");
+			$("#contacts").toggleClass("expanded");
+		});
 
-$("#status-options ul li").click(function() {
-	$("#profile-img").removeClass();
-	$("#status-online").removeClass("active");
-	$("#status-away").removeClass("active");
-	$("#status-busy").removeClass("active");
-	$("#status-offline").removeClass("active");
-	$(this).addClass("active");
+		$("#status-options ul li").click(function() {
+			$("#profile-img").removeClass();
+			$("#status-online").removeClass("active");
+			$("#status-away").removeClass("active");
+			$("#status-busy").removeClass("active");
+			$("#status-offline").removeClass("active");
+			$(this).addClass("active");
 	
-	if($("#status-online").hasClass("active")) {
-		$("#profile-img").addClass("online");
-	} else if ($("#status-away").hasClass("active")) {
-		$("#profile-img").addClass("away");
-	} else if ($("#status-busy").hasClass("active")) {
-		$("#profile-img").addClass("busy");
-	} else if ($("#status-offline").hasClass("active")) {
-		$("#profile-img").addClass("offline");
-	} else {
-		$("#profile-img").removeClass();
-	};
+			if($("#status-online").hasClass("active")) {
+				$("#profile-img").addClass("online");
+			} else if ($("#status-away").hasClass("active")) {
+				$("#profile-img").addClass("away");
+			} else if ($("#status-busy").hasClass("active")) {
+				$("#profile-img").addClass("busy");
+			} else if ($("#status-offline").hasClass("active")) {
+				$("#profile-img").addClass("offline");
+			} else {
+				$("#profile-img").removeClass();
+			};
 	
-	$("#status-options").removeClass("active");
-});
+			$("#status-options").removeClass("active");
+		});
 
-function newMessage() {
-	message = $(".message-input input").val();
-	if($.trim(message) == '') {
-		return false;
+			
+		/* Message Submission */
+
+		$('#frame .msg-submit').click(function() {
+			if ($('.alert').length || $('#error_explanation').length) {
+				$('.alert').remove();
+				$('#error_explanation').remove();
+			}
+
+  		$form = $(this).closest('form')[0];
+			message = $($form).find('textarea[name="message[body]"]:first').val();
+			if($.trim(message) == '') {
+				// Error handling
+				var error_html = "<div id='error_explanation'><ul><li>" + "Message cannot be empty" + "</li></ul></div>";
+				if ($($form).hasClass('messages-form')) {
+					$(error_html).appendTo($('.messages'));
+				}
+				setTimeout(function(){
+    			$('#error_explanation').fadeOut(500);
+  			}, 3500);
+
+				return false;
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "/messages",
+					headers: {
+						Accept: "text/javascript; charset=utf-8",
+						"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+					},
+					data: {
+						message: {
+							body: message,
+							conversation_id: $($form).find('input[name="conversation_id"]:first').val()
+						},
+						authenticity_token: AUTH_TOKEN
+					},
+					success: function(data) {
+						$('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+						$('.messages-form textarea').val(null);
+						$('.contact.active .preview').html('<span>You: </span>' + message);
+						$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+						MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+					}
+				});
+			}
+		});
+	
+		
 	}
-	$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
-	$('.message-input input').val(null);
-	$('.contact.active .preview').html('<span>You: </span>' + message);
-	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-};
 
-$('.submit').click(function() {
-  newMessage();
-});
+	/*************** Preview Markdown ***********************/
 
-$(window).on('keydown', function(e) {
-  if (e.which == 13) {
-    newMessage();
-    return false;
-  }
-});
+	$('body').on('click', '.preview-btn', function() {
+		$form = $(this).closest('form')[0];
+		var content = '';
+		if ($($form).hasClass('posts-form') || $($form).hasClass('update-posts-form')) {
+			content = $($form).find('textarea[name="post[content]"]:first').val();
+		} else if ($($form).hasClass('comments-form') || $($form).hasClass('update-comments-form')){
+			content = $($form).find('textarea[name="comment[content]"]:first').val();	
+		} else {
+			content = $($form).find('textarea[name="message[body]"]:first').val();
+		}
+		$('#preview-modal .preview_content > p').text(content);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	});
+
+	/* Sending message through modal */
+
+	if (('#new-conversation-modal').length) {
+		$('#new-conversation-modal').on('click', '.msg-submit', function() {
+			if ($('.alert').length || $('#error_explanation').length) {
+				$('.alert').remove();
+				$('#error_explanation').remove();
+			}
+
+			$form = $(this).closest('form')[0];
+			message = $($form).find('textarea[name="message[body]"]:first').val();
+			username = $(this).closest('.modal-body').find('#username-search').val();
+			if($.trim(message) == '') {
+				// Error handling for empty message
+				var error_html = "<div id='error_explanation' class='g-mt-20'><ul><li>" + "Message cannot be empty" + "</li></ul></div>";
+				if ($($form).hasClass('messages-form')) {
+					$(error_html).appendTo($($form));
+				}
+				
+				return false;
+			} else if ($.trim(username) == '') {
+				// Error handling
+				var error_html = "<div id='error_explanation' class='g-mt-20'><ul><li>" + "Username cannot be blank" + "</li></ul></div>";
+				if ($($form).hasClass('messages-form')) {
+					$(error_html).appendTo($($form));
+				}
+				return false;
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "/conversations",
+					headers: {
+						Accept: "text/javascript; charset=utf-8",
+						"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+					},
+					data: {
+						body: message,
+						username: username,
+						authenticity_token: AUTH_TOKEN
+					},
+					success: function(data) {
+			
+					}
+				});
+			}
+
+		});
+	}
+
+	/* Progress Page */
+
+	if ($('.profile-main-div').length) {
+		$('.new-msg').on('click', function() {
+			var username = $('.username').text();
+			console.log(username);
+			$('#username-search').val(username);
+		});
+
+		/* Follow User */
+		$('body').on('click', '.follow-btn', function(event) {
+			var id = $(this).attr('id');
+			var user_id = parseInt(id.substring(11, id.length));
+			$("#follow-btn-" + user_id).remove();
+			$.ajax({
+				url: '/follow',  // submits it to the given url of the form
+				headers: {
+					Accept: "text/javascript; charset=utf-8",					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				type: 'POST',
+				data: {	
+					authenticity_token: AUTH_TOKEN,
+					followed: user_id
+				}
+			});
+		});
+
+		/************************ Unfollow **************/
+	$('body').on('click', '.unfollow-btn', function(event) {
+		var id = $(this).attr('id');
+		var user_id = parseInt(id.substring(14, id.length));
+		$("#following-btn-" + user_id).remove();
+		
+		$.ajax({
+			url: '/unfollow',  // submits it to the given url of the form
+			headers: {
+				Accept: "text/javascript; charset=utf-8",					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			type: 'GET',
+			data: {	
+				authenticity_token: AUTH_TOKEN,
+				followed: user_id
+			}
+		});
+	});
+
 	}
 });

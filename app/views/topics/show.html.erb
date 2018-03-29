@@ -26,7 +26,7 @@
 
 
 							<div class="post-actions">
-									<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
+									<span class="btn btn-md general-post-btn g-default-btn-to-right preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
 									<%= f.submit "Post", class: "btn btn-md general-post-btn submit-btn submit-post-btn" %>
 							</div>
 						<% end %>
@@ -151,7 +151,7 @@
 									<%= f.hidden_field :post_id, :value => post.id %>
 									<%= f.hidden_field :user_id, :value => current_user.id %>
 									<div class="comment-actions">
-										<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal">Preview</span>
+										<span class="btn btn-md general-post-btn g-default-btn-to-right preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
       							<%= f.submit "Submit", class: "btn btn-md general-post-btn submit-btn" %>
 									</div>
 

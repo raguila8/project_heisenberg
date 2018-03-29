@@ -49,6 +49,13 @@ end
 	problem.question = "What is #{num1} + #{num2}?"
 	problem.answer = num1 + num2
 	problem.difficulty = Faker::Number.between(1,3)
+	if problem.difficulty == 1
+		problem.points = 20
+	elsif problem.difficulty == 2
+		problem.points = 40
+	else
+		problem.points = 80
+	end
 	problem.title = "Addition#{n}"
 	problem.solved_by = 0
 	num = Random.new.rand(0..4)
@@ -92,9 +99,10 @@ end
 				user.score += 80
 			end
 			problem.solved_by += 1
-			problem.save
 			user.save
 		end
+		problem.submissions += 1
+		problem.save
 	end
 end
 

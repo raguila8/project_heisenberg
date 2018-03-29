@@ -1,3 +1,6 @@
+<% if logged_in? %>
+	<%= render '/messages/messages_modal.html.erb' %>
+<% end %>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
   	<div class="navbar-header">
@@ -6,8 +9,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-  		<%= link_to root_path, class: "navbar-brand" do %>
-				<%= image_tag '/physics_icon.png', alt: 'home icon' %>
+  		<%= link_to root_path, class: "navbar-brand g-mt-8" do %>
+				<%= image_tag '/h_icon.png', alt: 'home icon' %>
 			<% end %>
    	</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
@@ -28,29 +31,9 @@
 				<li class="<%= 'active' if current_page?(current_user) %>">
 					<%= link_to "Progress", current_user %>
 				</li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages
-					<!--<span class="caret"></span>--></a>
-					<% conversations = Conversation.where("sender_id = #{current_user.id}").or(Conversation.where("recipient_id = #{current_user.id}")).order(updated_at: :desc) %>
-					<% if (count = unreadMessagesCount(conversations)) > 0 %>
+				<li>
+					<a class="" data-toggle="modal" data-target="#messages-modal" href="#">Messages</a>
 					
-						<span class="button_badge"><%= count %></span>
-					<% end %>
-					<ul class="dropdown-menu scrollable-menu">
-						<% if conversations.length == 0 %>
-							<span style="font-size: 90%; color: red">You have no messages.</span>
-							<span style= "font-size: 90%">Send a message to a <%= link_to "friend", friends_path, style: "color: #337ab7" %>!</span>
-						<% end %>
-						<% conversations.each do |conversation| %>
-							<% message = conversation.messages.order(updated_at: :desc).first %>
-							<% next if message.nil? %>
-							<% if message.read || current_user.id == message.user_id%>
-								<li class="read"><a href="<%=conversation_path(conversation.id)%>"><%= raw notifications(conversation, message) %></a></li>
-							<% else %>
-								<li class="not_read"><a href="<%=conversation_path(conversation.id)%>"><%= raw notifications(conversation, message) %></a></li>
-							<% end %>
-						<% end %>
-					</ul>
 				</li>
 				<li class="<%= 'active' if current_page?(edit_user_path(current_user)) %>">
 					<%= link_to "Account", edit_user_path(current_user) %>

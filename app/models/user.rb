@@ -1,10 +1,18 @@
 class User < ApplicationRecord
 	acts_as_voter
-	has_many :friendships, dependent: :destroy
-	has_many :friends, through: :friendships
+	has_many :active_relationships, class_name: "Relationship",
+																	foreign_key: "follower_id",
+																	dependent: :destroy
+	has_many :passive_relationships, class_name: "Relationship",
+																	foreign_key: "followed_id",
+																	dependent: :destroy
+	has_many :following, through: :active_relationships, source: :followed
+	has_many :followers, through: :passive_relationships, source: :follower
+
 	has_many :solved_problems, dependent: :destroy
 	has_many :problems, {:through => :solved_problems, :source => "problem"}
 	has_many :posts, dependent: :destroy
+	has_many :comments, dependent: :destroy
 	has_many :messages, dependent: :destroy
 	attr_accessor :remember_token
 	before_save { self.email = email.downcase }
@@ -17,6 +25,23 @@ class User < ApplicationRecord
 										uniqueness: { case_sensitive: false }
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+
+	# Follows a user
+	def follow(other_user)
+		self.following << other_user
+	end
+
+	# Unfollows a user
+	def unfollow(other_user)
+		self.following.delete(other_user)
+	end
+
+	# Returns true if the current user is following the other user.
+	def following?(other_user)
+		self.following.include?(other_user)
+	end
+
 
 	# Returns the hash digest of the given string.
 	def User.digest(string)
@@ -63,9 +88,151 @@ class User < ApplicationRecord
 	def topic_problems_solved(topic_name)
 		count = SolvedProblem.select("ps.problem_id").
 											where("ps.user_id = #{self.id}").
-											joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id AND st.name = '#{topic_name}'").count
+											joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id").where("st.name = #{ActiveRecord::Base.connection.quote(ActiveRecord::Base.connection.quote_string(topic_name))}").count
 	return count
 	end
+
+	def self.filter_ranks(branches, users, leaderboard, user = nil)
+		users_ids = ""
+		if !users.nil?
+			if users.include? "friends" and !users.include?("all") and !user.nil?
+				users_ids = "SELECT relationships.followed_id AS id FROM relationships WHERE relationships.follower_id = #{user.id} UNION SELECT users.id AS id FROM users WHERE users.id = #{user.id} "
+
+			end
+		end
+		
+		problem_ids = []
+		if !branches.nil?
+			branches.each_with_index do |b, index|
+				problem_ids << "SELECT problem_id FROM subtopics WHERE subtopics.branch_id = #{b} " 
+			end
+		end
+		
+
+		query = ""
+		if leaderboard == "score" || leaderboard == "kudos"
+			if leaderboard == "score"
+				query = "SELECT SUM(Problems.points) AS score, Solved_Problems.user_id AS id FROM problems INNER JOIN solved_problems WHERE Problems.id = Solved_Problems.problem_id "
+
+				if !users_ids.empty?
+					query += "AND solved_problems.user_id IN (#{users_ids}) "
+				end
+
+				problem_ids.each_with_index do |ids, index|
+					if index != problem_ids.length - 1
+						if index == 0
+							query += "AND (solved_problems.problem_id IN (#{ids}) "
+						else
+							query += "OR solved_problems.problem_id IN (#{ids}) "
+						end
+					else
+						if index == 0
+							query += "AND (solved_problems.problem_id IN (#{ids})) "
+						else
+							query += "OR solved_problems.problem_id IN (#{ids})) "
+						end
+					end
+				end
+				query += "Group BY solved_problems.user_id "
+=begin
+				if users_ids.empty?
+					query += "UNION SELECT 0 AS score, users.id AS id FROM users WHERE users.id NOT IN (#{query}) "
+				end
+=end
+			elsif leaderboard == "kudos"
+				query1 = "SELECT users.id AS id, SUM(posts.cached_votes_score) AS p_score FROM users "
+
+				query1 += "INNER JOIN posts ON users.id = posts.user_id "
+				if !users_ids.empty?
+					query1 += "AND users.id IN (#{users_ids}) "
+				end
+ 
+				query1 += "INNER JOIN topics ON topics.id = posts.topic_id
+							INNER JOIN problems ON problems.id = topics.problem_id "
+				problem_ids.each_with_index do |ids, index|
+					if index != problem_ids.length - 1
+						if index == 0
+							query1 += "AND (problems.id IN (#{ids}) "
+						else
+							query1 += "OR problems.id IN (#{ids}) "
+						end
+					else
+						if index == 0
+							query1 += "AND (problems.id IN (#{ids})) "
+						else
+							query1 += "OR problems.id IN (#{ids})) "
+						end
+					end
+				end
+				query1 += "GROUP BY users.id "
+
+
+				query2 = "SELECT users.id AS id, SUM(comments.cached_votes_score) AS c_score FROM users "
+
+				query2 += "INNER JOIN comments ON users.id = comments.user_id "
+				if !users_ids.empty?
+					query2 += "AND users.id IN (#{users_ids}) "
+				end
+
+				query2 +=	"INNER JOIN posts ON comments.post_id = posts.id
+							INNER JOIN topics ON topics.id = posts.topic_id
+							INNER JOIN problems ON problems.id = topics.problem_id WHERE problems.id "
+
+				problem_ids.each_with_index do |ids, index|
+					if index != problem_ids.length - 1
+						if index == 0
+							query2 += "AND (problems.id IN (#{ids}) "
+						else
+							query2 += "OR problems.id IN (#{ids}) "
+						end
+					else
+						if index == 0
+							query2 += "AND (problems.id IN (#{ids})) "
+						else
+							query2 += "OR problems.id IN (#{ids})) "
+						end
+					end
+				end
+				query2 += "GROUP BY users.id "
+
+				query = "SELECT table1.id AS id, coalesce(table1.p_score + table2.c_score, table1.p_score, table2.c_score) AS score FROM (#{query1}) AS table1 LEFT OUTER JOIN  (#{query2}) AS table2 ON table1.id = table2.id "
+							query += "UNION 
+												SELECT table2.id AS id, coalesce(table1.p_score + table2.c_score, table1.p_score, table2.c_score) AS score FROM (#{query2}) AS table2 LEFT OUTER JOIN (#{query1}) AS table1 ON table1.id = table2.id "
+			end
+		elsif leaderboard == "problems-solved"
+			query = "SELECT COUNT(solved_problems.problem_id) AS score, solved_problems.user_id AS id FROM solved_problems WHERE "
+			problem_ids.each_with_index do |ids, index|
+				if index != problem_ids.length - 1
+					if index == 0
+						query += "(solved_problems.problem_id IN (#{ids}) "
+					else
+						query += "OR solved_problems.problem_id IN (#{ids}) "
+					end
+				else
+					if index == 0
+						query += "(solved_problems.problem_id IN (#{ids})) "
+					else
+						query += "OR solved_problems.problem_id IN (#{ids})) "
+					end
+				end
+			end
+
+			
+			if !users_ids.empty?
+				query += "AND solved_problems.user_id IN (#{users_ids}) "
+			end
+
+			query += "GROUP BY solved_problems.user_id "
+
+		end
+		query += "ORDER BY score DESC"
+
+		
+		ranking = ActiveRecord::Base.connection.execute(query)
+		return ranking
+	end
+
+		
 
 	scope :all_except, -> (user) do 
 		where.not(id: user) && where.not(id: user.friends.select(:id))

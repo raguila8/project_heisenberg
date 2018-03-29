@@ -1,0 +1,13 @@
+$('.user-contact-btns').find('button#follow-btn-<%=@user.id%>').remove();
+
+var html1 = "<button class='btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary unfollow-btn' id= 'following-btn-<%=@user.id%>'>Unfollow</button>";
+
+$('.user-contact-btns').prepend(html1);
+
+var html = "<div class='flash-top alert alert-success'> Following <%=@user.username%>. </div>";
+$('body').append(html);
+$('.flash-top').slideDown(500);
+setTimeout(function(){
+	$('.flash-top').slideUp(500);
+}, 3500);
+

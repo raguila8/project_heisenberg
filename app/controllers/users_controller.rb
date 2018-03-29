@@ -59,6 +59,29 @@ class UsersController < ApplicationController
 		redirect_to find_friends_path
 	end
 
+	def leaderboards
+		@users = User.paginate(page: params[:page], :per_page => 10).order(score: :desc)
+		if logged_in?
+			@my_rank = User.all.order(score: :desc).pluck(:id).index(current_user.id)
+			@my_rank = @my_rank + 1 
+		end
+	end
+
+	def leaderboard_filter
+		branches = params[:branches]
+		leaderboard = params[:leaderboard]
+		users = params[:users]
+		if logged_in?
+			@users = User.filter_ranks(branches, users, leaderboard, current_user)
+		
+			@my_rank = @users.index(@users.detect { |user| user["id"] == current_user.id }) + 1
+			@score = @users[@my_rank - 1]["score"]
+			@users = @users.paginate(page: params[:page], :per_page => 10)
+		else
+			@users = User.filter_ranks(branches, users, leaderboard).paginate(page: params[:page], :per_page => 10)
+		end
+	end
+
   private
 
 		def user_params
@@ -90,7 +113,10 @@ class UsersController < ApplicationController
 		def user_kudos(user)
 			kudos = 0
 			user.posts.each do |post|
-				kudos += post.cached_votes_up
+				kudos += post.cached_votes_score
+			end
+			user.comments.each do |comment|
+				kudos += comment.cached_votes_score
 			end
 			return kudos
 		end

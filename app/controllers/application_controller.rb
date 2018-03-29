@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 	include SessionsHelper
+
+	before_action :get_conversations
+	
+	def get_conversations
+		if logged_in?
+			@conversations = Conversation.where("sender_id = #{current_user.id} OR recipient_id = #{current_user.id}").order(updated_at: :desc)
+		end
+	end
+
+	
 =begin
 	def my_message?(message)
 		current_user.id == message.user_id

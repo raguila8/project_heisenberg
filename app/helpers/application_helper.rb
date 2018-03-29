@@ -59,4 +59,6 @@ module ApplicationHelper
 		html +=	"<span>#{message.body[0...25]}...</span>"
 	end
 
+	
+
 end

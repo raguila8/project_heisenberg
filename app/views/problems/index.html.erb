@@ -1,5 +1,5 @@
 <% provide(:title, 'Dashboard') %>
-<h2> Dashboard </h2>
+<h1 class="text-center font-weight-600"> Dashboard </h1>
 
 <div class="container dashboard-page">
 	<% branch_num = 1 %>
@@ -18,7 +18,7 @@
 					</div>
 					<p class="problems-solved"><span class="percent-solved"><%=perc.round(2)%>%</span> (<%="#{problems_solved}/#{branch_count}" %> problems solved)</p>
 				<% end %>
-				<button type="button" class="btn btn-lg btn-defaulti dash-btn">Browse Problems</button>
+				<button type="button" class="btn btn-lg g-btn-green-primary">Browse Problems</button>
 			</div>
 			<% end %>
 		</div>

@@ -35,5 +35,9 @@ class Conversation < ApplicationRecord
 		end
 	end
 
+	def read?
+		return "not-read" if !self.messages.last.read
+	end
+
 
 end

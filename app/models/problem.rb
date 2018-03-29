@@ -20,7 +20,7 @@ class Problem < ApplicationRecord
 	end
 
 	def self.topic_count(topic_name)
-		count = Problem.select("p.id").joins("as p inner join subtopics as st on p.id = st.problem_id AND st.name = '#{topic_name}'").count
+		count = Problem.select("p.id").joins("as p inner join subtopics as st on p.id = st.problem_id AND st.name = #{ActiveRecord::Base.connection.quote(ActiveRecord::Base.connection.quote_string(topic_name))}").count
 	return count
 	end
 

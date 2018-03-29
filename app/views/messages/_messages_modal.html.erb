@@ -1,0 +1,48 @@
+<div class="modal fade in" id="messages-modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content g-primary-card">
+			<h3 class="stats-title text-center navbar-gradient w-100 g-pa-20 g-mb-0 font-weight-600 g-mt-0">
+			Recently Solved
+		</h3>
+
+			<div class="modal-body">
+	<ul class="g-mb-0 g-pl-0 list-style-none">
+		<% @conversations.each do |conversation| %>
+		<%= link_to conversation_path(conversation.id), id: "conversation-#{conversation.id}"  do %>
+		<li class="profile-li <%=conversation.read?%>">
+			<div class="profile-item-container">
+				<div class="profile-info-container">
+					<span class="profile-thumb-container">
+						<img class="profile-thumb" src="/default_profile_image.png"></img>
+					</span>
+					<div class="profile-information-container">
+						<div class="profile-information-username font-weight-600">
+							<span class="username-link"><%=conversation.other_user(current_user).username%></span>
+						</div>
+						<div class="profile-information-name">
+							<% if conversation.messages.last.user_id == current_user.id %>
+								<p class="preview"><span>You: </span> <%=conversation.messages.last.body%></p>
+							<% else %>
+								<p class="preview"><%=conversation.messages.last.body%></p>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="float-right g-ml-20">
+					<span class="time">
+						<%=conversation.updated_at.strftime("%a, %d %b %Y, %I:%M %p")%>
+					</span>
+				</div>
+			</div>
+		</li>
+		<% end %>
+		<% end %>
+		</ul>
+
+	</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

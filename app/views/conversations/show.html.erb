@@ -1,6 +1,8 @@
+<%= render '/topics/preview' %>
+<%= render '/conversations/new' %>
 <div id="frame" class="primary-bs">
 	<div id="sidepanel">
-		<div id="profile">
+		<div id="profile" class="dark-grey-circle">
 			<div class="wrap">
 				<img id="profile-img" src="/john_doe.jpg" alt="" />
 				<h4 class="g-ml-10 font-weight-600"><%=current_user.username%></h4>
@@ -9,77 +11,63 @@
 		<div id="contacts">
 			<ul>
 				<% @conversations.each do |conversation| %>
-					<li class="contact">
-						<div class="wrap">
-							<img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
-							<div class="meta">
-								<p class="name"><%=conversation.other_user(current_user).username%></p>
-								<p class="preview"><%=conversation.messages.last%></p>
-							</div>
-						</div>
-					</li>
+					<%= link_to conversation_path(conversation.id) do %>
+					<% if @conversation.id == conversation.id %>
+						<li class="contact active">
+					<% else %>
+						<li class="contact <%=conversation.read?%>">
 					<% end %>
-				<li class="contact active">
 					<div class="wrap">
-						<span class="contact-status busy"></span>
-						<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+						<img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
 						<div class="meta">
-							<p class="name">Harvey Specter</p>
-							<p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+							<p class="name"><%=conversation.other_user(current_user).username%></p>
+							<% if conversation.messages.last.user_id == current_user.id %>
+							<p class="preview"><span>You: </span> <%=conversation.messages.last.body%></p>
+							<% else %>
+								<p class="preview"><%=conversation.messages.last.body%></p>
+							<% end %>
 						</div>
 					</div>
 				</li>
+				<% end %>
+				<% end %>
 			</ul>
 		</div>
 		<div id="bottom-bar">
-			<button id="" class="g-btn-primary"><span style= "color: #D8D8D8;"> <img class="inline-icon" title="New Conversation"src="/new_message_icon.png"> <span id="new-msg-btn" class="g-ml-5">New</span></span></button>
+			<button id="" class="dark-grey-circle" data-toggle="modal" data-target="#new-conversation-modal"><span style= "color: #D8D8D8;"> <img class="inline-icon" title="New Conversation"src="/new_message_icon.png"> <span id="new-msg-btn" class="g-ml-5">New</span></span></button>
 		</div>
 	</div>
 	<div class="content">
 		<div class="messages">
 			<ul>
-				<li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-					<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>When you're backed against the wall, break the god damn thing down.</p>
-				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>Excuses don't win championships.</p>
-				</li>
-				<li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-					<p>Oh yeah, did Michael Jordan tell you that?</p>
-				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>No, I told him that.</p>
-				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>What are your choices when someone puts a gun to your head?</p>
-				</li>
-				<li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-					<p>What are you talking about? You do what they say or they shoot you.</p>
-				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-				</li>
+				<% @messages.each do |message| %>
+					<% if message.user_id == current_user.id %>
+						<li class="replies">
+							<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+							<p><%=message.body%></p>
+						</li>
+					<% else %>
+						<li class="sent">
+							<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+							<p><%=message.body%></p>
+						</li>
+					<% end %>
+				<% end %>
 			</ul>
 		</div>
-		<div class="comment-form-container">
-			<%= form_for @message, html: { multipart: true, class: "comments-form" }, :remote => true, :authenticity_token => true do |f| %>
-				<%= f.text_area :body, placeholder: "Add a message...", class: "comment-text-area" %>
-			<% end %>
-		</div>
+		<div class="message-form-container">
+			<%= form_for @message, html: { multipart: true, class: "messages-form" }, :remote => true, :authenticity_token => true do |f| %>
+				<%= f.text_area :body, placeholder: "Add a message...", class: "message-text-area" %>
+				<%= hidden_field_tag :conversation_id, @conversation.id %>
+				<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+				
+	
+		
 		<div class="msg-actions">
-			<button id="">Preview</button>
-			<button id="">Submit</button>
+			<button id="" class="preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</button>
+			<button id="" class="msg-submit">Send</button>
 		</div>
+		</div>
+		<% end %>
 	</div>
 </div>

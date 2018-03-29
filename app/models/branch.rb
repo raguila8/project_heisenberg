@@ -14,7 +14,7 @@ class Branch < ApplicationRecord
 		if !topics.nil?
 			topics.each do |t|
 				topics_ids << "SELECT problem_id FROM subtopics
-										WHERE name = '#{t}'"
+										WHERE name = #{ActiveRecord::Base.connection.quote(ActiveRecord::Base.connection.quote_string(t))}"
 			end
 		end
 		

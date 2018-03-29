@@ -1,26 +1,34 @@
 class SolvedProblemsController < ApplicationController
+	include SolvedProblemsHelper
 	# Runs when user submits an answer
 	def create
 		@problem = Problem.find(params[:id])
 		answer = params[:answer]
+		@correct = false
+		@error = ''
+		@problem.submissions += 1
+		@problem.save
 		# answer validation for when it is empty
 		if answer.empty?
-			flash[:danger] = "You left the answer box empty."
-			redirect_to @problem
+			@error = "You left the answer box empty."
+			#redirect_to @problem
 		# Answer has to be a number. 
 		elsif !is_number?(answer)
-			flash[:danger] = "Invalid input"
-			redirect_to @problem
+			@error = "Invalid input"
+			#redirect_to @problem
 		# wrong answer
-		elsif answer.to_f != @problem.answer.to_f
-			flash[:danger] = "Sorry, but the answer you gave appears to be incorect."
-			redirect_to @problem
+		elsif !within_five_percent?(answer.to_f, @problem.answer.to_f)
+			@error = "Sorry, but the answer you gave appears to be incorect."
+			#redirect_to @problem
 		# Right answer. Create a solved_problems row for current user and problem.
 		# Increments user score.
 		else
+			@correct = true
 			user = current_user
-			user.problems << @problem
+			@solved_problem = SolvedProblem.create(user_id: current_user.id, problem_id: @problem.id)
+			#user.problems << @problem
 			user.score += points_gained(@problem.difficulty)
+			user.solved += 1
 			user.save
 			@problem.solved_by += 1
 			@problem.save
@@ -33,6 +41,7 @@ class SolvedProblemsController < ApplicationController
 		true if Float(str) rescue false
 	end
 
+	
 	# points earned from answering question.
 	def points_gained(difficulty)
 		if difficulty == 1

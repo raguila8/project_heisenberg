@@ -1,0 +1,13 @@
+$('.alert, #error_explanation').remove();
+
+<% if @correct %>
+	$('#solved-problem-modal').modal('show');
+	$('.problem-form').remove();
+	var html = "<div class='problem-solved'><p> Answer: <b><%= @problem.answer %> </b></p><p style='font-size: 90%; color: #999;'> Completed on <%= @solved_problem.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> </p></div>";
+	$('.problem_content').after($(html));
+	
+<% else %>
+	var html = "<div id='error_explanation'><ul style='margin:0;'><li>" + "<%=@error%>" + "</li></ul></div>";
+	$('.problem-form').prepend(html);
+
+<% end %>

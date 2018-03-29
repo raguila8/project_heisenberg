@@ -1,4 +1,4 @@
-<% provide(:title, @branch) %>
+<% provide(:title, @branch.name) %>
 <div class="branch-page" id="branch-<%=@branch.id%>">
 	<div class="problem-filter-card col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<%= form_tag "/problems_filter", method: "get", remote: true, id:"problems-filter-form" do %>
@@ -7,7 +7,7 @@
 				<% @branch.unique_topics.each do |topic| %>
 				<div class="form-check contact100-form-checkbox">
 					<label class="label-checkbox100"><%=topic.name%>
-						<input class="topic-input input-checkbox100" id="<%=topic.name%>"  type="checkbox" name="<%=topic.name%>"> <span class="label-text checkmark"></span>
+						<input class="topic-input input-checkbox100" id="<%=topic.name%>"  type="checkbox" name="<%=topic.name%>" checked> <span class="label-text checkmark"></span>
 					</label>
 				</div>
 		<% end %>
@@ -17,13 +17,13 @@
 			<h5>Status</h5>
 			<div class="form-check contact100-form-checkbox">
 				<label class="label-checkbox100">Solved
-					<input class="status-input input-checkbox100" id="solved"  type="checkbox" name="solved"> <span class="label-text checkmark"></span>
+					<input class="status-input input-checkbox100" id="solved"  type="checkbox" name="solved" checked> <span class="label-text checkmark"></span>
 				</label>
 			</div>
 
 			<div class="form-check contact100-form-checkbox">
 				<label class="label-checkbox100">Unsolved
-					<input class="status-input input-checkbox100" id="unsolved"  type="checkbox" name="unsolved"> <span class="label-text checkmark"></span>
+					<input class="status-input input-checkbox100" id="unsolved"  type="checkbox" name="unsolved" checked> <span class="label-text checkmark"></span>
 				</label>
 			</div>
 
@@ -40,7 +40,7 @@
 						<% (3 - n).times do %>
 							<span class="glyphicon glyphicon-star-empty"></span>
 						<% end %>
-						<input class="difficulty-input input-checkbox100" id="difficulty-<%=n%>"  type="checkbox" name="difficulty-<%=n%>"> <span class="label-text checkmark"></span>
+						<input class="difficulty-input input-checkbox100" id="difficulty-<%=n%>"  type="checkbox" name="difficulty-<%=n%>" checked> <span class="label-text checkmark"></span>
 					</label>
 				</div>
 			<% end %>

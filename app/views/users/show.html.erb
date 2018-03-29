@@ -1,6 +1,9 @@
+<%= render '/topics/preview' %>
+<%= render '/conversations/new' %>
+
 <% provide(:title, "Progress") %>
 
-	<div class="profile-main-div g-mb-40 g-primary-card g-pa-20">
+	<div class="profile-main-div g-mb-40 g-primary-card g-pa-20" id="profile-<%=@user.id%>">
 		<div class="row">
 			<div class="col-lg-3 col-md-3">
 				<!-- User Image -->
@@ -9,12 +12,16 @@
 				</div>
 				<!-- End User Image -->
 				<!-- User Contact Buttons -->
+				<% if current_user != @user %>
 				<div class="user-contact-btns">
-					<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary">Follow</button>
-					<% if @user != current_user %>
-						<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-dark">Message</button>
+					<% if !current_user.following?(@user) %>
+					<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary follow-btn" id="follow-btn-<%=@user.id%>">Follow</button>
+					<% else %>
+					<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary unfollow-btn" id="following-btn-<%=@user.id%>">Unfollow</button>
 					<% end %>
+						<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-dark new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
 				</div>
+				<% end %>
 				<!-- End User Contact Buttons -->
 				
 			</div>
@@ -22,7 +29,7 @@
 			<div class="col-md-10 col-lg-10">
 
 				<!-- User details -->
-				<h2 class="font-weight-600 g-mb-10"><%=@user.username%></h2>
+				<h2 class="font-weight-600 g-mb-10 username"><%=@user.username%></h2>
 				<!-- End User details -->
 				<!-- User position -->
 				<ul class="list-inline g-mb-10 font-weight-200">

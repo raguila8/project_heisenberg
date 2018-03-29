@@ -1,8 +1,4 @@
-<% content_for :mathjax do %>
-	<%= mathjax_tag %>
-<% end %>
-
-
+<%= render 'solved_problems/show' %>
 <% provide(:title, "Problem #{@problem.id}") %>
 
 <div id="problems-nav">
@@ -18,15 +14,37 @@
 </div>
 
 
-<h3>
+<h2 class="text-center font-weight-600">
 	<%= @problem.title %>
-</h3>
+</h2>
+<nav class="problem-navbar text-center" style="padding-bottom: 15px;">
+	<ul class="text-center">
+	<li class="percent-solved">Solved by <span class="problems-solved"><%=@problem.solved_by%></span> users </li>
+		<li class="percent-solved">Success rate: <span class="problems-solved"><%= percentage(@problem.solved_by, @problem.submissions).round(2) %>%</span></li>
+		<li class="percent-solved">Difficulty: 
+			<span class="problems-solved">
+				<% @problem.difficulty.downto(1) do |i| %>
+					<span class="glyphicon glyphicon-star"></span>
+				<% end %>
+				<% (3 - @problem.difficulty).downto(1) do |i| %>
+					<span class="glyphicon glyphicon-star-empty"></span>
+				<% end %>
+			</span>
+		</li>
+		<% if logged_in? %>
+			<li>
+				<%= link_to "/topics/#{Topic.find_by(problem_id: @problem.id, forum_id: 1).id}", title: "Discussion Thread" do %>
+				<img src="/chat.png" style="height: 1.8em; vertical-align: top;"  class="g-mr-5">
+				<span class="font-weight-600">Discussion</span>
+			<% end %>
 
-<h5>
-	Problem <%= @problem.number %> 
-</h5>
+			</li>				
+		<% end %>
+		</ul>
+	</nav>
 
-<div class="problem_content">
+
+<div class="problem_content g-primary-card default-border">
 	<%=@problem.question %>
 </div>
 
@@ -34,17 +52,24 @@
 	<% if solved_problem = SolvedProblem.find_by(user_id: current_user.id, problem_id: @problem.id) %>
 		<div class="problem-solved">
 			<p> Answer: <b><%= @problem.answer %> </b></p>
-			<p style="font-size: 90%; color: #999;"> Completed on <%= solved_problem.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> </p>
+			<p style="font-size: 90%; color: #999;" class="g-mb-50"> Completed on <%= solved_problem.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> </p>
 		</div>
 	<% else %>
 
-		<div style="text-align:center;" class="problem-form">
-			<%= form_tag attempt_path(:id => @problem), :method => 'post' do %>
+	
+			<%= form_tag attempt_path(:id => @problem), :method => 'post', remote: true, class: "g-mt-50 g-mb-50 text-center problem-form w-100" do %>
+				<label class="g-mt-20">Enter your answer</label>
+				<br>
 				<%= text_field_tag :answer, params[:answer] %>
-				<%= submit_tag "Check", :name => nil, class: "btn btn-primary check" %>
+				<br>
+				<%= submit_tag "Check", :name => nil, class: "btn g-btn-primary check g-mt-20" %>
 			<% end %>
-		</div>
+		
 	<% end %>
+<% else %>
+	<div class="text-center g-mt-50">
+		<h4><%=link_to "Log in", login_path, class: "font-weight-600 g-mb-50" %> to answer now!</h4>
+	</div>
 <% end %>
 
 <script>

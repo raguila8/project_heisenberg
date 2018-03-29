@@ -1,0 +1,31 @@
+if ($('.alert').length || $('#error_explanation').length) {
+	$('.alert').remove();
+	$('#error_explanation').remove();
+}
+
+<% if @recipient_exists %>
+	if ($('#frame').length) {
+		window.location = "/conversations/<%=@conversation.id%>";
+	} else {
+		$('.modal-header .close').trigger('click');
+		$('#modal-msg-body').val('');
+		$('#username-search').val('');
+		var html = "<div class='flash-top alert alert-success'> Message sent!</div>";
+		$('body').append(html);
+		$('.flash-top').slideDown(500);
+		setTimeout(function(){
+    	$('.flash-top').slideUp(500);
+  	}, 3500);
+
+		<% if !@new_conversation %>
+			$('#conversation-<%=@conversation.id%>').remove();
+		<% end %>
+
+		$('#messages-modal ul').prepend("<%= escape_javascript render(:partial => '/messages/modal_message_element', locals: { :conversation => @conversation}) %>");	
+
+	}
+<% else %>
+	var error_html = "<div id='error_explanation' class='g-mt-20'><ul><li>" + "User does not exist" + "</li></ul></div>";
+	$(error_html).appendTo($('#new-conversation-modal .messages-form'));
+	
+<% end %>

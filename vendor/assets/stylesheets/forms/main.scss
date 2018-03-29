@@ -35,7 +35,7 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-.custom-form, .comment-form-container, .branch-page {
+.custom-form, .comment-form-container, .branch-page, .leaderboard-page {
 	font-family: Poppins-Regular, sans-serif;
 
 	/*---------------------------------------------*/
@@ -43,7 +43,7 @@
   	font-family: Poppins-Medium;
   	font-size: 14px;
   	line-height: 1.7;
-  	color: #7e57c2;
+  	color: #4691F9;
   	margin: 0px;
   	transition: all 0.4s;
   	-webkit-transition: all 0.4s;
@@ -57,7 +57,7 @@
   
   a:hover {
   	text-decoration: none;
-    color: #5e35b1;
+    opacity: 0.9;
   }
   
   /*---------------------------------------------*/
@@ -69,7 +69,7 @@
   	font-family: Poppins-Regular;
   	font-size: 14px;
   	line-height: 1.7;
-  	color: #666666;
+  	color: #39424e;
   	margin: 0px;
   }
   
@@ -225,7 +225,7 @@
     top: 0;
     left: 0;
     background-color: rgba(54,84,99,0.7);
-		background-image: radial-gradient(circle, #9c6283, #834d74, #6a3a66, #512858, #37174a);
+		background-image: radial-gradient(circle, #0f1638, #17213e, #212c44, #2c3749, #39424e);
 		opacity: 0.6;
   }
   
@@ -258,7 +258,7 @@
   .label-input100 {
     font-family: Poppins-Regular;
     font-size: 15px;
-    color: #34282C;
+    color: #39424e;
     line-height: 1.2;
     text-align: right;
   
@@ -341,7 +341,7 @@
     cursor: pointer;
     font-size: 13px;
 		font-family: Poppins-Regular;
-    color: #34282C;
+    color: #39424e;
 		opacity: 0.8;
     line-height: 1.2;
     -webkit-user-select: none;
@@ -363,7 +363,7 @@
 
 	/* When the checkbox is checked, add a blue background */
 	.label-checkbox100 input:checked ~ .checkmark {
-  	background-color: #37174a;
+  	background-color: #2EC869;
 	}
 
 	/* Create the checkmark/indicator (hidden when not checked) */
@@ -427,7 +427,7 @@
     height: 18px;
     border-radius: 2px;
     background: #fff;
-    border: 1px solid #e6e6e6;
+    border: 1px solid #2EC869;
     left: 0;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -438,7 +438,7 @@
   }
   
   .input-checkbox100:checked + .label-checkbox100::before {
-    color: #57b846;
+    color: #2EC869;
   }*/
   
   /*------------------------------------------------------------------

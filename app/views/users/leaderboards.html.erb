@@ -1,0 +1,107 @@
+<% provide(:title, 'Leaderboard') %>
+
+<div class="leaderboard-page">
+<div class="problem-filter-card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<%= form_tag "/leaderboards_filter", method: "get", remote: true, id:"leaderboards-filter-form" do %>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			<h5>Fields</h5>
+			<% Branch.all.each do |branch| %>
+				<div class="form-check contact100-form-checkbox">
+					<label class="label-checkbox100"><%=branch.name%>
+						<input class="branch-input input-checkbox100" id="branch-<%=branch.id%>"  type="checkbox" name="<%=branch.name%>" checked> <span class="label-text checkmark"></span>
+					</label>
+				</div>
+			<% end %>
+		</div>
+
+		<% if logged_in? %>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+			<h5>Users</h5>
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">All
+					<input class="users-input input-checkbox100" id="all"  type="radio" name="users" checked> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">Friends
+					<input class="users-input input-checkbox100" id="friends"  type="radio" name="users"> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+		</div>
+		<% end %>
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 border-">
+			<h5>Leaderboard</h5>
+
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">Score
+					<input class="leaderboard-input input-checkbox100" id="score"  type="radio" name="leaderboard" checked> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">Problems Solved
+					<input class="leaderboard-input input-checkbox100" id="problems-solved"  type="radio" name="leaderboard"> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+
+			<div class="form-check contact100-form-checkbox">
+				<label class="label-checkbox100">Kudos Score
+					<input class="leaderboard-input input-checkbox100" id="kudos"  type="radio" name="leaderboard"> <span class="label-text checkmark"></span>
+				</label>
+			</div>
+		</div>
+	<% end %>
+	<br>
+	<div style="text-align: center;">
+			<button type="button" class="btn btn-lg btn-defaulti dash-btn" id="leaderboards-filter-submit">Submit</button>
+		</div>
+
+	</div>
+</div>
+
+
+<% if logged_in? && !@my_rank.nil?%>
+<div class="leaderboard-item current-user-rank">
+<div class="g-ph-5 problem-item-card problem-filter-card col-lg-offeset-2 col-md-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 border-green border-3 g-mb-50">
+	<li class="profile-li">
+			<div class="profile-item-container">
+			<div class="float-left g-mr-16">
+					<h4 class="font-weight-600">
+						<%=@my_rank%>
+					</h4>
+				</div>
+
+				<div class="profile-info-container">
+					<a href="<%=user_path(current_user.id)%>"class="profile-thumb-container">
+						<img class="profile-thumb" src="/default_profile_image.png"></img>
+					</a>
+					<div class="profile-information-container">
+						<div class="profile-information-username">
+							<a href="<%=user_path(current_user.id)%>"class="username-link dark-grey-color font-size-16 font-weight-600"><%=current_user.username%></a>
+						</div>
+						<div class="profile-information-name">
+							name
+						</div>
+					</div>
+				</div>
+				<div class="float-right">
+					<h4 class="font-weight-600">
+						<img class="inline-icon-1 g-mr-5" title="User Score"src="/score_icon.png">
+						<%=current_user.score%>
+					</h4>
+				</div>
+			</div>
+		</li>
+</div>
+</div>
+<% end %>
+
+<div class="leaderboard g-mt-40">
+	<% @users.each_with_index do |user, index| %>
+		<%= render partial: '/users/rank_card', locals:  { user: user, rank: (index + 1) + ((@users.current_page - 1) * 10), score: user.score, rank_preview: false } %>
+	<% end %>
+	<div class="text-center">
+		<%= will_paginate %>
+	</div>
+</div>

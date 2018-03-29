@@ -1,0 +1,24 @@
+<div class="modal fade in" style=""id="solved-problem-modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content g-primary-card">
+			<h3 class="stats-title text-center navbar-gradient w-100 g-pa-20 g-mb-0 font-weight-600 g-mt-0">
+			Problem Solved
+		</h3>
+
+			<div class="modal-body">
+				<div class="row">
+				<div class="checkmark-container col-md-4 col-lg-4 text-center">
+					<img src="/problem_solved_icon3.png" alt="checkmark">
+				</div>
+				<div class="col-md-8 col-lg-8 g-mt-40 text-center">
+					<p>Congradulations, the answer you gave to problem <i><%= @problem.title %></i> is correct.</p>
+					<p> You are the <%= @problem.solved_by.ordinalize %> person to have solved this problem. </p>
+				</div>
+			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
