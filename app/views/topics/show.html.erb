@@ -25,9 +25,9 @@
 							<%= f.text_area :content, placeholder: "Add a post...", class: "post-textarea" %>
 
 
-							<div class="post-actions">
-									<span class="btn btn-md general-post-btn g-default-btn-to-right preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
-									<%= f.submit "Post", class: "btn btn-md general-post-btn submit-btn submit-post-btn" %>
+							<div class="post-actions g-mt-20 g-mb-20">
+									<span class="btn g-mr-5 g-rounded-20 g-btn-secondary preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+									<%= f.submit "Post", class: "btn g-rounded-20 g-btn-primary submit-post-btn" %>
 							</div>
 						<% end %>
 						<p style="font-size:90%">
@@ -80,7 +80,9 @@
 																	 :data => { :confirm => "Are you sure?" } %>
 								&nbsp; &nbsp;<%= link_to "Edit", edit_post_path(id: post.id, post_count: post_count), remote: true, class: "edit-post-link" %> &nbsp; &nbsp;
 								<% end %>
+								<!-- Functionality for later 
 								<a href="#">Report</a> &nbsp; &nbsp;
+								-->
 								<%# @post = post %>
 								<!--<%#= link_to like_path(:post => post), method: :put, remote: true do %>
 									<%# if current_user.liked? post %>
@@ -150,9 +152,9 @@
 									<%= f.text_area :content, placeholder: "Add a comment...", class: "comment-text-area", id: "comment-text-area-#{post.id}" %>
 									<%= f.hidden_field :post_id, :value => post.id %>
 									<%= f.hidden_field :user_id, :value => current_user.id %>
-									<div class="comment-actions">
-										<span class="btn btn-md general-post-btn g-default-btn-to-right preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
-      							<%= f.submit "Submit", class: "btn btn-md general-post-btn submit-btn" %>
+									<div class="comment-actions g-mt-20 g-mb-20">
+										<span class="btn g-rounded-20 g-mr-5 g-btn-secondary preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+      							<%= f.submit "Submit", class: "g-rounded-20 btn btn-md submit-btn g-btn-primary" %>
 									</div>
 
 								<% end %>
@@ -163,9 +165,11 @@
 		</div>
 		<% post_count = post_count + 1 %>
 	<% end %>
+	<% if @thread.posts.count > 10 %>
 		<div class="more-posts-container" style="text-align: center;">
-			<span class="btn btn-md general-post-btn  more-posts-btn" id="more-posts-btn-<%=@thread.id%>">Load More Posts</span>
+			<span class="btn g-btn-secondary more-posts-btn" id="more-posts-btn-<%=@thread.id%>">Load More Posts</span>
     </div>
+	<% end %>
 </div>
 
 

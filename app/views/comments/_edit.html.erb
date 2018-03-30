@@ -15,10 +15,10 @@
 						<%= hidden_field_tag 'id', @comment.id %>
 						<%= f.text_area :content, placeholder: "Update comment...", class: "post-textarea" %>
 
-						<div class="post-actions">
-							<%= f.submit "Cancel", class: "btn btn-md general-post-btn submit-btn submit-comment-btn" %>
-							<span class="btn btn-md general-post-btn g-default-btn-to-right preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
-								<%= f.submit "Update", class: "btn btn-md general-post-btn submit-btn submit-comment-btn" %>
+						<div class="post-actions g-mt-20 g-mb-20">
+							<%= f.submit "Cancel", class: "btn g-btn-secondary g-rounded-20 g-mr-5 submit-comment-btn" %>
+							<span class="btn g-rounded-20 g-btn-secondary preview-btn g-mr-5" data-toggle="modal" data-target="#preview-modal">Preview</span>
+								<%= f.submit "Update", class: "btn g-rounded-20 g-btn-primary submit-comment-btn" %>
 						</div>
 					<% end %>
 					<p style="font-size:90%">

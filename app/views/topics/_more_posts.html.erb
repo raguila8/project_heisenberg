@@ -109,10 +109,10 @@
 									<%= f.text_area :content, placeholder: "Add a comment...", class: "comment-text-area", id: "comment-text-area-#{post.id}" %>
 									<%= f.hidden_field :post_id, :value => post.id %>
 									<%= f.hidden_field :user_id, :value => current_user.id %>
-									<div class="comment-actions">
+									<div class="comment-actions g-mt-20 g-mb-20">
 									<div>
-										<span class="btn btn-md general-post-btn preview-btn" data-toggle="modal" data-target="#post-preview-modal" >Preview</span>
-      							<%= f.submit "Submit", class: "btn btn-md general-post-btn submit-btn" %>
+										<span class="btn g-mr-5 g-rounded-20 g-btn-secondary preview-btn" data-toggle="modal" data-target="#post-preview-modal" >Preview</span>
+      							<%= f.submit "Submit", class: "btn g-rounded-20 g-btn-primary submit-btn" %>
     							</div>
 									</div>
 
