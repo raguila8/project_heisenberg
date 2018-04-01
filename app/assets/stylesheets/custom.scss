@@ -160,7 +160,7 @@ button:focus {outline:0 !important; }
 }
 
 .dropdown-menu li:not(:first-child) {
-	border-top: 1px solid black;
+	//border-top: 1px solid black;
 }
 
 .scrollable-menu {
@@ -268,6 +268,12 @@ button:focus {outline:0 !important; }
 	background-image: linear-gradient(to left bottom, #0f1638, #17213e, #212c44, #2c3749, #39424e);
 }
 
+/* Glyphicons */
+
+.glyphicon-comment, .glyphicon-bell, .glyphicon-user {
+	font-size: 1.2;
+}
+
 /************ Padding and Margins *****************/
 
 .g-mt-50 {
@@ -363,6 +369,11 @@ button:focus {outline:0 !important; }
 	margin-bottom: 1.42857rem !important;
 }
 
+.g-mh-20 {
+	margin-left: 1.42857rem !important;
+	margin-right: 1.42857rem !important;
+}
+
 .g-pv-12 {
 	padding-top: 0.85714rem !important;
   padding-bottom: 0.85714rem !important;
@@ -402,7 +413,7 @@ button:focus {outline:0 !important; }
 }
 
 .max-w-300 {
-	max-width: 300px !important;
+	max-width: 300px;
 }
 
 .height-100 {
@@ -759,7 +770,7 @@ h1 {
 	background-color: #e7e7e7 !important;
 	.ui-menu-item-wrapper {
 		background-color: #e7e7e7 !important;
-		color: #37174a !important;
+		color: #39424e !important;
 		border: none;
 	}
 }
@@ -770,6 +781,80 @@ h1 {
 
 .Problems-cat {
 	color: #1BA951;
+}
+
+.dropdown-menu li {
+	border-bottom: solid 1px #efefef;
+	padding: 8px 16px;
+	cursor: pointer;
+	border-color: #CED5D6 !important;
+	&:hover {
+		font-weight: 600;
+		color: #39424e !important;
+		a {
+			opacity: 1;
+			font-weight: 600;
+			background-color: #fff !important;
+		}
+	}
+
+	a {
+		text-align: center;
+		padding: 3px 0;
+		text-transform: uppercase;
+		&:hover {
+			color: #39424e !important;
+			opacity: 1;
+			font-weight: 600;
+		}
+	}
+}
+
+.dropdown-menu .active a {
+	opacity: 1;
+	font-weight: 600;
+	background-color: inherit !important;
+	color: #39424e !important;
+}
+
+@media (max-width: 768px) {
+	.dropdown-menu .active a {
+		opacity: 1;
+		font-weight: 600;
+		background-color: inherit !important;
+		color: #fff !important;
+	}
+	.dropdown-menu li a {
+		color: #D8D8D8 !important;
+		opacity: 0.8;
+	}
+
+	.dropdown-menu li {
+	
+		padding: 8px 16px;
+		cursor: pointer;
+	}
+
+	.dropdown-menu li:hover {
+		a {
+		opacity: 1;
+		font-weight: 600;
+		background-color: inherit !important;
+		color: #fff !important;
+		}
+	}
+
+	.dropdown-menu li a:hover {
+		opacity: 1;
+		font-weight: 600;
+		background-color: inherit !important;
+		color: #fff !important;
+	}
+
+	.navbar-form-container {
+		max-width: 100%;
+	}
+
 }
 
 /* footer */

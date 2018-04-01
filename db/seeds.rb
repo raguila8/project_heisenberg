@@ -28,7 +28,7 @@ subtopics = [subtopic1, subtopic2, subtopic3, subtopic4, subtopic5]
 end
 
 19.times do |n|
-  username  = Faker::Internet.user_name
+  username  = Faker::Internet.user_name(5..18)
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
   user = User.create(username:  username,
