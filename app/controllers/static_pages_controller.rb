@@ -5,4 +5,8 @@ class StaticPagesController < ApplicationController
 	def math_formatting
 		
 	end
+
+	def attributions
+
+	end
 end

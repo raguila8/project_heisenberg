@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get '/signup', to: 'users#new'
-	root 'static_pages#about'
+	get '/about', to: 'static_pages#about', as: :about
+	get '/attributions', to: 'static_pages#attributions', as: :attributions
 	get '/login', to: 'sessions#new'
 	post '/login', to: 'sessions#create'
 	delete '/logout', to: 'sessions#destroy'
@@ -15,7 +16,8 @@ Rails.application.routes.draw do
 	get '/find-friends', to: 'users#find_friends'
 	delete '/unfriend', to: 'friendships#destroy'
 	post '/friend', to: 'friendships#create'
-	get '/archives', to: 'problems#index'
+	get '/dashboard', to: 'problems#index', as: :dashboard
+	root 'problems#index'
 	resources :problems, only: [:show, :create, :edit, :destroy, :update, :new]
 	post '/attempt', to: 'solved_problems#create'
 	resources :topics, only: [:show]

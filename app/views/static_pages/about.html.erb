@@ -1,7 +1,87 @@
 <% provide(:title, "About") %>
-<% if logged_in? %>
-	<%= render 'static_pages/about2' %>
-<% else %>
-	<%= render 'static_pages/about1' %>
-<% end %>
+<h1>About Project Heisenberg</h1>
+<h3 class="font-weight-600">What is Project Heisenberg?</h3>
+<p>
+	Project Heisenberg is a series of challenging physics problems inspired by 
+	<a href="https://projecteuler.net">Project Euler</a>. The project is a 
+	platform for the curious mind to delve into the world of physics and learn 
+	mathematical and physical concepts in a fun and recrational way. The 
+	problems are aimed at students who want to learn beyond their basic 
+	curriculum, anyone seeking to understand the essential nature of the world 
+	and professionals who want to keep their problem solving, physics and 
+	mathematics sharp.
+</p>
+<p>
+	Project Heisenberg allows users to track their progress through achievement 
+	levels based on problems solved and their difficulty level. In addition, 
+	users are able to track their friends' progress and discuss problems with them.
+</p>
+<p>
+	Each problem has its own discussion thread where you will be able to see 
+	how other members have solved the problem, discuss methods, and share 
+	your insights.
+</p>
+<h3 class="font-weight-600">Who are the problems aimed at?</h3>
+<p>
+	The intended audience include students for whom the basic curriculum is not feeding their hunger to learn, adults whose background was not primarily physics but had an interest in physics, and professionals who want to keep their problem solving and physics on the cutting edge.
+</p>
+<h3 class="font-weight-600">What next?</h3>
+<p>
+	In order to track your progress it is necessary to setup an account. If you already have an account then <a href=<%= login_path %>>Login</a>, otherwise please <a href=<%= signup_path %>>Register</a> – it's completely free!
+</p>
+
+<h3 class="font-weight-600">Where to begin</h3>
+<p>
+	The Dashboard contains a list of the main physics branches including 
+	<i>Classical Mechanics</i>, <i>Electromagnetism</i>, <i>Thermodynamics</i>, 
+	<i>Quantum Mechanics</i> and <i>Special Relativity</i>. Once logged in, 
+	you will be able to see how much of each branch you have completed.
+</p>
+<p>
+	For each branch you can browse the list of problems and filter them 
+	based on difficulty, topics for that particular branch and whether or 
+	not you have solved the problem already. You will be able to see how 
+	many people have solved each problem and what the success rate for 
+	solving the problem is. There is also a difficulty rating 
+	system which may also help you decide where to start. The problem 
+	difficulty determines how many points a problem is worth. 
+</p>
+
+<h3 class="font-weight-600">Discusion Thread for Problems</h3>
+<p>
+	Each problem has its own thread where users can see how other users 
+	have solved the problem, discuss methods, and share insights.
+</p>
+
+<h3 class="font-weight-600">Kudos</h3>
+<p>
+	The purpose of Kudos is to let the poster or other members know that you 
+	found a particular post helpful, useful, or well written. You can see how
+	many Kudos each person has in their progress page.
+</p>
+
+<h3 class="font-weight-600">Another way to Discuss and Meet Other Members</h3>
+<p>
+	You can add other users as friends and have private discussions with 
+	them. They can also track their friends' progress by viewing 
+	their progress page or comparing themselves with them through 
+	the leaderboards page. 
+</p>
+
+<h3 class="font-weight-600">Reporting an Error</h3>
+<p>
+	With newly released problems it is possible that a small error may have
+	slipped through the crack. If you want to report an error or think a problem
+	is ambiguous and needs further clarification, you can contact us at
+	projectheisenberg@gmail.com.
+</p>
+
+<h3 class="font-weight-600">New Problems</h3>
+<p>
+	There is an abundance of physics material already out there. Instead of 
+	reinventing the wheel, Project Heisenberg strives to compile a grand 
+	collection of existing physics challenges. New problems are posted every week.
+</p>
+
+
 
