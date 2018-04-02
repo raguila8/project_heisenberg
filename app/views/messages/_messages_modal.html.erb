@@ -10,7 +10,7 @@
 	<ul class="g-mb-0 g-pl-0 list-style-none">
 		<% @conversations.each do |conversation| %>
 		<%= link_to conversation_path(conversation.id), id: "conversation-#{conversation.id}"  do %>
-		<li class="profile-li <%=conversation.read?%>">
+		<li class="profile-li <%=conversation.read?(current_user)%>">
 			<div class="profile-item-container">
 				<div class="profile-info-container">
 					<span class="profile-thumb-container">

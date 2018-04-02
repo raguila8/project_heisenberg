@@ -434,16 +434,12 @@ $(document).on('turbolinks:load', function() {
 		});
 	}
 
-	/* Progress Page */
+	/* Relationships */
 
-	if ($('.profile-main-div').length) {
-		$('.new-msg').on('click', function() {
-			var username = $('.username').text();
-			console.log(username);
-			$('#username-search').val(username);
-		});
-
+	if ($('.relationship-btn').length) {
+		
 		/* Follow User */
+
 		$('body').on('click', '.follow-btn', function(event) {
 			var id = $(this).attr('id');
 			var user_id = parseInt(id.substring(11, id.length));
@@ -462,23 +458,33 @@ $(document).on('turbolinks:load', function() {
 		});
 
 		/************************ Unfollow **************/
-	$('body').on('click', '.unfollow-btn', function(event) {
-		var id = $(this).attr('id');
-		var user_id = parseInt(id.substring(14, id.length));
-		$("#following-btn-" + user_id).remove();
+		$('body').on('click', '.unfollow-btn', function(event) {
+			var id = $(this).attr('id');
+			var user_id = parseInt(id.substring(14, id.length));
+			$("#following-btn-" + user_id).remove();
 		
-		$.ajax({
-			url: '/unfollow',  // submits it to the given url of the form
-			headers: {
-				Accept: "text/javascript; charset=utf-8",					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
-			},
-			type: 'GET',
-			data: {	
-				authenticity_token: AUTH_TOKEN,
-				followed: user_id
-			}
+			$.ajax({
+				url: '/unfollow',  // submits it to the given url of the form
+				headers: {
+					Accept: "text/javascript; charset=utf-8",					"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				type: 'GET',
+				data: {	
+					authenticity_token: AUTH_TOKEN,
+					followed: user_id
+				}
+			});
 		});
-	});
+	}
+
+	/* Progress Page */
+
+	if ($('.profile-main-div').length) {
+
+		$('.new-msg').on('click', function() {
+			var username = $('.username').text();
+			$('#username-search').val(username);
+		});
 
 	/* Load more recently solved problems */
 
@@ -569,4 +575,20 @@ $(document).on('turbolinks:load', function() {
 			$('#main-search').val(ui.item.name);
 		},
 	});	
+
+	/* Mark Notification as read */
+	$('#notifications-modal').on('hidden.bs.modal', function() {
+		$.ajax({
+			url: "/read_notifications",  // submits it to the given url of the form
+			headers: {
+				Accept: "text/javascript; charset=utf-8",
+				"Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			type: 'GET',		
+			data: {
+				authenticity_token: AUTH_TOKEN
+			}
+		});
+	});
+
 });

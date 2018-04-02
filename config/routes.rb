@@ -43,6 +43,10 @@ Rails.application.routes.draw do
 	get '/autocomplete', to: 'users#autocomplete', as: :autocomplete
 	get '/recently_solved_problems', to: 'users#recently_solved_problems', as: :recently_solved_problems
 
+	################################ NOTIFICATIONS #############################
+	get '/read_notifications', to: 'notifications#read_notifications', 
+																						as: :read_notifications
+
 
 	# script tags
 	mathjax 'mathjax'

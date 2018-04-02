@@ -13,13 +13,13 @@
 				<!-- End User Image -->
 				<!-- User Contact Buttons -->
 				<% if current_user != @user %>
-				<div class="user-contact-btns">
+				<div class="user-contact-btns-<%=@user.id%>">
 					<% if !current_user.following?(@user) %>
-					<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary follow-btn" id="follow-btn-<%=@user.id%>">Follow</button>
+					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary relationship-btn follow-btn" id="follow-btn-<%=@user.id%>">Follow</button>
 					<% else %>
-					<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary unfollow-btn" id="following-btn-<%=@user.id%>">Unfollow</button>
+					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary relationship-btn unfollow-btn" id="following-btn-<%=@user.id%>">Unfollow</button>
 					<% end %>
-						<button class="btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-dark new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
+						<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-dark new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
 				</div>
 				<% end %>
 				<!-- End User Contact Buttons -->

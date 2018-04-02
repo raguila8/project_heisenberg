@@ -9,6 +9,7 @@ class User < ApplicationRecord
 	has_many :following, through: :active_relationships, source: :followed
 	has_many :followers, through: :passive_relationships, source: :follower
 
+	has_many :notifications, dependent: :destroy
 	has_many :solved_problems, dependent: :destroy
 	has_many :problems, {:through => :solved_problems, :source => "problem"}
 	has_many :posts, dependent: :destroy
@@ -230,6 +231,26 @@ class User < ApplicationRecord
 		
 		ranking = ActiveRecord::Base.connection.execute(query)
 		return ranking
+	end
+
+	def unread_messages? 
+		conversations = Conversation.where("sender_id = #{self.id} OR recipient_id = #{self.id}")
+
+		conversations.each do |conversation|
+			if conversation.read?(self) == "not-read"
+				return true
+			end
+		end
+		return false
+	end
+
+	def unread_notifications?
+		self.notifications.each do |n|
+			if n.read == false
+				return true
+			end
+		end
+		return false
 	end
 
 		

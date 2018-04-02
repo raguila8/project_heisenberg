@@ -137,6 +137,9 @@ button:focus {outline:0 !important; }
 			margin-right: 15px;
 		}
 	}
+	#notifications-toggle {
+		cursor: pointer;
+	}
 }
 
 .navbar-brand {
@@ -174,17 +177,43 @@ button:focus {outline:0 !important; }
 }
 
 /* make the badge float in the top right corner of the message button */
-.button_badge {
-	background-color: #fa3e3e;
-  border-radius: 3px;
-  color: white;
- 
-  padding: 1px 3px;
-  font-size: 10px;
-  
-  position: absolute;
-  top: 20%;
-  right: 7%;
+.msg-badge {
+	display: inline-block !important;
+	position: absolute;
+  top: 11px;
+  left: 58%;
+  z-index: 2;
+	min-width: 15px;
+	min-height: 15px;
+  display: none;
+  color: #fff;
+  background-image: linear-gradient(#54a3ff, #006eed);
+  background-clip: padding-box;
+  border: 2px solid #0f1638;
+  border-radius: 50%;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 0.8em;
+}
+
+.bell-badge {
+	display: inline-block !important;
+	position: absolute;
+  top: 11px;
+  left: 51%;
+  z-index: 2;
+	min-width: 15px;
+	min-height: 15px;
+  display: none;
+  color: #fff;
+  background-image: linear-gradient(#54a3ff, #006eed);
+  background-clip: padding-box;
+  border: 2px solid #0f1638;
+  border-radius: 50%;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 0.8em;
+
 }
 
 .flash-top {
@@ -802,6 +831,7 @@ h1 {
 		text-align: center;
 		padding: 3px 0;
 		text-transform: uppercase;
+		font-size: 13px;
 		&:hover {
 			color: #39424e !important;
 			opacity: 1;
@@ -2767,4 +2797,82 @@ table {
 		margin-top: 15px;
 		margin-bottom: 15px;
 	}
-}	
+}
+
+/* Notifications modal */
+
+#notifications-modal .modal-dialog{
+	overflow-y : initial !important;
+
+	ul {
+			height: 80vh;
+			overflow-y: auto;
+		
+			li {
+				&:hover {
+					background-color: #ebeeef;
+				}
+			}
+	}
+}
+
+
+#notifications-modal .modal-body ul {
+	max-height: 75%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	list-style-type: none;
+	padding: 0;
+}
+
+.notifications-menu-item {
+	margin: 0;
+	cursor: pointer;
+}
+
+.notifications-item {
+	position: relative;
+	padding: 10px 1em 10px .4em;
+	border-bottom: 1px solid #e5e5e5;
+	list-style-image: none !important;
+}
+
+.notifications-body {
+	padding: 0;
+}
+
+.notifications-username {
+	color: #666666;
+	font-family: Poppins-Bold;
+}
+
+.notifications-text {
+	color: #666666;
+	font-family: Poppins-Regular;
+}
+
+.notifications-body a:hover {
+	color: #666666;
+}
+
+.default-background-color {
+	background-color: #ebeeef;
+}
+
+.ac-item-container {
+	display: inline-block;
+	width: 100%;
+}
+
+.small-thumb {
+	border-radius: 50%;
+	/*position: inherit !important;*/
+	padding: 0 !important;
+  display: block;
+}
+
+.small-thumb-container, .item-info {
+	display: inline-block;
+	vertical-align: middle;
+}
+

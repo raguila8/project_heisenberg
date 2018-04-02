@@ -1,0 +1,82 @@
+<div class="modal fade in" id="notifications-modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"> Notifications </h4>
+			</div>
+			<div class="modal-body notifications-body">
+				<% if current_user.notifications.count == 0 %>
+					<div class="no-notifications-container">
+						<p>You have no notifications.</p>
+					</div>
+				<% else %>
+				<ul>
+					<% current_user.notifications.order(created_at: :desc).each do |notification| %>
+						<% if notification.notification_type == "comment" %>
+								<% if !notification.read %>
+									<li class="notifications-item default-background-color">
+								<% else %>
+									<li class="notifications-item">
+								<% end %>
+									<div class="ac-item-container">
+										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
+										<div class="small-thumb-container">
+											<%# if notification.notified_by.profile_image.thumb.url %>
+												<!--<img class="small-thumb" style="width: 30px; height: 30px;"src="<%#=notification.notified_by.profile_image.profile_post2.url%>">-->
+											<%# else %>
+												<img class="small-thumb" style="width: 30px; height: 30px;"src="/default_profile_image.png">
+											<%# end %>
+										</div>&nbsp;&nbsp;
+										</a>
+										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
+
+										<span class="notifications-username"><%=notification.notified_by.username%></span></a>&nbsp; <span class="notifcations-text"> commented in your discussion on <a href="<%=topic_path(notification.post.topic.id)%>" class="notifications-menu-item"><span class="notifications-username"><%=notification.post.topic.problem.title%></span></a></span>
+											<a href="<%=post_path(notification.post.id)%>" class="notifications-menu-item">
+
+												<!--<img style="width: 30px; height: 30px; float: right;"src=<%#=notification.post.image.profile_post2.url%>>-->
+											</a>
+									</div>
+								</li>
+							<% elsif notification.notification_type == "follower" %>
+								<% if !notification.read %>
+									<li class="notifications-item default-background-color">
+								<% else %>
+									<li class="notifications-item">
+								<% end %>
+
+									<div class="ac-item-container">
+										<div style="display: inline-block;">
+										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
+
+										<div class="small-thumb-container">
+											<%# if notification.notified_by.profile_image.profile_post2.url %>
+												<!--<img class="small-thumb" style="width: 30px; height: 30px;"src="<%#=notification.notified_by.profile_image.profile_post2.url%>">-->
+											<%# else %>
+												<img class="small-thumb" style="width: 30px; height: 30px;"src="/default_profile_image.png">
+											<%# end %>
+										</div>&nbsp;&nbsp;
+									</a>
+										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
+										<span class="notifications-username"><%=notification.notified_by.username%></span></a>&nbsp; <span class="notifcations-text"> started following you</span>
+										</div>
+									
+											<div class="card-actions card-actions-<%=notification.notified_by.id%>" style="margin: 0; float: right;">
+										<% if current_user.following?(notification.notified_by) %>
+											<button style="margin: 0;"class="btn g-rounded-20 g-btn-primary relationship-btn unfollow-btn following-btn-<%=notification.notified_by.id%>" id= "following-btn-<%=notification.notified_by.id%>">Unfollow</button>
+										<% else %>
+											<button style="margin: 0;" class="btn g-rounded-20 g-btn-primary relationship-btn follow-btn follow-btn-<%=notification.notified_by.id%>" id= "follow-btn-<%=notification.notified_by.id%>">Follow</button>
+										<% end %>
+									</div>
+
+									</div>
+								</li>
+
+						<% end %>
+					<% end %>
+				</ul>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

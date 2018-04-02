@@ -5,19 +5,19 @@ class CommentsController < ApplicationController
 		respond_to do |format|
 			if @comment.save
 				@saved = true
+				if current_user != @comment.post.user
+					@notification = Notification.new
+					@notification.notified_by_id = current_user.id
+					@notification.user_id = @comment.post.user_id
+					@notification.post_id = @comment.post.id
+					@notification.notification_type = "comment"
+					@notification.save
+				end
+
 			else
 				@saved = false
 			end
-=begin
-					if current_profile != @comment.post.profile
-						@notification = Notification.new
-						@notification.notified_by_id = current_profile.id
-						@notification.profile_id = @comment.post.profile_id
-						@notification.post_id = @comment.post.id
-						@notification.notification_type = "comment"
-						@notification.save
-					end
-=end
+	
 			format.js {}
 		end
 

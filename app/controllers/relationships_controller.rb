@@ -3,13 +3,12 @@ class RelationshipsController < ApplicationController
 		followed = params[:followed]
 		@user = User.find(followed)
 		current_user.following << @user
-=begin
 		@notification = Notification.new
-		@notification.notified_by_id = current_profile.id
-		@notification.profile_id = @profile.id
+		@notification.notified_by_id = current_user.id
+		@notification.user_id = @user.id
 		@notification.notification_type = "follower"
 		@notification.save
-=end
+
 		respond_to do |format|
 			format.js {}
 		end
@@ -19,14 +18,14 @@ class RelationshipsController < ApplicationController
 		followed = params[:followed]
 		@user = User.find(followed)
 		current_user.unfollow(@user)
-=begin
-		@notification = Notification.find_by(:notified_by_id => current_profile.id,
-																				:profile_id => @profile.id,
+
+		@notification = Notification.find_by(:notified_by_id => current_user.id,
+																				:user_id => @user.id,
 																				:notification_type => "follower")
 		if @notification
 			@notification.destroy
 		end
-=end
+
 		respond_to do |format|
 			format.js {}
 		end

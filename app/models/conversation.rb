@@ -29,14 +29,17 @@ class Conversation < ApplicationRecord
 
 	def other_user(user)
 		if self.sender_id == user.id
-			return User.find(self.reipient_id)
+			return User.find(self.recipient_id)
 		else
 			return User.find(sender_id)
 		end
 	end
 
-	def read?
-		return "not-read" if !self.messages.last.read
+	def read?(user)
+		msg = self.messages.order(created_at: :asc).last
+		if msg.user_id != user.id && !msg.read
+			return "not-read"
+		end
 	end
 
 

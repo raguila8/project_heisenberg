@@ -1,8 +1,32 @@
-$('.user-contact-btns').find('button#follow-btn-<%=@user.id%>').remove();
+if ($('.card-actions-<%=@user.id%>').length) {
 
-var html1 = "<button class='btn btn-block g-mb-10 g-rounded-50 g-pv-12 g-btn-primary unfollow-btn' id= 'following-btn-<%=@user.id%>'>Unfollow</button>";
+	var html1 = "<button class='btn g-rounded-20 g-btn-primary unfollow-btn' id= 'following-btn-<%=@user.id%>'>Unfollow</button>";
+
+
+	
+	$('.card-actions-<%=@user.id%>').find('button#follow-btn-<%=@user.id%>').remove();
+
+	$('.card-actions-<%=@user.id%>').prepend(html1);
+}
+
+if ($('.user-contact-btns-<%=@user.id%>').length) {
+	$('.user-contact-btns-<%=@user.id%>').find('button#follow-btn-<%=@user.id%>').remove();
+
+	var html1 = "<button class='btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary unfollow-btn' id= 'following-btn-<%=@user.id%>'>Unfollow</button>";
+
+	$('.user-contact-btns-<%=@user.id%>').prepend(html1);
+
+}
+
+
+
+/*
+$('.user-contact-btns').find('button#follow-btn-<%#=@user.id%>').remove();
+
+var html1 = "<button class='btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary unfollow-btn' id= 'following-btn-<%#=@user.id%>'>Unfollow</button>";
 
 $('.user-contact-btns').prepend(html1);
+*/
 
 var html = "<div class='flash-top alert alert-success'> Following <%=@user.username%>. </div>";
 $('body').append(html);
