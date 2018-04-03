@@ -1887,6 +1887,43 @@ img {
 	right: 20px;
 }
 
+.edit-image {
+	font-size: 20px;
+	position: absolute;
+	left: calc(50% - 10px);
+	top: calc(50% - 38px);
+	cursor: pointer;
+	color: #fff;
+	display: none;
+}
+
+.filter-on-hover {
+
+}
+
+.filter-on-hover:hover {
+	background-color: rgba(0,0,0,.5);
+	
+	transition: all .3s ease;
+	text-decoration: none;
+}
+
+.camera-toggle:hover {
+	img {
+		background-color: rgba(0,0,0,.5);
+		transition: all .3s ease;
+		text-decoration: none;
+	}
+	.edit-image {
+		display: block;
+	}
+}
+
+input[type=file] {
+	display: none;
+}
+
+
 	/* Recently solved problems list */
 
 .profile-li div {
@@ -2645,7 +2682,11 @@ table {
 .msg-actions {
 	width: 100%;
 	height: 36px;
-	button {
+	text-align: center;
+	span {
+		display: inline-block;
+		text-align: center;
+		line-height: 36px;
 		height: 100%;
 		width: 50%;
 		margin: 0;
@@ -2661,7 +2702,7 @@ table {
 	}
 }
 
-.msg-actions button:nth-child(2) {
+.msg-actions span:nth-child(2) {
 	background-image: radial-gradient(circle, #39424e, #2c3749, #212c44, #17213e, #0f1638);
 	color: #fff;
 	float: right;

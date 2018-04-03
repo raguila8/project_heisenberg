@@ -109,10 +109,29 @@ class UsersController < ApplicationController
 				}
 			end
 		end
+	end
+
+	def update_profile_image
+		if current_user.update_attributes(profile_image_update_params)
+			# Handle a successful update
+			flash[:success] = "Profile image updated"
+		else
+			#redirect_to edit_profile_path(@profile.id)
+			flash[:error] = "profile image did not update"
+		end
+
+		if params[:path] == 'show'
+			redirect_to current_user
+		end
 
 	end
 
   private
+
+		def profile_image_update_params
+			params.require(:user).permit(:profile_image)
+		end
+
 
 		def user_params
 			params.require(:user).permit(:username, :email, :password, 

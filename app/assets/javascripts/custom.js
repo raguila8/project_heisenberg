@@ -354,13 +354,6 @@ $(document).on('turbolinks:load', function() {
 							conversation_id: $($form).find('input[name="conversation_id"]:first').val()
 						},
 						authenticity_token: AUTH_TOKEN
-					},
-					success: function(data) {
-						$('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
-						$('.messages-form textarea').val(null);
-						$('.contact.active .preview').html('<span>You: </span>' + message);
-						$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-						MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 					}
 				});
 			}
@@ -485,6 +478,14 @@ $(document).on('turbolinks:load', function() {
 			var username = $('.username').text();
 			$('#username-search').val(username);
 		});
+
+		if ($(".profile-img-edit").length) {
+			$('.profile-img-file').on('change', function() {
+				$('.profile-img-edit').submit();
+			});
+
+		}
+
 
 	/* Load more recently solved problems */
 

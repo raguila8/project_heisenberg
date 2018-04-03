@@ -30,7 +30,9 @@
 				&nbsp; &nbsp;<%= link_to "Edit", edit_comment_path(comment.id), 
 													remote: true, class: "edit-comment-link" %> &nbsp; &nbsp;
 			<% end %>
+			<!--
 			<a href="#">Report</a> &nbsp; &nbsp;
+			-->
 		</div>
 
 		<a href="<%=user_path(comment.user.id)%>"><span style="clear:both; margin-top: 25px; padding-right: 6px;", class="bold-text"> <%=comment.user.username%></span></a>

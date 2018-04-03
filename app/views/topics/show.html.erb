@@ -10,11 +10,15 @@
 			<div class="thumbnail">
 				<div class="modal-header">
 					<a href=<%=user_path(current_user.id)%>>
-						<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+						<% if current_user.profile_image? %>
+							<%= image_tag current_user.profile_image.thumb.url, style: "width: 30px; height: 30px;", class:"round-thumb" %>
+						<% else %>
+							<%= image_tag '/einstein.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+						<% end %>
 						<span class="username-feed"><%=current_user.username%></span>
 					</a>
 				</div>
-				<div	class="forum_message">
+				<div	class="forum_message g-pa-20">
 					<div style="text-align:center;">
 	
 					<%= render 'shared/error_messages' %>
@@ -47,7 +51,12 @@
 				<div class="thumbnail">
 						<div class="modal-header">
 							<a href=<%=user_path(post.user)%>>
-								<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<% if post.user.profile_image? %>
+									<%= image_tag post.user.profile_image.thumb.url, style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<% else %>
+									<%= image_tag '/einstein.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<% end %>
+
 								<%# end %>
 								<span class="username-feed"><%=post.user.username%></span>
 								<%# if current_profile == post.profile %>
@@ -106,7 +115,7 @@
 -->
 						</div>
 						<%# image_tag post.image.profile_post1.url, class: "img-responsive feed-img"%>
-						<div	class="forum_message">
+						<div	class="forum_message g-pa-20">
 							<p> <%= post.content %> </p>
 						</div>
 

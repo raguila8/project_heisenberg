@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402152141) do
+ActiveRecord::Schema.define(version: 20180402200041) do
 
   create_table "branches", force: :cascade do |t|
     t.string "name"
@@ -84,10 +84,12 @@ ActiveRecord::Schema.define(version: 20180402152141) do
     t.integer "user_id"
     t.integer "notified_by_id"
     t.integer "post_id"
+    t.integer "comment_id"
     t.string "notification_type"
     t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_notifications_on_comment_id"
     t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
     t.index ["post_id"], name: "index_notifications_on_post_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
@@ -182,6 +184,7 @@ ActiveRecord::Schema.define(version: 20180402152141) do
     t.integer "solved", default: 0
     t.integer "score", default: 0
     t.string "country", default: ""
+    t.string "profile_image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

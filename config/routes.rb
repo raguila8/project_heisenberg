@@ -47,6 +47,9 @@ Rails.application.routes.draw do
 	get '/read_notifications', to: 'notifications#read_notifications', 
 																						as: :read_notifications
 
+	patch '/update_profile_img', to: 'users#update_profile_image', as: :update_profile_image
+
+
 
 	# script tags
 	mathjax 'mathjax'

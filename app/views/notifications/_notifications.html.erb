@@ -22,11 +22,11 @@
 									<div class="ac-item-container">
 										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
 										<div class="small-thumb-container">
-											<%# if notification.notified_by.profile_image.thumb.url %>
-												<!--<img class="small-thumb" style="width: 30px; height: 30px;"src="<%#=notification.notified_by.profile_image.profile_post2.url%>">-->
-											<%# else %>
-												<img class="small-thumb" style="width: 30px; height: 30px;"src="/default_profile_image.png">
-											<%# end %>
+											<% if notification.notified_by.profile_image? %>
+												<img class="small-thumb" style="width: 30px; height: 30px;" src="<%=notification.notified_by.profile_image.thumb.url%>">
+											<% else %>
+												<img class="small-thumb" style="width: 30px; height: 30px;"src="/einstein.png">
+											<% end %>
 										</div>&nbsp;&nbsp;
 										</a>
 										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
@@ -50,11 +50,11 @@
 										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">
 
 										<div class="small-thumb-container">
-											<%# if notification.notified_by.profile_image.profile_post2.url %>
-												<!--<img class="small-thumb" style="width: 30px; height: 30px;"src="<%#=notification.notified_by.profile_image.profile_post2.url%>">-->
-											<%# else %>
-												<img class="small-thumb" style="width: 30px; height: 30px;"src="/default_profile_image.png">
-											<%# end %>
+											<% if notification.notified_by.profile_image? %>
+												<img class="small-thumb" style="width: 30px; height: 30px;" src="<%=notification.notified_by.profile_image.thumb.url%>">
+											<% else %>
+												<img class="small-thumb" style="width: 30px; height: 30px;" src="/einstein.png">
+											<% end %>
 										</div>&nbsp;&nbsp;
 									</a>
 										<a href="<%=user_path(notification.notified_by)%>" class="notifications-menu-item">

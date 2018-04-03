@@ -14,7 +14,12 @@
 			<div class="profile-item-container">
 				<div class="profile-info-container">
 					<span class="profile-thumb-container">
-						<img class="profile-thumb" src="/default_profile_image.png"></img>
+						<% if conversation.other_user(current_user).profile_image? %>
+							<img class="profile-thumb" src="<%= conversation.other_user(current_user).profile_image.thumb.url %>"></img>
+						<% else %>
+							<img class="profile-thumb" src="/einstein.png"></img>
+						<% end %>
+
 					</span>
 					<div class="profile-information-container">
 						<div class="profile-information-username font-weight-600">

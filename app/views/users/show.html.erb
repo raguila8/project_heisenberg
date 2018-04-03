@@ -7,8 +7,28 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-3">
 				<!-- User Image -->
-				<div class="profile-img-container g-mb-40">
-					<img class="profile-img img-responsive w-100" src="/john_doe.jpg">
+				<div class="profile-img-container <%= "camera-toggle" if current_user == @user %>  g-mb-40">
+					<% if current_user == @user %>
+						<%= form_for @user, :url => update_profile_image_path(:path => 'show'), html: { multipart: true, class: "profile-img-edit" } do |f| %>
+							<label style="cursor: pointer;">
+					<% if @user.profile_image? %>
+						<img class="filter-on-hover profile-img img-responsive w-100" src="<%=@user.profile_image.url%>">
+					<% else %>
+						<img class="filter-on-hover profile-img img-responsive w-100" src="/einstein.png">
+					<% end %>
+						<span class="edit-image glyphicon glyphicon-camera"></span>
+							<%=f.file_field :profile_image, class: "profile-img-file", accept: 'image/jpeg,image/jpg,image/gif,image/png' %>
+							</label>
+					<% end %>
+
+					<% else %>
+						<% if @user.profile_image? %>
+							<img class="profile-img img-responsive w-100" src="<%=@user.profile_image.url%>">
+						<% else %>
+							<img class="profile-img img-responsive w-100" src="/einstein.png">
+						<% end %>
+
+					<% end %>
 				</div>
 				<!-- End User Image -->
 				<!-- User Contact Buttons -->

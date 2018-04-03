@@ -3,11 +3,11 @@
 				<div class="thumbnail">
 						<div class="modal-header">
 							<a href=<%=user_path(post.user)%>>
-								<%# if !post.profile.profile_image %>
-									<%#= image_tag post.profile.profile_image.profile_post2.url %>
-								<%# else %>
-									<%= image_tag '/default_profile_image.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
-								<%# end %>
+								<% if post.user.profile_image? %>
+									<%= image_tag post.user.profile_image.thumb.url, style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<% else %>
+									<%= image_tag '/einstein.png', style: "width: 30px; height: 30px;", class:"round-thumb" %>
+								<% end %>
 								<span class="username-feed"><%=post.user.username%></span>
 								<%# if current_profile == post.profile %>
 								<%# end %>
@@ -63,7 +63,7 @@
 -->
 						</div>
 						<%# image_tag post.image.profile_post1.url, class: "img-responsive feed-img"%>
-						<div	class="forum_message">
+						<div	class="forum_message g-pa-20">
 							<p> <%= post.content %> </p>
 						</div>
 

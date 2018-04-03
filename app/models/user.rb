@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 	acts_as_voter
+	mount_uploader :profile_image, ProfileImageUploader
 	has_many :active_relationships, class_name: "Relationship",
 																	foreign_key: "follower_id",
 																	dependent: :destroy
@@ -26,6 +27,7 @@ class User < ApplicationRecord
 										uniqueness: { case_sensitive: false }
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+	validate :profile_image_size
 
 
 	# Follows a user
@@ -253,6 +255,14 @@ class User < ApplicationRecord
 		return false
 	end
 
+	private
+	
+		# Validates the size of an uploaded image
+		def profile_image_size
+			if self.profile_image.size > 5.megabytes
+				errors.add(:profile_image, "should be less than 5MB")
+			end
+		end
 		
 
 	scope :all_except, -> (user) do 
