@@ -33,7 +33,9 @@
 								<input class="input-checkbox100" id="ckb1" type="checkbox" name="user[remember_me]">
 								<span class="checkmark"></span>
 							</label>
-    				</div>
+						 </div>
+						<span class="float-right" id="signup-login-span"><%= link_to "Forgot Password?", new_user_password_path, id: "forgot-password" %></span>
+
 					<%# end -%>
 					<%# if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
 
@@ -41,10 +43,10 @@
 							<%# link_to "Forgot your password?", new_password_path(resource_name), class: "txt1" %>
 						</div>
 					<%# end -%>
-					</div>	
+					</div>
 
   			<div class="actions container-login100-form-btn">
-    			<%= f.submit "Log in", class: "btn-lg g-mb-10 g-rounded-50 g-btn-primary" %>
+    			<%= f.submit "Log in", class: "btn-lg g-mb-10 font-size-16 font-weight-400 g-rounded-20 g-btn-primary" %>
   			</div>
 				<div id="signup-login-div">
 					<span id="signup-login-span">New user? <%= link_to "Sign up now!", signup_path, id: "signup-login-link" %></span>

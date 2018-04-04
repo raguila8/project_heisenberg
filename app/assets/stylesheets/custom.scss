@@ -721,6 +721,11 @@ input, textarea, select, .uneditable-input {
 	width: 15%;
 }
 
+@media (max-width: 768px) {
+	#forgot-password {
+		font-size: 12px;
+	}
+}
 
 input {
   /*height: auto !important;*/

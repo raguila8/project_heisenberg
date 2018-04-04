@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:sessions, :registrations]
 	devise_scope :user do
-		get '/sign_in', to: 'devise/sessions#new', as: :login
+		get '/sign_in', to: 'devise/sessions#new', as: :new_user_session
 		post '/sign_in', to: 'devise/sessions#create', as: :user_session
   	delete '/sign_out', to: 'devise/sessions#destroy', as: :logout
 		get 'cancel_registration', to: 'registrations#cancel', as: :cancel_user_registration

@@ -361,7 +361,7 @@
 	.label-checkbox100 {
 		display: block;
     position: relative;
-		padding-left: 30px;
+		padding-left: 20px;
 		margin-bottom: 12px;
     cursor: pointer;
     font-size: 13px;
@@ -373,6 +373,12 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+	}
+	
+	@media (max-width: 480px) {
+		.label-checkbox100 {
+			font-size: 12px;
+		}
 	}
 
 	.checkmark {
@@ -513,7 +519,7 @@
   /*------------------------------------------------------------------
   [ Responsive ]*/
   
-  @media (max-width: 576px) {
+  @media (max-width: 600px) {
     .login100-form {
       padding: 43px 15px 57px 117px;
     }
