@@ -92,6 +92,7 @@ Rails.application.configure do
 	# Force all access to the app over SSL, use Strict-Transport-Security,
   # and use secure cookies.
   config.force_ssl = true
+	Rails.application.routes.default_url_options[:host] = 'mighty-wave-85570.herokuapp.com'
 
 	config.action_mailer.default_url_options = { :host => 'mighty-wave-85570.herokuapp.com' }
 	ActionMailer::Base.smtp_settings = {

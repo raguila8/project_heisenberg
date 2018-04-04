@@ -52,6 +52,9 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 	config.time_zone = "Pacific Time (US & Canada)"
+	Rails.application.routes.default_url_options[:host] = 'mighty-wave-85570.herokuapp.com'
+
+
 	config.action_mailer.default_url_options = { host: '127.0.0.1', port: 3000 
 	}
 	config.action_mailer.perform_deliveries = true
