@@ -45,9 +45,9 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		if @user.update_attributes(user_update_params)
+		if @user.update_attributes(user_settings_params)
 			# Handle a successful update
-			flash[:success] = "Profile update"
+			flash[:success] = "Profile updated"
 			redirect_to @user
 		else
 			render 'edit'
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
 	def leaderboards
 		@users = User.paginate(page: params[:page], :per_page => 10).order(score: :desc)
-		if logged_in?
+		if signed_in?
 			@my_rank = User.all.order(score: :desc).pluck(:id).index(current_user.id)
 			@my_rank = @my_rank + 1 
 		end
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
 		branches = params[:branches]
 		leaderboard = params[:leaderboard]
 		users = params[:users]
-		if logged_in?
+		if signed_in?
 			@users = User.filter_ranks(branches, users, leaderboard, current_user)
 		
 			@my_rank = @users.index(@users.detect { |user| user["id"] == current_user.id }) + 1
@@ -123,7 +123,21 @@ class UsersController < ApplicationController
 		if params[:path] == 'show'
 			redirect_to current_user
 		end
+	end
 
+	def edit_profile
+		@user = User.find(params[:id])
+	end
+
+	def update_profile
+		@user = User.find(params[:id])
+		if @user.update_attributes(user_profile_params)
+			# Handle a successful update
+			flash[:success] = "Profile updated"
+			redirect_to @user
+		else
+			render 'edit_profile'
+		end
 	end
 
   private
@@ -138,10 +152,14 @@ class UsersController < ApplicationController
 																		:password_confirmation)
 		end
 
-		def user_update_params
-			params.require(:user).permit(:username, :email, :password, 
-																		:password_confirmation, :country)
+		def user_settings_params
+			params.require(:user).permit(:username, :email)
 		end
+
+		def user_profile_params
+			params.require(:user).permit(:name, :occupation, :school, :bio, :country)
+		end
+
 
 		# Before filters
 

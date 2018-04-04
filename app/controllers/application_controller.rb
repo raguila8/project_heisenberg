@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	before_action :get_conversations
 	
 	def get_conversations
-		if logged_in?
+		if signed_in?
 			@conversations = Conversation.where("sender_id = #{current_user.id} OR recipient_id = #{current_user.id}").order(updated_at: :desc)
 		end
 	end

@@ -69,6 +69,16 @@ module ApplicationHelper
 		html +=	"<span>#{message.body[0...25]}...</span>"
 	end
 
-	
+	def set_edit_settings_class
+		((controller_name == "users") && (action_name == "edit" || action_name == "update")) ? "active-effect-4" : "non-active-effect-4" 
 
+	end
+
+	def set_edit_password_class
+		((devise_controller?) && (action_name == "update" || action_name == "edit")) ? "active-effect-4" : "non-active-effect-4" 
+	end
+
+	def set_edit_profile_class
+		((controller_name == "users") && (action_name == "edit_profile" || action_name == "update_profile")) ? "active-effect-4" : "non-active-effect-4" 
+	end
 end

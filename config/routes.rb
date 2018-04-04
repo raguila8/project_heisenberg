@@ -1,15 +1,29 @@
 Rails.application.routes.draw do
+  devise_for :users, skip: [:sessions, :registrations]
+	devise_scope :user do
+		get '/sign_in', to: 'devise/sessions#new', as: :login
+		post '/sign_in', to: 'devise/sessions#create', as: :user_session
+  	delete '/sign_out', to: 'devise/sessions#destroy', as: :logout
+		get 'cancel_registration', to: 'registrations#cancel', as: :cancel_user_registration
+		get 'sign_up', to: 'registrations#new', as: :signup
+		get 'change_password/:id', to: 'registrations#edit', as: :edit_user_registration
+		patch '/change_password/:id', to: 'registrations#update', as: :update_edit_user_registration
+		put '/user_registration', to: 'registrations#update'
+		delete '/user_registration', to: 'registrations#destroy'
+		post '/user_registration', to: 'registrations#create'
+	end
+
   get 'upvotes/new'
 
   get 'sessions/new'
 
-  get '/signup', to: 'users#new'
+  #get '/signup', to: 'users#new'
 	get '/about', to: 'static_pages#about', as: :about
 	get '/attributions', to: 'static_pages#attributions', as: :attributions
-	get '/login', to: 'sessions#new'
-	post '/login', to: 'sessions#create'
-	delete '/logout', to: 'sessions#destroy'
-  resources :users, except: [:index]
+	#get '/login', to: 'sessions#new'
+	#post '/login', to: 'sessions#create'
+	#delete '/logout', to: 'sessions#destroy'
+  resources :users, only: [:show, :edit, :update]
 	get '/leaderboards', to: 'users#leaderboards', as: :leaderboards
 	get '/leaderboard_filter', to: 'users#leaderboard_filter', as: :leaderboard_filter
 	get '/friends', to: 'users#index'
@@ -49,7 +63,8 @@ Rails.application.routes.draw do
 
 	patch '/update_profile_img', to: 'users#update_profile_image', as: :update_profile_image
 
-
+	get '/edit_profile/:id', to: 'users#edit_profile', as: :edit_profile
+	patch '/edit_profile/:id', to: 'users#update_profile', as: :update_profile
 
 	# script tags
 	mathjax 'mathjax'

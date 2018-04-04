@@ -13,6 +13,7 @@ gem 'bcrypt'
 gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'devise'
 
 # Javascript display engine for mathematics
 gem 'mathjax-rails'

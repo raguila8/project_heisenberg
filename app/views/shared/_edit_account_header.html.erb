@@ -1,0 +1,11 @@
+<div class="login100-form-title settings-nav" style="background-image: url(/form-bg1.jpg);">
+	<span class="login100-form-title-1" style="font-size: 15px">
+		<nav class="cl-effect-4">
+			<a class=<%= set_edit_profile_class %> href= "<%=edit_profile_path(current_user.id)%>">Edit Profile</a>
+			<a class= <%= set_edit_password_class %> href=<%= edit_user_registration_path(current_user.id) %>>Change Password</a>
+			<a class=<%=set_edit_settings_class%> href=<%=edit_user_path(current_user)%>>Settings</a>
+			<!--<a class=<%#= set_add_profile_class %> href=<%#= new_profile_path %>>Add Profile</a>-->
+		</nav>
+	</span>
+</div>
+

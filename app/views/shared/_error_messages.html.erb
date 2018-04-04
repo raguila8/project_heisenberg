@@ -10,7 +10,19 @@
 <% if model.errors.any? %>
   <div id="error_explanation">
    <ul>
-    <li><% model.errors.full_messages.first %></li>
+    <li><%= model.errors.full_messages.first %></li>
     </ul>
+  </div>
+<% elsif flash[:error] %>
+	<div id="error_explanation">
+  	<ul>
+    	<li><%= flash[:error] %></li>
+   	</ul>
+  </div>
+<% elsif flash[:alert] %>
+	<div id="error_explanation">
+  	<ul>
+    	<li><%= flash[:alert] %></li>
+   	</ul>
   </div>
 <% end %>

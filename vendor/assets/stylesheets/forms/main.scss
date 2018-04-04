@@ -81,6 +81,10 @@
   	outline: none;
   	border: none;
   }
+
+	select {
+		outline: none;
+	}
   
   input[type="number"] {
       -moz-appearance: textfield;
@@ -95,12 +99,33 @@
   
   textarea {
     outline: none;
-    border: none;
   }
+	
+	#user_bio:focus {
+		border-color: #1ba94c !important;
+	}
+
+	.bio {
+		width: 100%;
+		position: relative;
+	}
   
   textarea:focus, input:focus {
     border-color: transparent !important;
   }
+
+	select:focus, select:hover {
+		border-color: #1ba94c;
+	}
+
+	option:hover {
+		background-color: #e7e7e7;
+	}
+
+	.country-select option{
+		cursor: pointer;
+	}
+
   
   input:focus::-webkit-input-placeholder { color:transparent; }
   input:focus:-moz-placeholder { color:transparent; }
@@ -305,7 +330,7 @@
     -moz-transition: all 0.6s;
     transition: all 0.6s;
   
-    background: #b39ddb;
+    background: #1ba94c;
   }
   
   

@@ -9,14 +9,13 @@
 				</span>
 			</div>
 
-			<%= form_for(:session, :html => { :class => 'login100-form validates-form', novalidate: :true }, url: login_path) do |f| %>
+			<%= form_for(resource, :html => { :class => 'login100-form validates-form', novalidate: :true }, as: resource_name, url: user_session_path) do |f| %>
 
-				<%= content_tag(:div, flash[:error], :class => "g-mb-20", :id => "error_explanation") if flash[:error] %>
-				<%= content_tag(:div, flash[:alert], :class => "g-mb-20", :id => "error_explanation") if flash[:alert] %>
- 
+				<%= render 'shared/error_messages' %>				
+  
 				<div class="field wrap-input100 validate-input m-b-26" data-validate="Email is required">
-					<span class="label-input100">Username</span>
-    			<%= f.text_field :username,  class: "input100", placeholder: "Enter username"%>
+					<span class="label-input100">Email</span>
+    			<%= f.email_field :email,  class: "input100", placeholder: "Enter email"%>
 					<span class="focus-input100"></span>
   			</div>
 

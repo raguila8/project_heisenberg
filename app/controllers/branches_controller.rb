@@ -12,7 +12,7 @@ class BranchesController < ApplicationController
 		difficulties = params[:difficulties]
 		problem_status = params[:problem_status]
 		branch = Branch.find(params[:branch_id])
-		if logged_in?
+		if signed_in?
 			user_id = current_user.id
 		else
 			user_id = nil

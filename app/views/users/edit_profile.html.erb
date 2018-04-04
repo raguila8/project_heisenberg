@@ -1,0 +1,56 @@
+<% provide(:title, "Edit Profile") %>
+
+<div class="custom-form">
+  <div class="limiter">
+  	<div class="container-login100">
+  		<div class="wrap-login100 primary-bs">
+  			
+				<%= render 'shared/edit_account_header' %>	
+
+  			<%= form_for(@user, :html => { :method => :patch, :class => 'login100-form validate-form', novalidate: :true }, url: edit_profile_path(current_user.id)) do |f| %>
+    			<%= render 'shared/error_messages' %>
+  
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Name</span>
+    				<%= f.text_field :name, autocomplete: "off", class: "input100", placeholder: "Enter your name" %>
+						<span class="focus-input100"></span>
+  				</div>
+
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Occupation</span>
+    				<%= f.text_field :occupation, autocomplete: "off", class: "input100", placeholder: "What is your occupation" %>
+						<span class="focus-input100"></span>
+  				</div>
+		
+					<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">School</span>
+    				<%= f.text_field :name, autocomplete: "off", class: "input100", placeholder: "What school did you go to?" %>
+						<span class="focus-input100"></span>
+  				</div>
+
+
+					<div class="m-b-18 field bio">
+      			<span class="label-input100" style="font-size: 12px; width:90px;">Bio</span>
+						<%= f.text_area :bio, autocomplete: "off", class: "g-mt-5 form-control", placeholder: "Tell us about yourself" %>
+    				<span class="focus-input100"></span>
+
+					</div>
+
+					
+					<div class="field validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Country</span>
+						<%= f.country_select(:country, {selected: @user.country, include_blank: "Select Country"}, {class: 'form-control country-select'}) %>
+    				<%#= f.country_select :country, {}, { :class => 'form-control country-select'} %>
+						<span class="focus-input100"></span>
+  				</div>
+
+  				
+					<div class="actions container-login100-form-btn">
+  					<%= f.submit "Save Changes", class: "btn-lg g-mb-10 g-rounded-20 g-mt-20 font-size-16 font-weight-400 g-btn-primary" %>
+  				</div>
+
+				<% end %>	
+  		</div>
+  	</div>
+  </div>	
+</div>

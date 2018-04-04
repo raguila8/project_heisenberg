@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 	acts_as_voter
 	mount_uploader :profile_image, ProfileImageUploader
 	has_many :active_relationships, class_name: "Relationship",
@@ -16,17 +20,15 @@ class User < ApplicationRecord
 	has_many :posts, dependent: :destroy
 	has_many :comments, dependent: :destroy
 	has_many :messages, dependent: :destroy
-	attr_accessor :remember_token
+	#attr_accessor :remember_token
 	before_save { self.email = email.downcase }
-	before_save { self.country = country.downcase }
 	validates :username, presence: true, length: { minimum: 5, maximum: 18 },
 											uniqueness: true
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 	validates :email, presence: true, length: { maximum: 255 },
-										format: { with: VALID_EMAIL_REGEX }, 
 										uniqueness: { case_sensitive: false }
-	has_secure_password
-	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+	#has_secure_password
+	#validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 	validate :profile_image_size
 
 

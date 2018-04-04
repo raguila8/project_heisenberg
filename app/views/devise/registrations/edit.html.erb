@@ -1,0 +1,38 @@
+<% provide(:title, "Account") %>
+
+<div class="custom-form">
+  <div class="limiter">
+  	<div class="container-login100">
+  		<div class="wrap-login100 primary-bs">
+  			
+				<%= render 'shared/edit_account_header' %>	
+
+  			<%= form_for(resource, :html => { :method => :patch, :class => 'login100-form validate-form', novalidate: :true }, as: resource_name, url: edit_user_registration_path(current_user.id)) do |f| %>
+    			<%= render 'shared/error_messages' %>
+  
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">New Password</span>
+    				<%= f.password_field :password, autocomplete: "off", class: "input100", placeholder: "Enter new password" %>
+						<span class="focus-input100"></span>
+  				</div>
+
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Confirm New Password</span>
+    				<%= f.password_field :password_confirmation, autocomplete: "off", class: "input100", placeholder: "Confirm new password" %>
+						<span class="focus-input100"></span>
+  				</div>
+
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Current Password</span>
+    				<%= f.password_field :current_password, autocomplete: "off", class: "input100", placeholder: "Enter current password" %>
+						<span class="focus-input100"></span>
+  				</div>
+
+					<div class="actions container-login100-form-btn">
+  					<%= f.submit "Change Password", class: "btn-lg g-mb-10 g-rounded-20 g-mt-20 font-size-16 font-weight-400 g-btn-primary" %>
+  				</div>
+				<% end %>	
+  		</div>
+  	</div>
+  </div>	
+</div>
