@@ -52,4 +52,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 	config.time_zone = "Pacific Time (US & Canada)"
+	config.action_mailer.default_url_options = { host: '127.0.0.1', port: 3000 
+	}
+	config.action_mailer.perform_deliveries = true
+
 end
