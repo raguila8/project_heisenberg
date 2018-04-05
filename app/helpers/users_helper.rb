@@ -26,7 +26,7 @@ module UsersHelper
 			users_query = "(SELECT users.username AS label, users.id AS id, cast('Users' as text) AS category, cast('/default_profile_image.png' as text) AS image_url FROM users WHERE users.username ILIKE '#{pattern}' LIMIT 5) "
 			problems_query = "(SELECT problems.title AS label, problems.id AS id, cast('Problems' as text) AS category, cast('/problem_icon.png' as text) AS image_url FROM problems WHERE problems.title ILIKE '#{pattern}' LIMIT 5)"
 		end
-		query = "SELECT * FROM #{users_query} AS users_query UNION SELECT * FROM #{problems_query} AS problems_query"
+		query = "SELECT * FROM #{users_query} AS users_query UNION SELECT * FROM #{problems_query} AS problems_query ORDER BY category "
 		suggestions = ActiveRecord::Base.connection.execute(query)
 		return suggestions
 	end
