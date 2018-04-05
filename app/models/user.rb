@@ -232,8 +232,11 @@ class User < ApplicationRecord
 		end
 		query += "ORDER BY score DESC"
 
-		
-		ranking = ActiveRecord::Base.connection.execute(query)
+		if !Rails.env.production?
+			ranking = ActiveRecord::Base.connection.execute(query)
+		else
+			ranking = ActiveRecord::Base.connection.exec_query(query).entries
+		end
 		return ranking
 	end
 
