@@ -2,7 +2,6 @@ require 'carrierwave/orm/activerecord'
 
 CarrierWave.configure do |config|
 	if Rails.env.production?
-		config.fog_provider = 'fog/aws'
     config.fog_credentials = {
       # Configuration for Amazon S3
       :provider              => 'AWS',
