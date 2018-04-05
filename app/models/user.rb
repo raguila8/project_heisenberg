@@ -117,7 +117,7 @@ class User < ApplicationRecord
 		query = ""
 		if leaderboard == "score" || leaderboard == "kudos"
 			if leaderboard == "score"
-				query = "SELECT SUM(Problems.points) AS score, Solved_Problems.user_id AS id FROM problems INNER JOIN solved_problems WHERE Problems.id = Solved_Problems.problem_id "
+				query = "SELECT SUM(Problems.points) AS score, Solved_Problems.user_id AS id FROM problems INNER JOIN solved_problems ON Problems.id = Solved_Problems.problem_id "
 
 				if !users_ids.empty?
 					query += "AND solved_problems.user_id IN (#{users_ids}) "
