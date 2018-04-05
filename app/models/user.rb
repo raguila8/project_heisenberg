@@ -181,7 +181,7 @@ class User < ApplicationRecord
 
 				query2 +=	"INNER JOIN posts ON comments.post_id = posts.id
 							INNER JOIN topics ON topics.id = posts.topic_id
-							INNER JOIN problems ON problems.id = topics.problem_id WHERE problems.id "
+							INNER JOIN problems ON problems.id = topics.problem_id "
 
 				problem_ids.each_with_index do |ids, index|
 					if index != problem_ids.length - 1
