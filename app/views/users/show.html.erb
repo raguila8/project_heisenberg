@@ -49,12 +49,21 @@
 			<div class="col-md-10 col-lg-10">
 
 				<!-- User details -->
-				<h2 class="font-weight-600 g-mb-10 dont-break-out username"><%=@user.username%></h2>
+				<h2 class="font-weight-600 dont-break-out username"><%=@user.username%></h2>
+				<% if @user.name and !@user.name.blank?%>
+					<h4 class="font-weight-500 opacity-8 g-mb-10 g-mt-0 ellipsis-wrap">
+						<%=@user.name%>
+					</h4>
+				<% end %>
 				<!-- End User details -->
 				<!-- User position -->
 				<ul class="list-inline g-mb-10 font-weight-200">
-					<li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-briefcase g-mr-8"></span>My job </li>
-					<li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-education g-mr-8"></span>My university</li>
+					<% if @user.occupation and !@user.occupation.blank?%>
+						<li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-briefcase g-mr-8"></span><%=@user.occupation%> </li>
+					<% end %>
+					<% if @user.school and !@user.school.blank? %>
+						<li class="list-inline-item g-mr-20"><span class="glyphicon glyphicon-education g-mr-8"></span><%=@user.school%></li>
+					<% end %>
 				</ul>
 				<!-- End User position -->
 				</div>
@@ -77,10 +86,12 @@
 				<hr class="g-mv-20 light-gray-border clear-both">
 
 				<!-- User Bio -->
-				<p class="dont-break-out">wlrkfjlkeeeelrjflekrflkwherlkfhlekrhflkherlkfhlkhrflkherlkfhlekrhgflkherlkgerjgfkjebrfklhelrkflkehrfklhelrkfhlkehrfkhelrkfhlkehrfklherlfhelkrfhlkehrflkherlkfhelkrfhlkehrflkhelrkfhlekrhflkehrfkelrkfhlkehrlkhlkwrhfklhrlkfhlkwhflkhwelfhlwkehflkwhef This is going to be the user bio. I do not have a bio column for the user model at the moment. I am going to add this later...</p>
-				<!-- End User Bio -->
+				<% if @user.bio and !@user.bio.blank? %>
+					<p class="dont-break-out"><%= @user.bio %></p>
 
-				<hr class="g-mv-20 light-gray-border">
+					<hr class="g-mv-20 light-gray-border">
+				<% end %>
+				<!-- End User Bio  -->
 
 				<!-- General Branch User stats -->
 				<div class="w-100 text-center">

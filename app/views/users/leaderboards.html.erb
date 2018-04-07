@@ -14,7 +14,7 @@
 			<% end %>
 		</div>
 
-		<% if logged_in? %>
+		<% if signed_in? %>
 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 			<h5>Users</h5>
 			<div class="form-check contact100-form-checkbox">
@@ -61,7 +61,7 @@
 </div>
 
 
-<% if logged_in? && !@my_rank.nil?%>
+<% if signed_in? && !@my_rank.nil?%>
 <div class="leaderboard-item current-user-rank">
 <div class="g-ph-5 problem-item-card problem-filter-card col-lg-offeset-2 col-md-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 border-green border-3 g-mb-50">
 	<li class="profile-li">
@@ -84,9 +84,20 @@
 						<div class="profile-information-username">
 							<a href="<%=user_path(current_user.id)%>"class="username-link dark-grey-color font-size-16 font-weight-600"><%=current_user.username%></a>
 						</div>
-						<div class="profile-information-name">
-							name
-						</div>
+						<% if current_user.name %>
+							<div class="profile-information-name">
+								<%= current_user.name %>
+							</div>
+						<% elsif current_user.occupation %>
+							<div class="profile-information-name">
+								<%= current_user.occupation %>
+							</div>
+						<% elsif current_user.school %>
+							<div class="profile-information-name">
+								<%= current_user.school %>
+							</div>
+						<% end %>
+
 					</div>
 				</div>
 				<div class="float-right">

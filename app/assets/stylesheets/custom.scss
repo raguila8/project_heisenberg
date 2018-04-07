@@ -99,32 +99,6 @@ button:focus {outline:0 !important; }
 			opacity: 1;
 			background-color: inherit;	
 		}
-		.navbar-nav > .active > a:before {
-				content: "";
-  			position: absolute;
-  			width: calc(100% - 30px);
-				margin-left: 15px;
-  			height: 4px;
-  			bottom: 0;
-  			left: 0;
-  			background-color: #b39ddb;
-  			-webkit-transition: all 0.3s ease-in-out 0s;
-  			transition: all 0.3s ease-in-out 0s;
-				visibility: visible;
-  			-webkit-transform: scaleX(1);
-  			transform: scaleX(1);
-		}
-
-		@media (min-width: 667px) {
-			.navbar-nav > .active > a:before {
-				background-color: #000;
-  			visibility: hidden;
-  			-webkit-transform: scaleX(0);
-  			transform: scaleX(0);
-  			-webkit-transition: all 0.3s ease-in-out 0s;
-  			transition: all 0.3s ease-in-out 0s;
-			}
-		}
 
 		.navbar-nav > .open > a,
 		.navbar-nav > .open > a:hover,
@@ -185,7 +159,6 @@ button:focus {outline:0 !important; }
   z-index: 2;
 	min-width: 15px;
 	min-height: 15px;
-  display: none;
   color: #fff;
   background-image: linear-gradient(#54a3ff, #006eed);
   background-clip: padding-box;
@@ -195,6 +168,7 @@ button:focus {outline:0 !important; }
 	vertical-align: middle;
 	font-size: 0.8em;
 }
+
 
 .bell-badge {
 	display: inline-block !important;
@@ -204,7 +178,6 @@ button:focus {outline:0 !important; }
   z-index: 2;
 	min-width: 15px;
 	min-height: 15px;
-  display: none;
   color: #fff;
   background-image: linear-gradient(#54a3ff, #006eed);
   background-clip: padding-box;
@@ -215,6 +188,19 @@ button:focus {outline:0 !important; }
 	font-size: 0.8em;
 
 }
+
+@media (max-width: 767px) {
+	.msg-badge {
+		left: 3.5%;
+		top: 7px;
+	}
+
+	.bell-badge {
+		left: 3.4%;
+		top: 7px;
+	}
+}
+
 
 .flash-top {
 	display: none;
@@ -265,7 +251,9 @@ button:focus {outline:0 !important; }
 	font-size: 18px;
 }
 
-
+.opacity-8 {
+	opacity: 0.8 !important;
+}
 
 /* Background images */
 
@@ -1671,6 +1659,15 @@ img {
 		background-size: cover;
     background-repeat: no-repeat;
     background-position: center center; 
+	}
+
+	@media (max-width: 375px) {
+		.dash-icon {
+			right: 10px;
+			top: 10px;
+			width: 60px;
+			height: 60px;
+		}
 	}
 	
 	.dash-icon:before {

@@ -1,9 +1,10 @@
 
 <div class="leaderboard-item">
-<% if logged_in? && current_user.id != user.id %>
-	<div class="g-ph-5 problem-item-card problem-filter-card col-lg-offeset-2 col-md-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12">
-<% else %>
+<% if signed_in? && current_user.id == user.id %>
 	<div class="g-ph-5 problem-item-card problem-filter-card col-lg-offeset-2 col-md-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12 border-green border-3 <%="g-mb-50" if rank_preview %>">
+
+<% else %>
+	<div class="g-ph-5 problem-item-card problem-filter-card col-lg-offeset-2 col-md-offset-2 col-lg-8 col-md-8 col-sm-12 col-xs-12">
 <% end %>
 	<li class="profile-li">
 			<div class="profile-item-container">
@@ -25,19 +26,29 @@
 						<div class="profile-information-username">
 							<a href="<%=user_path(user.id)%>"class="username-link dark-grey-color font-size-16 font-weight-600"><%=user.username%></a>
 						</div>
-						<div class="profile-information-name">
-							name
-						</div>
+						<% if user.name and !user.name.blank?%>
+							<div class="profile-information-name">
+								<%= user.name %>
+							</div>
+						<% elsif user.occupation and !user.occupation.blank? %>
+							<div class="profile-information-name">
+								<%= user.occupation %>
+							</div>
+						<% elsif user.school and !user.school.blank? %>
+							<div class="profile-information-name">
+								<%= user.school %>
+							</div>
+						<% end %>
 					</div>
 				</div>
 				<div class="float-right">
 					<h4 class="font-weight-600">
-						<% if params[:leaderboard] == "score" %>
-							<img class="inline-icon-1 g-mr-5" title="User Score"src="/score_icon.png">
+						<% if params[:leaderboard] == "kudos" %>
+							<img class="inline-icon-1 g-mr-5" title="User Score"src="/kudos_icon.png">
 						<% elsif params[:leaderboard] == "problems-solved" %>
 							<img class="inline-icon-1 g-mr-5" title="User Score"src="/count_icon.png">
 						<% else %>
-							<img class="inline-icon-1 g-mr-5" title="User Score"src="/kudos_icon.png">
+							<img class="inline-icon-1 g-mr-5" title="User Score"src="/score_icon.png">
 						<% end %>
 
 						<%=score%>
