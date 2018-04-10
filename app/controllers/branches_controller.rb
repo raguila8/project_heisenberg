@@ -21,6 +21,25 @@ class BranchesController < ApplicationController
 		
 	end
 
+	def new
+		@branch = Branch.new
+	end
+
+	def create
+		@branch = Branch.new(branch_params)
+		if @branch.save
+			flash[:success] = "New branch created!"
+			redirect_to dashboard_path
+		else
+			render 'new'
+		end
+	end
+
 	private
+
+
+	def branch_params
+		params.require(:branch).permit(:name)
+	end
 
 end

@@ -81,4 +81,16 @@ module ApplicationHelper
 	def set_edit_profile_class
 		((controller_name == "users") && (action_name == "edit_profile" || action_name == "update_profile")) ? "active-effect-4" : "non-active-effect-4" 
 	end
+
+	def set_new_problem_class
+		((controller_name == "problems") && (action_name == "new" || action_name == "create")) ? "active-effect-4" : "non-active-effect-4" 
+	end
+
+	def set_new_branch_class
+		((controller_name == "branches") && (action_name == "new" || action_name == "create")) ? "active-effect-4" : "non-active-effect-4" 
+	end
+
+	def set_new_subtopic_class
+		((controller_name == "subtopics") && (action_name == "new" || action_name == "create")) ? "active-effect-4" : "non-active-effect-4" 
+	end
 end

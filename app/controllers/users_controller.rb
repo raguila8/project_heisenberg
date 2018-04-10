@@ -75,8 +75,15 @@ class UsersController < ApplicationController
 		if signed_in?
 			@users = User.filter_ranks(branches, users, leaderboard, current_user)
 		
-			@my_rank = @users.index(@users.detect { |user| user["id"] == current_user.id }) + 1
-			@score = @users[@my_rank - 1]["score"]
+			@my_rank = @users.index(@users.detect { |user| user["id"] == current_user.id })
+
+			if @my_rank
+				@my_rank += 1
+				@score = @users[@my_rank - 1]["score"]
+			else
+				@my_rank = @users.count + 1
+				@score = 0
+			end
 			@users = @users.paginate(page: params[:page], :per_page => 10)
 		else
 			@users = User.filter_ranks(branches, users, leaderboard).paginate(page: params[:page], :per_page => 10)

@@ -85,7 +85,8 @@ class User < ApplicationRecord
 	def branch_problems_solved(branch)
 		problems = SolvedProblem.select("ps.problem_id").
 							where("ps.user_id = #{self.id}").
-							joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id AND branch_id = #{branch.id}")
+							joins("as ps inner join problem_categories as pc on ps.problem_id = pc.problem_id").
+							joins("inner join subtopics as st on pc.subtopic_id = st.id AND st.branch_id = #{branch.id}")
 		return problems.count
 	end
 
@@ -93,8 +94,13 @@ class User < ApplicationRecord
 	def topic_problems_solved(topic_name)
 		count = SolvedProblem.select("ps.problem_id").
 											where("ps.user_id = #{self.id}").
-											joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id").where("st.name = #{ActiveRecord::Base.connection.quote(ActiveRecord::Base.connection.quote_string(topic_name))}").count
-	return count
+												joins("as ps inner join problem_categories as pc on ps.problem_id = pc.problem_id").
+												joins("inner join subtopics as st on pc.subtopic_id = st.id AND st.name = #{ActiveRecord::Base.connection.quote(ActiveRecord::Base.connection.quote_string(topic_name))}").count
+
+
+
+											#joins("as ps inner join subtopics as st on ps.problem_id = st.problem_id").where("st.name = #{ActiveRecord::Base.connection.quote(ActiveRecord::Base.connection.quote_string(topic_name))}").count
+		return count
 	end
 
 	def self.filter_ranks(branches, users, leaderboard, user = nil)
@@ -109,7 +115,7 @@ class User < ApplicationRecord
 		problem_ids = []
 		if !branches.nil?
 			branches.each_with_index do |b, index|
-				problem_ids << "SELECT problem_id FROM subtopics WHERE subtopics.branch_id = #{b} " 
+				problem_ids << "SELECT p.id FROM problems as p INNER JOIN problem_categories as pc on pc.problem_id = p.id INNER JOIN subtopics as st on st.id = pc.subtopic_id AND st.branch_id = #{b} " 
 			end
 		end
 		

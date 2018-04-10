@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404025451) do
+ActiveRecord::Schema.define(version: 20180408012654) do
 
   create_table "branches", force: :cascade do |t|
     t.string "name"
@@ -120,6 +120,15 @@ ActiveRecord::Schema.define(version: 20180404025451) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "problem_categories", force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "subtopic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_categories_on_problem_id"
+    t.index ["subtopic_id"], name: "index_problem_categories_on_subtopic_id"
+  end
+
   create_table "problems", force: :cascade do |t|
     t.text "question"
     t.float "answer"
@@ -130,7 +139,6 @@ ActiveRecord::Schema.define(version: 20180404025451) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.integer "solved_by", default: 0
-    t.integer "number"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -153,14 +161,12 @@ ActiveRecord::Schema.define(version: 20180404025451) do
   end
 
   create_table "subtopics", force: :cascade do |t|
-    t.integer "problem_id"
     t.integer "branch_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_subtopics_on_branch_id"
     t.index ["name"], name: "index_subtopics_on_name"
-    t.index ["problem_id"], name: "index_subtopics_on_problem_id"
   end
 
   create_table "topics", force: :cascade do |t|

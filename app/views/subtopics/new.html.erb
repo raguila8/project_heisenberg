@@ -1,0 +1,38 @@
+<% provide(:title, 'New Subtopic') %>
+<div class="custom-form">
+  <div class="limiter">
+  	<div class="container-login100">
+  		<div class="wrap-login100 primary-bs">
+  			
+				<%= render 'shared/new_problem_header' %>			
+	
+				<%= form_for(@subtopic, :html => { :method => :post, :class => 'login100-form validate-form', novalidate: :true }, url: subtopics_path) do |f| %>
+
+    			<%= render 'shared/error_messages' %>
+	
+					<div class="field validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Branch Name</span>
+						<% branches = Branch.all.map { |branch| [branch.name, branch.id] } %>
+						
+    				<%= f.select(:branch_id, options_for_select(branches), {}, { class: "form-control country-select"}) %>
+						<span class="focus-input100"></span>
+  				</div>	
+
+  
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Subtopic Name</span>
+    				<%= f.text_field :name, autocomplete: "off", class: "input100", placeholder: "Enter new subtopic name" %>
+						<span class="focus-input100"></span>
+  				</div>	
+  				
+					<div class="actions container-login100-form-btn">
+  					<%= f.submit "Create Subtopic", class: "btn-lg g-mb-10 g-rounded-20 g-mt-20 font-size-16 font-weight-400 g-btn-primary" %>
+  				</div>
+
+				<% end %>	
+
+
+  		</div>
+  	</div>
+  </div>	
+</div>

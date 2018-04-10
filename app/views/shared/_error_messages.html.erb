@@ -6,6 +6,10 @@
 	<% model = @message %>
 <% elsif @problem %>
 	<% model = @problem %>
+<% elsif @branch %>
+	<% model = @branch %>
+<% elsif @subtopic %>
+	<% model = @subtopic %>
 <% end %>
 <% if model.errors.any? %>
   <div id="error_explanation">

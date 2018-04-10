@@ -765,6 +765,10 @@ select {
 	
 }
 
+.new-question-textarea {
+	height: 300px !important; 
+}
+
 #session_remember_me {
 	width: auto;
 	margin-left: 0;
@@ -1669,6 +1673,16 @@ img {
 			height: 60px;
 		}
 	}
+
+	@media (max-width: 340px) {
+		.dash-icon {
+			right: 5px;
+			top: 5px;
+			width: 50px;
+			height: 50px;
+		}
+	}
+
 	
 	.dash-icon:before {
 		content: "";
@@ -1701,7 +1715,7 @@ img {
 
 /************** Branch Page *******************/
 
-.branch-page, .leaderboard-page {
+.branch-page, .leaderboard-page, .new-problem-view {
 	.problem-filter-card {
 		cursor: inherit;
 		border: 5px solid #0f1638;

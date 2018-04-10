@@ -370,7 +370,9 @@ $(document).on('turbolinks:load', function() {
 		if ($($form).hasClass('posts-form') || $($form).hasClass('update-posts-form')) {
 			content = $($form).find('textarea[name="post[content]"]:first').val();
 		} else if ($($form).hasClass('comments-form') || $($form).hasClass('update-comments-form')){
-			content = $($form).find('textarea[name="comment[content]"]:first').val();	
+			content = $($form).find('textarea[name="comment[content]"]:first').val();
+		} else if ($($form).hasClass('problems-form') || $($form).hasClass('update-problems-form')) {
+			content = $($form).find('textarea[name="problem[question]"]:first').val();
 		} else {
 			content = $($form).find('textarea[name="message[body]"]:first').val();
 		}

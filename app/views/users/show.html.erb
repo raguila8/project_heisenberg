@@ -142,7 +142,7 @@
 					</div>
 
 				
-					<% branch.unique_topics.each do |topic| %>
+					<% branch.subtopics.each do |topic| %>
 						<div class="">
 							<h5 class="font-weight-600 left-align"><%=topic.name%></h5>
 							<% percent = percentage(@user.topic_problems_solved(topic.name), Problem.topic_count(topic.name)).round(2) %>

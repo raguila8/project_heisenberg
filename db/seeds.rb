@@ -25,7 +25,15 @@ subtopics = [subtopic1, subtopic2, subtopic3, subtopic4, subtopic5]
 	branch = Branch.new
 	branch.name = branches[n]
 	branch.save
+	subtopics[n].each do |topic|
+		subtopic = Subtopic.new
+		subtopic.branch_id = branch.id
+		subtopic.name = topic
+		subtopic.save
+	end
 end
+
+
 
 19.times do |n|
   username  = Faker::Internet.user_name(5..18)
@@ -58,10 +66,8 @@ end
 	end
 	problem.title = "Addition#{n}"
 	problem.solved_by = 0
-	num = Random.new.rand(0..4)
-	subtopic = Subtopic.new
-	subtopic.branch_id = num + 1
-	subtopic.name = subtopics[num][Random.new.rand(0..4)]
+	category = ProblemCategory.new
+	category.subtopic_id = Random.new.rand(1..25)
 	
 	while !problem.save
 		puts problem
@@ -74,8 +80,8 @@ end
 		problem.title = "Addition#{n}"
 		problem.solved_by = 0
 	end
-	subtopic.problem_id = problem.id
-	puts ("#{subtopic.save} problem_id: #{problem.id}  branch_id: #{num + 1}  subtopic: #{subtopic.name}")
+	category.problem_id = problem.id
+	category.save
 end
 
 20.times do |n|

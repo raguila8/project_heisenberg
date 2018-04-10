@@ -1,55 +1,72 @@
 <% provide(:title, "Edit problem") %>
+<%= render 'topics/preview' %>
+
 <% content_for :mathjax do %>
 	<%= mathjax_tag %>
 <% end %>
 
-<h1>Edit Problem</h1>
+<div class="custom-form new-problem-view">
+  <div class="limiter">
+  	<div class="container-login100">
+  		<div class="wrap-login100 primary-bs">
+  			<div class="login100-form-title" style="background-image: url(/form-bg1.jpg);">
+				<span class="login100-form-title-1">
+					Edit Problem
+				</span>
+			</div>
 
-<% if @problem.question && !@problem.question.empty? %>
-	<div class="problem_content" style="margin-bottom: 40px;">
-		<%= @problem.question %>
-	</div>
+				<%= form_for(@problem, :html => { :method => :patch, :class => 'update-problems-form login100-form validate-form', novalidate: :true }, url: problem_path(@problem.id)) do |f| %>
 
-<% end %>
+					
+    			<%= render 'shared/error_messages' %>
+					
+					<% Branch.all.each do |branch| %>
+						<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;"><%=branch.name%></span>
+						<% branch.subtopics.each do |subtopic| %>
+							<div class="form-check contact100-form-checkbox">
+								<label class="label-checkbox100"><%=subtopic.name%>
+									<input class="branch-input input-checkbox100" id="subtopic-<%=subtopic.id%>"  type="checkbox" name="subtopic[]" multiple value="<%=subtopic.id%>" <%= "checked" if @problem.subtopics.include?(subtopic) %>> <span class="label-text checkmark"></span>
+								</label>
+							</div>
+						<% end %>
+						<span class="focus-input100"></span>
+					</div>
+					<% end %>	
+ 
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Title</span>
+    				<%= f.text_field :title, autocomplete: "off", class: "input100", placeholder: "Enter Problem title" %>
+						<span class="focus-input100"></span>
+  				</div>
 
-<div style="text-align:center;">
-	
-	<%= render 'shared/error_messages' %>
-	<%= form_for(@problem) do |f| %>
-		<div class="col-md-4">
-			<%= f.label :subject %>
-			<%= f.text_field :subject, class: 'form-control' %>
-		</div>
+  				<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Answer</span>
+    				<%= f.text_field :answer, autocomplete: "off", class: "input100", placeholder: "Enter problem answer" %>
+						<span class="focus-input100"></span>
+  				</div>
 
-		<div class="col-md-4">
-			<%= f.label :answer %>
-			<%= f.text_field :answer, class: 'form-control' %>
-		</div>
-	
-		<div class="col-md-4">
-			<%= f.label :title %>
-			<%= f.text_field :title, class: 'form-control' %>
-		</div>
+  				<div class="field validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Difficulty</span>
+						<% difficulties = [[1, 1], [2, 2], [3, 3]] %>
+						
+    				<%= f.select(:difficulty, options_for_select(difficulties, :selected => @problem.difficulty ), {}, { class: "form-control country-select"}) %>
+						<span class="focus-input100"></span>
+  				</div>
 
-		<div class="col-md-4 col-md-offset-4">
-			<%= f.label :difficulty %>
-			<%= f.select(:difficulty, options_for_select([['1', 1], ['2', 2], ['3', 3]]), class: "form-control") %>
-		</div>
+					<div class="m-b-18 field bio">
+      			<span class="label-input100" style="font-size: 12px; width:90px;">Question</span>
+						<%= f.text_area :question, autocomplete: "off", class: "g-mt-5 form-control new-question-textarea", placeholder: "What is the question?" %>
+    				<span class="focus-input100"></span>
 
+					</div>
 
-		<%= f.text_area :question, cols: 100, rows: 20 %>
-		<div class="col-md-offset-3 col-md-2">
-		<%= f.submit "Preview Problem", class: "btn btn-primary" %>
-		</div>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<div class="col-md-2">
-		<%= f.submit "Save Changes", class: "btn btn-primary" %>
-		</div>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<div class="col-md-2">
-		<%= f.submit "Cancel", data: { confirm: "Are you sure?" }, class: "btn btn-primary" %>
-		</div>
-	<% end %>
-	<br>
+					<div class="problem-actions g-mt-20">
+						<span class="btn g-mr-5 g-rounded-20 g-btn-secondary preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>
+						<%= f.submit "Update Problem", class: "btn g-rounded-20 g-btn-primary submit-post-btn" %>
+					</div>
+				<% end %>	
+  		</div>
+  	</div>
+  </div>	
 </div>
-

@@ -22,7 +22,60 @@ class ProblemsController < ApplicationController
 		@problem = Problem.find(params[:id])
 	end
 
-	def update 
+	def update
+		@problem = Problem.find(params[:id])
+		subtopics = @problem.subtopics
+		dif = @problem.difficulty
+		@problem.assign_attributes(problem_params)
+		
+		if @problem.valid?
+			if params[:subtopic]
+				params[:subtopic].each do |id|
+					if !Subtopic.exists?(id)
+						flash[:error] = "Subtopic selected does not exist"
+						render 'new' and return
+					end
+				end
+
+				if @problem.difficulty != dif
+					@problem.points = points_gained(@problem.difficulty)
+					old_points = points_gained(dif)
+					@problem.users.each do |user|
+						user.score -= old_points
+						user.score += @problem.points
+						user.save
+					end
+				end
+
+				@problem.save
+
+
+				subtopics.each do |subtopic|
+					if !params[:subtopic].include?(subtopic.id.to_s)
+						ProblemCategory.find_by(problem_id: @problem.id, subtopic_id: subtopic.id).destroy
+					end
+				end
+
+				params[:subtopic].each do |id|
+					if !subtopics.include?(Subtopic.find(id))
+						ProblemCategory.create(problem_id: @problem.id, subtopic_id: id)
+					end
+				end
+	
+				redirect_to dashboard_path
+				return
+			else
+				flash[:error] = "No subtopic selected"
+				render 'new' and return
+			end
+		else
+			render 'new' and return
+		end
+
+
+
+
+=begin
 		@problem = Problem.find(params[:id])
 		difficulty = @problem.difficulty
 		if params[:commit] == "Cancel"
@@ -49,7 +102,7 @@ class ProblemsController < ApplicationController
 				render 'edit'
 			end
 		end
-
+=end
 	end
 
 	def new
@@ -57,51 +110,51 @@ class ProblemsController < ApplicationController
 	end
 
 	def create
-		if Problem.count > 0
-			lastNumber = (Problem.last).number
-		else
-			lastNumber = 0
-		end
-		if params[:commit] == "Cancel"
-			redirect_to root_path
-		elsif params[:commit] == "Preview Problem"
-			@problem = Problem.new(problem_params)
-			if @problem.question.empty?
-				@problem.errors.add(:question, :blank, message: "Can't be blank")
-			end
-			render 'new'
-		elsif params[:commit] == "Create Problem"
-			@problem = Problem.new(problem_params)
-			@problem.number = lastNumber + 1
-			# Answer Thread
-			@topic1 = Topic.new
-			#@topic.problem_id = @problem.id
-			@topic1.name = "Problem #{@problem.number}"
-			@topic1.forum_id = 1
-			if @problem.save
-				@topic1.problem_id = @problem.id
-				@topic1.save
-				flash[:success] = "New Problem created!"
-				redirect_to archives_path
+		@problem = Problem.new(problem_params)
+		if @problem.valid?
+			if params[:subtopic]
+				params[:subtopic].each do |id|
+					if !Subtopic.exists?(id)
+						flash[:error] = "Subtopic selected does not exist"
+						render 'new' and return
+					end
+				end
+				@problem.points = points_gained(@problem.difficulty)
+
+				@problem.save
+				params[:subtopic].each do |id|
+					ProblemCategory.create(problem_id: @problem.id, subtopic_id: id)
+				end
+
+				# Discussion Thread
+				@topic = Topic.new
+				@topic.problem_id = @problem.id
+				@topic.name = "#{@problem.title}"
+				@topic.forum_id = 1
+				@topic.save
+
+				redirect_to dashboard_path
+				return
 			else
-				render 'new'
+				flash[:error] = "No subtopic selected"
+				render 'new' and return
 			end
+		else
+			render 'new' and return
 		end
 	end
 
 	# deletes problem
 	def destroy 
 		problem = Problem.find(params[:id])
-		problems = Problem.where("id > #{problem.id}")
-		problems.each do |p|
-			p.number -= 1
-			p.save
-			p.topic.name = "Problem #{p.number}"
-			p.topic.save
+		problem.users.each do |user|
+			user.score = user.score - problem.points
+			user.solved = user.solved - 1
+			user.save
 		end
 		problem.destroy
 		flash[:success] = "User deleted"
-		redirect_to archives_path
+		redirect_to dashboard_path
 	end
 
 	private
@@ -119,7 +172,7 @@ class ProblemsController < ApplicationController
 		end
 
 		def problem_params
-			params.require(:problem).permit(:question, :subject, :difficulty, :title, :answer)
+			params.require(:problem).permit(:question, :difficulty, :title, :answer)
 		end
 
 		def points_gained(difficulty)
