@@ -211,7 +211,10 @@ class User < ApplicationRecord
 												SELECT table2.id AS id, coalesce(table1.p_score + table2.c_score, table1.p_score, table2.c_score) AS score FROM (#{query2}) AS table2 LEFT OUTER JOIN (#{query1}) AS table1 ON table1.id = table2.id "
 			end
 		elsif leaderboard == "problems-solved"
-			query = "SELECT COUNT(solved_problems.problem_id) AS score, solved_problems.user_id AS id FROM solved_problems WHERE "
+			query = "SELECT COUNT(solved_problems.problem_id) AS score, solved_problems.user_id AS id FROM solved_problems "
+			if problem_ids.length > 0 || users_ids.length > 0
+				query += "WHERE "
+			end
 			problem_ids.each_with_index do |ids, index|
 				if index != problem_ids.length - 1
 					if index == 0
