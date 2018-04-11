@@ -20,6 +20,7 @@ class ProblemsController < ApplicationController
 
 	def edit
 		@problem = Problem.find(params[:id])
+		@problem_attribution = @problem.problem_attribution
 	end
 
 	def update
@@ -37,6 +38,23 @@ class ProblemsController < ApplicationController
 					end
 				end
 
+				if params[:problem_attribution][:update] == "yes"
+					@problem_attribution = ProblemAttribution.assign_attributes(problem_attribution_params)
+					if !["book", "website"].include?(@problem_attribution.source_type)
+						flash[:error] = "Source Type must either be 'book' or 'website'."
+						render 'edit' and return
+					elsif @problem_attribution.link.blank?
+						flash[:error] = "Link cannot be blank."
+						render 'edit' and return
+					elsif @problem_attribution.title.blank?
+						flash[:error] = "Title cannot be blank."
+						render 'edit' and return
+					elsif @problem_attribution.source_type == "book" && @problem_attribution.author.blank?
+						flash[:error] = "Problem Attribution must include an author"
+						render 'edit' and return
+					end
+				end	
+
 				if @problem.difficulty != dif
 					@problem.points = points_gained(@problem.difficulty)
 					old_points = points_gained(dif)
@@ -48,6 +66,7 @@ class ProblemsController < ApplicationController
 				end
 
 				@problem.save
+				@problem_attribution.save
 
 
 				subtopics.each do |subtopic|
@@ -119,9 +138,28 @@ class ProblemsController < ApplicationController
 						render 'new' and return
 					end
 				end
+				if params[:problem_attribution][:create] == "yes"
+					@problem_attribution = ProblemAttribution.new(problem_attribution_params)
+					if !["book", "website"].include?(@problem_attribution.source_type)
+						flash[:error] = "Source Type must either be 'book' or 'website'."
+						render 'new' and return
+					elsif @problem_attribution.link.blank?
+						flash[:error] = "Link cannot be blank."
+						render 'new' and return
+					elsif @problem_attribution.title.blank?
+						flash[:error] = "Title cannot be blank."
+						render 'new' and return
+					elsif @problem_attribution.source_type == "book" && @problem_attribution.author.blank?
+						flash[:error] = "Problem Attribution must include an author"
+						render 'new' and return
+					end
+				end
+
 				@problem.points = points_gained(@problem.difficulty)
 
 				@problem.save
+				@problem_attribution.problem_id = @problem.id
+				@problem_attribution.save
 				params[:subtopic].each do |id|
 					ProblemCategory.create(problem_id: @problem.id, subtopic_id: id)
 				end
@@ -173,6 +211,10 @@ class ProblemsController < ApplicationController
 
 		def problem_params
 			params.require(:problem).permit(:question, :difficulty, :title, :answer)
+		end
+
+		def problem_attribution_params
+			params.require(:problem_attribution).permit(:source_type, :author, :link, :title)
 		end
 
 		def points_gained(difficulty)

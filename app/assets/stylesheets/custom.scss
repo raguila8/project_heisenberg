@@ -495,6 +495,10 @@ button:focus {outline:0 !important; }
 	border-top: 1px solid #39424e;
 }
 
+.navbar-border {
+	border: 1px solid #0f1638;
+}
+
 /* Progress Bars */
 
 .progress {
@@ -1234,10 +1238,7 @@ blockquote {
 .problem_content {
   background-color: #fff;
   font-size: 110%;
-  border-top: solid 1px #ddd;
-  border-bottom: solid 1px #aaa;
-  border-left: solid 1px #ddd;
-  border-right: solid 1px #aaa;
+  border: 2px solid #0f1638;
   padding: 10px;
 }
 

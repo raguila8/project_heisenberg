@@ -4,6 +4,7 @@ class Problem < ApplicationRecord
 	has_many :subtopics, through: :problem_categories, :dependent => :destroy
 	has_many :branches, through: :subtopics
 	has_one :topic, :dependent => :destroy
+	has_one :problem_attribution, :dependent => :destroy
 	has_many :users, {:through => :solved_problems, :source => "user"}
 	validates :question, presence: true
 		#uniqueness: true

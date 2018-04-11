@@ -60,6 +60,49 @@
     				<span class="focus-input100"></span>
 
 					</div>
+					<% if @problem.problem_attribution %>
+
+					<h2 class="font-weight-600 w-100 g-mb-20" > Problem Attribution </h2>
+		
+					<div class="field validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Update Problem Attribution?</span>
+    				<select class="form-control" name="problem_attribution[update]">
+    					<option value="yes">yes</option>
+    					<option value="no" selected>no</option>
+ 						</select>
+						<span class="focus-input100"></span>
+  				</div>
+
+				
+					<div class="field validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Source Type</span>
+    				<select class="form-control" name="problem_attribution[source_type]">
+    					<option value="book" <%= "selected" if @problem_attribution && @problem_attribution.source_type == "book"%>>book</option>
+    					<option value="website" <%= "selected" if @problem_attribution && @problem_attribution.source_type == "website"%>>website</option>
+ 						</select>
+						<span class="focus-input100"></span>
+  				</div>
+
+					<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Title</span>
+						<input autocomplete="off" <%= "value=#{@problem_attribution.title}" if @problem_attribution && !@problem_attribution.title.blank? %> class="input100" placeholder="Enter author/authors name" type="text" name="problem_attribution[title]" id="problem_title">
+						<span class="focus-input100"></span>
+  				</div>
+
+				
+					<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Author</span>
+						<input autocomplete="off" <%= "value=#{@problem_attribution.author}" if @problem_attribution && !@problem_attribution.author.blank? %> class="input100" placeholder="Enter author/authors name" type="text" name="problem_attribution[author]" id="problem_author">
+						<span class="focus-input100"></span>
+  				</div>
+
+					<div class="field wrap-input100 validate-input m-b-18">
+						<span class="label-input100" style="font-size: 12px; width:90px;">Link</span>
+						<input autocomplete="off" <%= "value=#{@problem_attribution.link}" if @problem_attribution && !@problem_attribution.link.blank? %> class="input100" placeholder="Enter source link" type="text" name="problem_attribution[link]" id="problem_link">
+						<span class="focus-input100"></span>
+  				</div>
+					
+					<% end %>
 
 					<div class="problem-actions g-mt-20">
 						<span class="btn g-mr-5 g-rounded-20 g-btn-secondary preview-btn" data-toggle="modal" data-target="#preview-modal">Preview</span>

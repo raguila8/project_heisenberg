@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180408012654) do
+ActiveRecord::Schema.define(version: 20180411005159) do
 
   create_table "branches", force: :cascade do |t|
     t.string "name"
@@ -118,6 +118,16 @@ ActiveRecord::Schema.define(version: 20180408012654) do
     t.index ["cached_weighted_total"], name: "index_posts_on_cached_weighted_total"
     t.index ["topic_id"], name: "index_posts_on_topic_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "problem_attributions", force: :cascade do |t|
+    t.string "source_type"
+    t.string "author"
+    t.string "link"
+    t.integer "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
   end
 
   create_table "problem_categories", force: :cascade do |t|

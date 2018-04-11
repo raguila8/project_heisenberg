@@ -46,6 +46,9 @@
 
 <div class="problem_content g-primary-card default-border">
 	<%=@problem.question %>
+	<% if @problem.problem_attribution %>
+		<p class="g-mt-40 problems-solved">This problem was taken from <%=@problem.problem_attribution.author%>, <a href="<%=@problem.problem_attribution.link%>"><%=@problem.problem_attribution.title%>.</a></p>
+	<% end %>
 </div>
 
 <% if logged_in? %>
