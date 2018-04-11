@@ -167,7 +167,7 @@ class ProblemsController < ApplicationController
 				# Discussion Thread
 				@topic = Topic.new
 				@topic.problem_id = @problem.id
-				@topic.name = "#{@problem.title}"
+				@topic.name = @problem.title
 				@topic.forum_id = 1
 				@topic.save
 
