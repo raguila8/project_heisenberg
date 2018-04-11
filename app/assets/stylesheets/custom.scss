@@ -251,6 +251,10 @@ button:focus {outline:0 !important; }
 	font-size: 18px;
 }
 
+.font-size-15 {
+	font-size: 15px;
+}
+
 .opacity-8 {
 	opacity: 0.8 !important;
 }
@@ -525,9 +529,7 @@ button:focus {outline:0 !important; }
 .g-btn-secondary {
 	font-weight: 600;
 	color: #0f1638;
-	
 	border: 1px solid #0f1638 !important;
-
 	background-color: #fff;
 
 	&:hover {
@@ -536,6 +538,16 @@ button:focus {outline:0 !important; }
 		opacity: 0.9;
 	}
 
+	&:focus {
+		color: #0f1638;
+	}
+
+	&:active {
+		color: #0f1638;
+		opacity: 0.9;
+		border: 1px solid #0f1638 !important;
+		background-color: #fff;
+	}
 }
 
 .g-btn-primary {
@@ -551,6 +563,17 @@ button:focus {outline:0 !important; }
 		opacity: 0.9;
 	}
 
+	&:focus {
+		color: #fff;
+	}
+
+	&:active {
+		color: #fff;
+		opacity: 0.9;
+		border: 1px solid #39424e !important;
+		background-image: radial-gradient(circle, #39424e, #2c3749, #212c44, #17213e, #0f1638);
+
+	}
 }
 
 .g-btn-green-primary {
@@ -2182,7 +2205,7 @@ table {
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
-	border: 2px solid #37174a;
+	border: 2px solid #0f1638;
 
 }
 @media screen and (max-width: 360px) {
@@ -2221,7 +2244,6 @@ table {
     width: 100%;
     margin: 0 auto;
     padding: 5px 0 0 0;
-    background-image: radial-gradient(circle, #9c6283, #834d74, #6a3a66, #512858, #37174a);
   }
 }
 #frame #sidepanel #profile.expanded .wrap {
@@ -2756,13 +2778,25 @@ table {
 	z-index: 10000;
 }
 
+.no-messages-container, .no-notifications-container {
+	text-align: center;
+	margin-bottom: 20px;
+	img {
+		text-align: center;
+		display: inline-block;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+}
+
+
 #messages-modal {
 	.modal-dialog {
 		overflow-y: initial !important;
 	}
 	.modal-body {
 		padding: 0;
-		height: 600px;
+		max-height: 600px;
 		overflow-y: auto;
 	}
 

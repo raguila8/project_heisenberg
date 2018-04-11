@@ -35,11 +35,11 @@
 				<% if current_user != @user %>
 				<div class="user-contact-btns-<%=@user.id%>">
 					<% if !current_user.following?(@user) %>
-					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary relationship-btn follow-btn" id="follow-btn-<%=@user.id%>">Follow</button>
+					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-secondary relationship-btn follow-btn" id="follow-btn-<%=@user.id%>">Follow</button>
 					<% else %>
-					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary relationship-btn unfollow-btn" id="following-btn-<%=@user.id%>">Unfollow</button>
+					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-secondary relationship-btn unfollow-btn" id="following-btn-<%=@user.id%>">Unfollow</button>
 					<% end %>
-						<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-dark new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
+						<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary new-msg" data-toggle="modal" data-target="#new-conversation-modal">Message</button>
 				</div>
 				<% end %>
 				<!-- End User Contact Buttons -->
@@ -117,7 +117,7 @@
 	<!-- Overall Stats -->
 	<div class="overall-stats-container g-mb-40 g-pb-20 g-primary-card"> 
 		<!-- Overall stats Header -->
-		<h3 class="stats-title text-center navbar-gradient w-100 g-pa-20 font-weight-600 g-mt-0">
+		<h3 class="stats-title text-center dark-grey-circle w-100 g-pa-20 font-weight-600 g-mt-0">
 			Overall Progress
 		</h3>
 		<!-- End overall stats header -->

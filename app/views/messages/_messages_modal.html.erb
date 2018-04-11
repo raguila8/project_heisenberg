@@ -2,11 +2,17 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content g-primary-card">
 			<h3 class="stats-title text-center dark-grey-circle w-100 g-pa-20 g-mb-0 font-weight-600 g-mt-0">
-			Recently Solved
-		</h3>
+				Messages
+			</h3>
 
-			<div class="modal-body">
-			
+	<div class="modal-body">
+	<% if @conversations.count == 0 %>
+		<div class="no-messages-container">
+			<img src="/no_messages_icon.png" alt="chat icon">
+			<p class="font-weight-600 font-size-15">You will be able to see all of your conversations here.</p>
+		</div>
+	<% else %>
+
 	<ul class="g-mb-0 g-pl-0 list-style-none">
 		<% @conversations.each do |conversation| %>
 		<%= link_to conversation_path(conversation.id), id: "conversation-#{conversation.id}"  do %>
@@ -44,6 +50,7 @@
 		<% end %>
 		<% end %>
 		</ul>
+		<% end %>
 
 	</div>
 			<div class="modal-footer">

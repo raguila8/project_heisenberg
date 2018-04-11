@@ -12,7 +12,7 @@ if ($('.card-actions-<%=@user.id%>').length) {
 if ($('.user-contact-btns-<%=@user.id%>').length) {
 	$('.user-contact-btns-<%=@user.id%>').find('button#follow-btn-<%=@user.id%>').remove();
 
-	var html1 = "<button class='btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-primary unfollow-btn' id= 'following-btn-<%=@user.id%>'>Unfollow</button>";
+	var html1 = "<button class='btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-secondary unfollow-btn' id= 'following-btn-<%=@user.id%>'>Unfollow</button>";
 
 	$('.user-contact-btns-<%=@user.id%>').prepend(html1);
 

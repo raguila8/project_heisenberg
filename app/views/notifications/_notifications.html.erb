@@ -1,14 +1,14 @@
 <div class="modal fade in" id="notifications-modal" role="dialog">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"> Notifications </h4>
-			</div>
+		<div class="modal-content g-primary-card">
+			<h3 class="stats-title text-center dark-grey-circle w-100 g-pa-20 g-mb-0 font-weight-600 g-mt-0">
+				Notifications
+			</h3>	
 			<div class="modal-body notifications-body">
 				<% if current_user.notifications.count == 0 %>
 					<div class="no-notifications-container">
-						<p>You have no notifications.</p>
+						<img src="/no_notifications_icon.png" alt="bell icon">
+						<p class="font-weight-600 font-size-15">You have no notifications.</p>
 					</div>
 				<% else %>
 				<ul>
@@ -76,6 +76,9 @@
 					<% end %>
 				</ul>
 				<% end %>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
