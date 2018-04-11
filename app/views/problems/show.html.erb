@@ -33,7 +33,7 @@
 		</li>
 		<% if logged_in? %>
 			<li>
-				<%= link_to "/topics/#{Topic.find_by(problem_id: @problem.id, forum_id: 1).id}", title: "Discussion Thread" do %>
+				<%= link_to "/topics/#{@problem.id}", title: "Discussion Thread" do %>
 				<img src="/chat.png" style="height: 1.8em; vertical-align: top;"  class="g-mr-5">
 				<span class="font-weight-600">Discussion</span>
 			<% end %>
