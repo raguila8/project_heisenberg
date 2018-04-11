@@ -55,7 +55,7 @@
 	<% if solved_problem = SolvedProblem.find_by(user_id: current_user.id, problem_id: @problem.id) %>
 		<div class="problem-solved">
 			<p> Answer: <b><%= @problem.answer %> </b></p>
-			<p style="font-size: 90%; color: #999;" class="g-mb-50"> Completed on <%= solved_problem.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> </p>
+			<p style="font-size: 90%; color: #999;" class="g-mb-50"> Completed <%= time_ago_in_words(solved_problem.created_at) %> ago.</p>
 		</div>
 	<% else %>
 

@@ -3,7 +3,7 @@ $('.alert, #error_explanation').remove();
 <% if @correct %>
 	$('#solved-problem-modal').modal('show');
 	$('.problem-form').remove();
-	var html = "<div class='problem-solved'><p> Answer: <b><%= @problem.answer %> </b></p><p style='font-size: 90%; color: #999;'> Completed on <%= @solved_problem.created_at.strftime("%a, %d %b %Y, %I:%M %p") %> </p></div>";
+	var html = "<div class='problem-solved'><p> Answer: <b><%= @problem.answer %> </b></p><p style='font-size: 90%; color: #999;'> Completed <%= time_ago_in_words(@solved_problem.created_at) %> ago.</p></div>";
 	$('.problem_content').after($(html));
 	
 <% else %>
