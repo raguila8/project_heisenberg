@@ -23,17 +23,17 @@
 			</span>
 		</li>
 		<% if signed_in? %>
-		<li>
-		<%= link_to "/topics/#{problem.id}", title: "Discussion Thread" do %>
+			<li>
+			<%= link_to "/topics/#{problem.id}", title: "Discussion Thread" do %>
 				<img src="/chat.png" style="height: 1.8em; vertical-align: top;"  class="g-mr-5">
 				<span class="font-weight-600">Discussion</span>
 			<% end %>
-	<% end %>
-		</li>
-		<% if current_user.admin? %>
-			<li><%= link_to "Delete", problem, method: :delete,
+			</li>
+			<% if current_user.admin? %>
+				<li><%= link_to "Delete", problem, method: :delete,
 																				data: { confirm: "You sure?" } %></li>
-			<li><%= link_to "Edit", edit_problem_path(problem) %></li>
+				<li><%= link_to "Edit", edit_problem_path(problem) %></li>
+			<% end %>
 		<% end %>
 
 		<div class="btn-container" style="text-align: center;">

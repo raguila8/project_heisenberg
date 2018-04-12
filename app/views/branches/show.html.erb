@@ -13,6 +13,7 @@
 		<% end %>
 
 	</div>
+		<% if signed_in? %>
 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 			<h5>Status</h5>
 			<div class="form-check contact100-form-checkbox">
@@ -28,6 +29,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 			<h5>Difficulty</h5>
 			<% [1, 2, 3].each do |n| %>
