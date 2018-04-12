@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 			@post = Post.new(user_params)
 			@post.user_id = current_user.id
 			@post.topic_id = params[:topic_id].to_i
-			@post_count = params[:post_count]
+			@post_count = params[:post_count].to_i
 			@errors = false;
 			if @post.save
 				format.js {}

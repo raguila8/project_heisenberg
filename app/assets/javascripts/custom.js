@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('ready turbolinks:load', function() {
 	var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
 
 /*************** Threads *******************/
@@ -60,7 +60,7 @@ $(document).on('turbolinks:load', function() {
 					page: postPages[post_number]
 				},
 				success: function(data) {
-					MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+					//MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 					postPages[post_number] = postPages[post_number] + 1;
 				}
 			});
@@ -83,7 +83,7 @@ $(document).on('turbolinks:load', function() {
 					page: currentPostPage
 				},
 				success: function(myData) {
-					MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+					//MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 					currentPostPage = currentPostPage + 1;
 					for (var i = 0; i < 10; i++) {
 						postPages.push(2);
@@ -139,7 +139,7 @@ $(document).on('turbolinks:load', function() {
 				// On successful submission reload Mathjax, add a slot to postPages and 
 			// add a success msg"
 			} else {
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+				//MathJax.Hub.Queue(["Typeset",MathJax.Hub, $postForm[0]]);
 				postPages.push(2);
 				var html = "<div class='flash-top post-post-alert alert alert-success'> New post created!</div>";
 				$('body').append(html);
@@ -376,8 +376,11 @@ $(document).on('turbolinks:load', function() {
 		} else {
 			content = $($form).find('textarea[name="message[body]"]:first').val();
 		}
-		$('#preview-modal .preview_content > p').text(content);
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		math = $('#preview-modal .preview_content > p');
+		math.text(content);	
+		setTimeout(function() {
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub, math[0]]);
+		} ,500);
 	});
 
 	/* Sending message through modal */
@@ -593,5 +596,5 @@ $(document).on('turbolinks:load', function() {
 			}
 		});
 	});
-
+  	//MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 });

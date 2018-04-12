@@ -255,6 +255,11 @@ button:focus {outline:0 !important; }
 	font-size: 15px;
 }
 
+.MathJax span {
+	//font-size: 1em !important;
+}
+
+
 .opacity-8 {
 	opacity: 0.8 !important;
 }
@@ -398,6 +403,11 @@ button:focus {outline:0 !important; }
 .g-pv-12 {
 	padding-top: 0.85714rem !important;
   padding-bottom: 0.85714rem !important;
+}
+
+.g-pv-15 {
+	padding-top: 15px !important;
+  padding-bottom: 15px !important;
 }
 
 .g-pa-20 {
@@ -1380,15 +1390,14 @@ img {
 
 			.more-comments-link {
 				margin-left: 5px;
-				color: #7e57c2;
+				color: #4691F9;
 				font-size: 12px;
 				font-family: Poppins-Medium;
 				margin-top: 12px;
 				margin-bottom: 10px;
 				cursor: pointer;
-				opacity: 0.8;
 				&:hover {
-					opacity: 0.4;
+					opacity: 0.8;
 				}
 			}
 

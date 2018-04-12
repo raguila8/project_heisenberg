@@ -266,6 +266,9 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jquery-turbolinks (2.1.0)
+      railties (>= 3.1.0)
+      turbolinks
     json (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -435,6 +438,7 @@ DEPENDENCIES
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
   jbuilder (~> 2.5)
+  jquery-turbolinks
   listen (>= 3.0.5, < 3.2)
   mathjax-rails
   mini_magick

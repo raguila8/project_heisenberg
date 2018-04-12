@@ -2,7 +2,7 @@ $('.alert, #error_explanation').remove();
 <% if @saved %>
 	$('#comment-section-<%=@comment.post_id%>').append("<%= escape_javascript render(:partial => '/comments/comments', locals: { comment: @comment }) %>");
 	$('#comment-text-area-<%=@comment.post_id%>').val('');
-	MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#comment-<%=@comment.id%>')[0]]);
 	var html = "<div class='flash-top alert alert-success'> New comment created!</div>";
 	$('body').append(html);
 	$('.flash-top').slideDown(500);

@@ -1,6 +1,9 @@
 <% if !@errors %>
+	$('#post-count-field').val(<%=@post_count + 1%>);
 	$('.post-textarea').val('');
 	$('.new-post-container').after("<%= escape_javascript render(:partial => '/topics/more_posts', locals: { post_count: @post_count, post: @post}) %>");
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#post-count-<%=@post_count%> .forum_message')[0]]);
+
 <% else %>
 	$('.thread-body').prepend("<%= escape_javascript render(:partial => '/shared/error_messages', locals: { :@post => @post}) %>");
 <% end %>

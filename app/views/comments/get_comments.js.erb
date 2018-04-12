@@ -1,5 +1,11 @@
 $("#more-comments-<%=@post.id%>").after("<%= escape_javascript render(:partial => '/comments/comments', collection:  @comments, as: :comment ) %>");
 
+<% @comments.each do |comment| %>
+	$comment = $('#comment-<%=comment.id%>');
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $comment[0]]);
+
+<% end %>
+
 <% if !@more %>
 	$('#more-comments-<%=@post.id%>').html('');
 <% end %>

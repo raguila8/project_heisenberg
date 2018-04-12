@@ -9,7 +9,7 @@ $('#post-count-<%=@post_count%>').closest('.row').replaceWith("<%= escape_javasc
 	$('.flash-top').slideDown(500);
 	setTimeout(function(){
     $('.flash-top').slideUp(500);
-  }, 3500);	
+  }, 3500);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#post-count-<%=@post_count%> .forum_message')[0]]);
 <% end %>
-MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 

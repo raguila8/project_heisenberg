@@ -23,12 +23,15 @@
 		</div>
 		<%= render 'layouts/footer' %>
 		<script>
-			if (window.MathJax) {
+			if (window.MathJax && !$("body[data-mathjax]").length) {
   			MathJax.Hub.Queue(
-    	["Typeset",MathJax.Hub]
-  	);
-}
+    			["Typeset",MathJax.Hub]
+  			);
+				$( "body" ).attr( "data-mathjax", true );
 
+			}
 		</script>
+		<%#= render 'layouts/mathjax' %>
+
   </body>
 </html>

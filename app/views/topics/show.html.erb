@@ -26,6 +26,7 @@
 						<%= form_for(@post, :remote => true, html: {id: "posts-form", class: 'posts-form', 'data-type': 'json'}) do |f| %>
 							<%= hidden_field_tag 'topic_id', @thread.id %>
 							<%= hidden_field_tag 'user_id', current_user.id %>
+							<%= hidden_field_tag 'post_count', @thread.posts.count, id: "post-count-field" %>
 							<%= f.text_area :content, placeholder: "Add a post...", class: "post-textarea" %>
 
 
@@ -149,7 +150,7 @@
 						<div style="clear: both"></div>-->
 						<div class="comment-section" id="comment-section-<%=post.id%>">
 							<% if post.comments.size > 5 %>
-								<span style="clear:both; padding-top: 10px; padding-bottom: 10px; margin-bottom: 10px; bottom: 10px;", class="more-comments-link" id="more-comments-<%=post.id%>">Load more comments</span>
+								<span style="clear:both; padding-top: 10px; padding-bottom: 10px; margin-bottom: 10px; bottom: 10px;", class="more-comments-link font-weight-600" id="more-comments-<%=post.id%>">Load more comments</span>
 							<% end %>
 						<% post.comments.order(created_at: :desc)[0..4].reverse.each do |comment| %>
 							<%= render partial: '/comments/comments', locals:  { comment: comment } %>

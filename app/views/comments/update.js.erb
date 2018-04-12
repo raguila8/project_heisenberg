@@ -11,7 +11,5 @@ $('#edit-comment-<%=@comment.id%>').replaceWith("<%= escape_javascript render(:p
 	setTimeout(function(){
     $('.flash-top').slideUp(500);
   }, 3500);
-
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#comment-<%=@comment.id%>')[0]]);
 <% end %>
-MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-
