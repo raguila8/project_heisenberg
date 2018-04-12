@@ -37,6 +37,11 @@ class User < ApplicationRecord
 		self.following << other_user
 	end
 
+	# Is user an admin?
+	def admin?
+		(self.admin) ? true : false
+	end
+
 	# Unfollows a user
 	def unfollow(other_user)
 		self.following.delete(other_user)
