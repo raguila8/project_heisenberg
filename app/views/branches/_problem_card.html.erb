@@ -10,7 +10,7 @@
 	<% end %>
 
 		<div style="margin-bottom: 15px; padding-bottom: 15px;">
-		<li class="percent-solved">Solved by <span class="problems-solved"><%=problem.solved_by%></span> users </li>
+		<li class="percent-solved">Solved by <span class="problems-solved"><%=pluralize(problem.solved_by, 'user')%></span> </li>
 		<li class="percent-solved">Success rate: <span class="problems-solved"><%= percentage(problem.solved_by, problem.submissions).round(2) %>%</span></li>
 		<li class="percent-solved">Difficulty: 
 			<span class="problems-solved">
