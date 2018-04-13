@@ -66,7 +66,7 @@ class ProblemsController < ApplicationController
 				end
 
 				@problem.save
-				@problem_attribution.save
+				@problem_attribution.save if params[:problem_attribution][:update] == "yes"
 
 
 				subtopics.each do |subtopic|
