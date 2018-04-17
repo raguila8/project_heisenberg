@@ -49,13 +49,17 @@ class ConversationsController < ApplicationController
 		@conversations = Conversation.where("sender_id = #{current_user.id} OR recipient_id = #{current_user.id}").order(updated_at: :desc)
 	end
 
+=begin
 	def index
 		@conversations = Conversation.where("sender_id = #{current_user.id} OR recipient_id = #{current_user.id}").order(updated_at: :desc)
 	end
+=end
+	private
 
 	def correct_conversation
 		@conversation = Conversation.find(params[:id])
 		redirect_to(root_url) unless (current_user.id == @conversation.sender_id || current_user.id == @conversation.recipient_id)
 	end
+
 end
 

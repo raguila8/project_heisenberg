@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
 	include UsersHelper
-	before_action :logged_in_user, only: [:index, :edit, :update, :show, :find_friends, :destroy]
-	before_action :correct_user,	 only: [:edit, :update]
+	before_action :logged_in_user, only: [:edit, :update, :show, :update_profile_image, :edit_profile, :update_profile, :destroy]
+	before_action :correct_user,	 only: [:edit, :update, :update_profile, :edit_profile]
 	before_action :admin_user, only: :destroy
 
+=begin
 	def index
 		@friendships = current_user.friends.paginate(page: params[:page])
 	end
@@ -15,8 +16,8 @@ class UsersController < ApplicationController
 		else
 			@users = User.all_except(current_user).paginate(page: params[:page], :per_page => 10)
 		end
-
 	end
+=end
 
 	def show
 		@user = User.find(params[:id])
@@ -25,6 +26,7 @@ class UsersController < ApplicationController
 		@problems_solved = @user.solved_problems.order(created_at: :desc).limit(10)
 	end
 
+=begin
   def new
 		@user = User.new
   end
@@ -39,6 +41,7 @@ class UsersController < ApplicationController
 			render 'new'
 		end
 	end
+=end
 
 	def edit
 		@user = User.find(params[:id])
@@ -54,11 +57,13 @@ class UsersController < ApplicationController
 		end
 	end
 
+
 	def destroy
 		User.find(params[:id]).destroy
 		flash[:success] = "User deleted"
-		redirect_to find_friends_path
+		redirect_to root_path
 	end
+
 
 	def leaderboards
 		@users = User.paginate(page: params[:page], :per_page => 10).order(score: :desc)
@@ -169,21 +174,22 @@ class UsersController < ApplicationController
 
 
 		# Before filters
-
+=begin
 		# Confirm a looped-in user.	
-		#def logged_in_user
-		#	unless logged_in?
-		#		flash[:danger] = "Please log in."
-		#		redirect_to login_url
-		#	end
-		#end
-
+		def logged_in_user
+			unless logged_in?
+				flash[:danger] = "Please log in."
+				redirect_to new_user_session_path
+			end
+		end
+=end
+=begin
 		# Confrims the correct user.
 		def correct_user
 			@user = User.find(params[:id])
 			redirect_to(root_url) unless @user == current_user
 		end
-
+=end
 		def user_kudos(user)
 			kudos = 0
 			user.posts.each do |post|
@@ -194,9 +200,10 @@ class UsersController < ApplicationController
 			end
 			return kudos
 		end
-
+=begin
 		# Confirms an admin user.
 		def admin_user
 			redirect_to(root_url) unless current_user.admin?
 		end
+=end
 end

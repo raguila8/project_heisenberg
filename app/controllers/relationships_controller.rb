@@ -1,4 +1,6 @@
 class RelationshipsController < ApplicationController
+	before_action :logged_in_user, only: [:create, :destroy]
+
 	def create 
 		followed = params[:followed]
 		@user = User.find(followed)

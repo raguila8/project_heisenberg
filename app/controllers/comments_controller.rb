@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
-	
+	before_action :logged_in_user, only: [:create, :destroy, :edit, :update, :get_comments]
+	before_action :correct_comment, only: [:edit, :update, :destroy]
+
 	def create
 		@comment = Comment.new(comment_params)
 		respond_to do |format|
@@ -25,8 +27,12 @@ class CommentsController < ApplicationController
 
 	def destroy
 		comment = Comment.find(params[:id])
-		@comment_id = comment.id
-		comment.destroy
+		if comment.user != current_user
+			redirect_to topic_path(comment.post.topic.id)
+		else
+			@comment_id = comment.id
+			comment.destroy
+		end
 	end
 
 	def get_comments
@@ -66,7 +72,7 @@ class CommentsController < ApplicationController
 	end
 
 	def update
-		@comment = Comment.find(params[:id])	
+		@comment = Comment.find(params[:id])
 		@cancel = false
 		if params[:commit] == "Cancel"
 			@cancel = true
@@ -86,6 +92,13 @@ class CommentsController < ApplicationController
 
 	private
 
+	# Before action
+	# Makes sure comment belongs to current_user
+	def correct_comment
+		comment = Comment.find(params[:id])
+		redirect_to topic_path(comment.post.topic.id) unless comment.user == current_user
+	end
+	
 	def comment_params
 		params.require(:comment).permit(:content, :user_id, :post_id)
 	end

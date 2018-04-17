@@ -1,5 +1,8 @@
 class SolvedProblemsController < ApplicationController
 	include SolvedProblemsHelper
+	
+	before_action :logged_in_user, only: [:create]
+
 	# Runs when user submits an answer
 	def create
 		@problem = Problem.find(params[:id])
@@ -34,6 +37,8 @@ class SolvedProblemsController < ApplicationController
 			@problem.save
 		end
 	end
+
+	private
 
 	# Float raises an exception if arg is invalid so we send control to the
 	# rescue clause

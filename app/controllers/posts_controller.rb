@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-	before_action :logged_in_user, only: [:new, :create, :edit]
+	before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+	before_action :correct_post, only: [:edit, :update, :destroy]
 
 	def new
 		@post = Post.new
@@ -70,6 +71,13 @@ class PostsController < ApplicationController
 	end
 
 	private
+
+		# Before action
+		# Makes sure post belongs to current_user
+		def correct_post
+			post = Post.find(params[:id])
+			redirect_to topic_path(post.topic.id) unless post.user == current_user
+		end
 
 		def user_params
 			params.require(:post).permit(:content)

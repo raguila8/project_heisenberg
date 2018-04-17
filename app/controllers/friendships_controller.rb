@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+	before_action :logged_in_user, only: [:create, :destroy]
 	def destroy
 		friend = User.find(params[:id])
 		@friendship = current_user.friendships.where(friend_id: params[:id]).first
