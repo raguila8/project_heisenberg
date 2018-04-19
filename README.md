@@ -4,54 +4,24 @@ Inspired by Project Euler, Project Heisenberg (named after theoretical physicist
 
 Project Heisenberg allows users to track their progress through achievement levels based on problems solved and their difficulty level. In addition, users are able to track their friends' progress and discuss problems with them.
 
-Each problem has its own discussion thread that is only available to those who have solved the problem already. Once you have access you will be able to see how other members have solved the problem, discuss methods, and share your insights.
+Each problem has its own discussion thread. You will be able to see how other members have solved the problem, discuss methods, and share your insights.
 
+![Project Heisenberg app preview](/images/profile_snap.png)
 [View Project](https://mighty-wave-85570.herokuapp.com/) 
 
-## Running Locally
+## Built With
 
-* Ruby version - 2.3.3
-
-* Rails version - 5.1.4
-
-To get started with the app, clone the repo and then install the needed gems:
-
-run `bundle install` to install and include the gems specified in the `Gemfile`, while skipping the installation gems using the option `--without production`:
-
-```linux
-$ bundle install --without production
-```
-
-This arranges to skip the pg gem for PostgreSQL in development and use SQLite for development and testing. In case you've previously installed a version of a gem (such as Rails) other than the one specified by the Gemfile, it's a good idea to update the gems with `bundle update` to make sure the versions match:
-
-```linux
-$ bundle update
-```
-
-Finally, run the test suite to verify that everything is working correctly:
-
-```
-$ rails test
-```
-
-If the test suite passes, you'll be ready to run the app in a local server:
-
-```
-$ rails server
-```
-
-
-### Database
-
-To seed the database I use the standard ruby file `db/seeds.rb` along with the `Faker` gem to make sample users, posts and problems.
-
-```linux
-$ rails db:seed
-```
-
-## Next Steps
-
-* Make site responsive
-* Allow users to report posts
-* Make a `recent` page where users can see recent friend activity as well as site wide anouncements
-* Make a statistics page that shows the combined stats of all users
+* [Ruby on Rails](http://rubyonrails.org/) - 5.1.5
+* [PostgreSQL](https://www.postgresql.org/) - Used for productionn
+* [SQLite](https://www.sqlite.org/index.html) - Used for development
+* [Puma Web Server](https://github.com/puma/puma) 
+* [Heroku PaaS](https://www.heroku.com/)
+* [Devise Authentication](https://github.com/plataformatec/devise)
+* [Amazon S3 cloud storage](https://aws.amazon.com/s3/) - Used to store images
+* [SendGrid](https://sendgrid.com/) - Used for account recovery
+* [carrierwave](https://github.com/carrierwaveuploader/carrierwave) - Used for image uploads
+* [minimagick](https://github.com/minimagick/minimagick) - image processing library
+* [Acts As Votable](https://github.com/ryanto/acts_as_votable) - Used for post likes
+* [Bootstrap](http://getbootstrap.com/docs/3.3/)
+* [jQuery](https://jquery.com/)
+* [Sass](https://sass-lang.com/)
