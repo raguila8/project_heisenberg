@@ -7,6 +7,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% if landing_page? || about_page? %>
+			<%= stylesheet_link_tag 'landing_page', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'landing_page', 'data-turbolinks-track': 'reload' %>
+    <% end %>
 		<%= render 'layouts/shim' %>
 		<%= render 'layouts/mathjax' %>
   </head>
@@ -14,13 +18,14 @@
   <body>
 		<%= render 'layouts/header' %>
 		<%= render 'notifications/notifications' if logged_in? %>
-		<div class="container">
-			<%# flash.each do |message_type, message| %>
-				<!--<div class="alert alert-<%#=message_type %>"><%#= message %></div>-->
-			<%# end %>
-    	<%= yield %>
+		<% if !(landing_page? || about_page?) %>
+			<div class="container">
+		<% end %>
+			<%= yield %>
 			<%#= debug(params) if Rails.env.development? %>	
-		</div>
+		<% if !(landing_page? || about_page?) %>
+			</div>
+		<% end %>
 		<%= render 'layouts/footer' %>
 		<script>
 			if (window.MathJax && !$("body[data-mathjax]").length) {
@@ -28,7 +33,6 @@
     			["Typeset",MathJax.Hub]
   			);
 				$( "body" ).attr( "data-mathjax", true );
-
 			}
 		</script>
 		<%#= render 'layouts/mathjax' %>

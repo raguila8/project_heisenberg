@@ -16,4 +16,4 @@
 //= require turbolinks
 //= require bootstrap.min.js
 //= require jquery-ui
-//= require_tree .
+//= require custom.js

@@ -1,0 +1,173 @@
+<% provide(:title, 'Project Heisenberg') %>
+<!-- start preloader -->
+<div class="preloader">
+  <div class="sk-spinner sk-spinner-rotating-plane"></div>
+</div>
+<!-- end preloader -->
+<!-- start home -->
+<section id="home">
+  <div class="overlay">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 wow fadeIn" data-wow-delay="0.3s">
+          <h1 class="text-upper" style="color: #fff">Learn Physics The Fun Way</h1>
+          <p class="tm-white font-weight-600">Project Heisenberg is a 
+	platform for the curious mind to delve into the world of physics and learn 
+	mathematical and physical concepts in a fun and recrational way.</p>
+          <% if signed_in? %>
+            <%= link_to dashboard_path do %>
+              <button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>SOLVE NOW!</button>
+            <% end %>	
+          <% else %>
+            <%= link_to signup_path do %>
+              <button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>START NOW FREE</button>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end home -->
+<!-- start divider -->
+<section id="divider">
+  <div class="container">
+    <div class="row g-mb-40">
+      <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+        <span class="icon-container"><img src="/classical_mechanics.png" class="inline-icon-2"></span>
+        <h3 class="text-uppercase">Classical Mechanics</h3>
+      </div>
+      <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+        <span class="icon-container"><img src="/electricity_and_magnetism.png" class="inline-icon-2"></span>
+        <h3 class="text-uppercase">Electricity and Magnetism</h3>
+      </div>
+      <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+        <span class="icon-container"><img src="/waves.png" class="inline-icon-2"></span>
+        <h3 class="text-uppercase">Waves and Oscillations</h3>
+      </div>
+    </div>
+    <div class="row g-mb-40">
+      <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+        <span class="icon-container"><img src="/thermodynamics.png" class="inline-icon-2"></span>
+        <h3 class="text-uppercase">Thermodynamics</h3>
+      </div>
+      <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+        <span class="icon-container"><img src="/quantum_mechanics.png" class="inline-icon-2"></span>
+        <h3 class="text-uppercase">Quantum Mechanics</h3>
+      </div>
+      <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+        <span class="icon-container"><img src="/relativity.png" class="inline-icon-2"></span>
+        <h3 class="text-uppercase">Relativity</h3>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end divider -->
+
+<!-- start feature -->
+<section id="feature">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">Track Your Progress</h2>
+        <p>Earn points for every problem that you solve and track your progress.</p>
+        <p><span><i class="fa fa-star"></i></span>Every problem has a difficulty rating. Earn more points by solving harder problems.</p>
+        <p><i class="fa fa-tasks"></i>See how much of each field you have mastered! You can focus on certain tracks ranging from Classical Mechanics to Quantum Mechanics.</p>
+      </div>
+      <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+        <img src="macbook.png" class="img-responsive" alt="feature img">
+        <div class="screen">
+          <img src="progress-snap.png" class="img-responsive">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+		<!-- start feature1 -->
+		<section id="feature1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<img src="macbook.png" class="img-responsive" alt="feature img">
+						<div class="screen">
+							<img src="leaderboard-snap.png" class="img-responsive">
+						</div>
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Make Your Way up the Leaderboards</h2>
+						<p>See where you rank compared to your friends and everyone else.</p>
+						<p><span><i class="fa fa-line-chart"></i></span>You can fine-tune the leaderboards to see how you rank in certain topics.</p>
+						<p><i class="fa fa-trophy"></i>There are 3 main rankings: points earned by solving problems, total problems solved and your kudos score earned from writing helpful posts. </p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature1 -->
+
+		<!-- start feature3 -->
+		<section id="feature3">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Earn Kudos</h2>
+						<p>Each problem has its own thread where you can see how others have solved the problem,
+	discuss methods, and share insights.
+</p>
+						<p><span><i class="fa fa-thumbs-up"></i></span>Earn kudos by writng helpful, useful and well written posts. Track your kudos in your progress page and on the leaderboards.</p>
+						<p><i class="fa fa-font"></i>Type your math using $LaTeX$. Project Heisenberg uses the Javascript display engine MathJax in order to render mathematics in all browsers.
+ </p>
+					</div>
+					<div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+						<img src="macbook.png" class="img-responsive" alt="feature img">
+						<div class="screen">
+							<img src="forum-snap.png" class="img-responsive">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature -->
+
+
+		<!-- start feature2 -->
+		<section id="feature2">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<img src="macbook.png" class="img-responsive" alt="feature img">
+						<div class="screen">
+							<img src="mobile-snap4.png" class="img-responsive">
+						</div>
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<h2 class="text-uppercase">Chat With Your Friends</h2>
+						<p>Follow users and chat with them.</p>
+						<p class="g-mb-20"><span><i class="fa fa-comments"></i></span>You can chat with users and discuss problems privately.</p>
+						<p><i class="fa fa-user-plus"></i>You can follow users and see how much progress they have made. </p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feature2 -->
+
+		<section class="cta">
+      <div class="cta-content">
+        <div class="container">
+          <h2>Stop waiting.<br>Start Solving.</h2>
+					<% if signed_in? %>
+						<%= link_to dashboard_path do %>
+							<button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>Start Solving!</button>
+						<% end %>
+					<% else %>
+						<%= link_to signup_path do %>
+							<button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>Let's Get Started!</button>
+						<% end %>
+					<% end %>
+        </div>
+      </div>
+      <div class="overlay"></div>
+    </section>	

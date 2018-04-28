@@ -9,4 +9,8 @@ class StaticPagesController < ApplicationController
 	def attributions
 
 	end
+
+  def landing_page
+
+  end
 end

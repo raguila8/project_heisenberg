@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+	def landing_page?
+		controller_name == 'static_pages' && action_name == 'landing_page'
+	end
+
+	def about_page?
+		controller_name == 'static_pages' && action_name == 'about'
+	end
+
 	def my_message?(message)
 		current_user.id == message.user_id
 	end

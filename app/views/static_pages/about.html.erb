@@ -1,26 +1,226 @@
-<% provide(:title, "About") %>
-<h1>About Project Heisenberg</h1>
-<h3 class="font-weight-600">What is Project Heisenberg?</h3>
-<p>
-	Project Heisenberg is a series of challenging physics problems inspired by 
-	<a href="https://projecteuler.net">Project Euler</a>. The project is a 
-	platform for the curious mind to delve into the world of physics and learn 
-	mathematical and physical concepts in a fun and recrational way. The 
-	problems are aimed at students who want to learn beyond their basic 
-	curriculum, anyone seeking to understand the essential nature of the world 
-	and professionals who want to keep their problem solving, physics and 
-	mathematics sharp.
-</p>
-<p>
-	Project Heisenberg allows users to track their progress through achievement 
-	levels based on problems solved and their difficulty level. In addition, 
-	users are able to track their friends' progress and discuss problems with them.
-</p>
-<p>
-	Each problem has its own discussion thread where you will be able to see 
-	how other members have solved the problem, discuss methods, and share 
-	your insights.
-</p>
+<% provide(:title, 'How it Works') %>
+<!-- start preloader -->
+<div class="preloader">
+  <div class="sk-spinner sk-spinner-rotating-plane"></div>
+</div>
+<!-- end preloader -->
+<section id="home">
+  <div class="overlay">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 wow fadeIn" data-wow-delay="0.3s">
+          <h1 class="text-upper" style="color: #fff">A PLACE TO PONDER THE UNIVERSE</h1>
+          <p class="tm-white font-weight-600">
+	          "The important thing is not to stop questioning. Curiosity has its 
+            own reason for existence. One cannot help but be in awe when he 
+            contemplates the mysteries of eternity, of life, of the marvelous 
+            structure of reality. It is enough if one tries merely to 
+            comprehend a little of this mystery each day."
+          </p>
+          <span class="float-right tm-white font-weight-600">
+            - Albert Einstein
+          </span>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- start feature -->
+<section id="feature">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">What is Project Heisenberg?</h2>
+        <p>
+	        Project Heisenberg is a series of challenging physics problems 
+          inspired by <a href="https://projecteuler.net">Project Euler</a>. 
+          The project is a platform for the curious mind to delve into the 
+          world of physics and learn mathematical and physical concepts in a 
+          fun and recrational way. The problems are aimed at students who 
+          want to learn beyond their basic curriculum, anyone seeking to 
+          understand the essential nature of the world and professionals who 
+          want to keep their problem solving, physics and mathematics sharp.
+        </p>
+      </div>
+      <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+        <img src="/problem-solved-snap.png" class="img-responsive" alt="feature img">
+        <img src="/problem-snap.png" class="img-responsive img-over-right" alt="feature img">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+<!-- start feature1 -->
+<section id="feature1" class="g-mt-40">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+        <img src="/progress-snap.png" class="img-responsive" alt="feature img">
+      </div>
+      <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">Keeping Score</h2>
+        <p>
+	        Project Heisenberg allows you to track your progress through 
+          achievement levels based on problems solved and their difficulty 
+          level. 
+        </p>
+        <p>
+          There are easy, medium and hard problems represented by 1, 2
+          or 3 stars respectively. Solving an easy problem earns you 20 points,
+          medium problems give you 40 and hard problems are worth the most with
+          80 points. 
+        </p>
+        <p>
+          In addition to your overall score, you can see how many 
+          problems you have solved and your kudos score (obtained by writing
+          helpful posts). Your progress page contains an in depth analytics 
+          section where you can see how much of every branch and subtopic you 
+          have completed.
+        </p>
+        <!--
+        <p>
+	        Each problem has its own discussion thread where you will be able 
+          to see how other members have solved the problem, discuss methods, 
+          and share your insights.
+        </p>
+				-->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+<!-- start feature3 -->
+<section id="feature3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">Discussion</h2>
+        <p>
+          Project Heisenberg is about fostering a community of curious minds
+          and physics enthusiasts. 
+        </p>
+        <p>
+	        Each problem has its own discussion thread where you will be able 
+          to see how other members have solved the problem, discuss methods, 
+          and share your insights.
+        </p>
+        <p>
+          Popular and helpful posts will earn you kudos. The purpose of Kudos 
+          is to let the poster or other members know that you found a 
+          particular post helpful, useful, or well written. You can see how
+          many Kudos each person has in their progress page.
+        </p>
+      </div>
+      <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+        <img src="/forum-snap.png" class="img-responsive" alt="feature img">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+<!-- start feature -->
+<section class="feature">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+        <img src="/mobile-snap4.png" class="img-responsive" alt="feature img">
+      </div>
+
+      <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">Another Way to Discuss</h2>
+        <p>
+          You can follow other users and have private discussions with 
+          them. You can also track your friends' progress by viewing 
+          their progress page or compare yourself with them through 
+          the leaderboards page.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+<!-- start feature -->
+<section class="feature feature-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">The Leaderboards</h2>
+        <p>
+          You can see where you place overall or only on certain subjects. In
+          addition you can compare yourself with your friends. There is a
+          ranking for your overall score, for overall problems solved and
+          your kudos score.
+        </p>
+      </div>
+      <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+        <img src="/leaderboard-snap.png" class="img-responsive" alt="feature img">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+<!-- start feature -->
+<section class="feature feature-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+        <img src="/branch-snap.png" class="img-responsive" alt="feature img">
+        <img src="/dashboard-snap.png" class="img-responsive img-over-left" alt="feature img">
+
+      </div>
+      <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+        <h2 class="text-uppercase">Where To Begin?</h2>
+          <p>
+            The Dashboard contains a list of the main physics branches 
+            including <i>Classical Mechanics</i>, <i>Electromagnetism</i>, 
+            <i>Thermodynamics</i>, <i>Quantum Mechanics</i> and 
+            <i>Special Relativity</i>. Once logged in, you will be able to 
+            see how much of each branch you have completed.
+          </p>
+          <p>
+            For each branch you can browse the list of problems and 
+            filter them based on difficulty, topics for that particular 
+            branch and whether or not you have solved the problem already. 
+            You will be able to see how many people have solved each problem 
+            and what the success rate for solving the problem is. There is 
+            also a difficulty rating system which may also help you decide 
+            where to start. The problem difficulty determines how many 
+            points a problem is worth. 
+          </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end feature -->
+
+<section class="cta g-mt-40">
+  <div class="cta-content">
+    <div class="container">
+      <h2>Stop waiting.<br>Start Solving.</h2>
+      <% if signed_in? %>
+        <%= link_to dashboard_path do %>
+          <button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>Start Solving!</button>
+        <% end %>
+      <% else %>
+        <%= link_to signup_path do %>
+          <button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>Let's Get Started!</button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="overlay"></div>
+</section>	
+
+<!--
 <h3 class="font-weight-600">Who are the problems aimed at?</h3>
 <p>
 	The intended audience include students for whom the basic curriculum is not feeding their hunger to learn, adults whose background was not primarily physics but had an interest in physics, and professionals who want to keep their problem solving and physics on the cutting edge.
@@ -83,5 +283,5 @@
 	collection of existing physics challenges. New problems are posted every week.
 </p>
 
-
+-->
 

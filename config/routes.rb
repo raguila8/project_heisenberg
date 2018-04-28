@@ -11,6 +11,14 @@ Rails.application.routes.draw do
 		put '/user_registration', to: 'registrations#update'
 		delete '/user_registration', to: 'registrations#destroy'
 		post '/user_registration', to: 'registrations#create'
+		authenticated :user do
+			root 'problems#index'
+		end
+		
+		unauthenticated do
+			root 'static_pages#landing_page'
+		end
+
 	end
 
   get 'upvotes/new'
@@ -18,6 +26,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   #get '/signup', to: 'users#new'
+	get '/landing', to: 'static_pages#landing_page', as: :landing_page
 	get '/about', to: 'static_pages#about', as: :about
 	get '/attributions', to: 'static_pages#attributions', as: :attributions
 	#get '/login', to: 'sessions#new'
@@ -31,7 +40,6 @@ Rails.application.routes.draw do
 	delete '/unfriend', to: 'friendships#destroy'
 	post '/friend', to: 'friendships#create'
 	get '/dashboard', to: 'problems#index', as: :dashboard
-	root 'problems#index'
 	resources :problems, only: [:show, :create, :edit, :destroy, :update, :new]
 	post '/attempt', to: 'solved_problems#create'
 	resources :topics, only: [:show]
