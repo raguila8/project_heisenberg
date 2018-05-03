@@ -11,10 +11,10 @@ class Problem < ApplicationRecord
 	validates :difficulty, presence: true, :numericality => 
 							{ :greater_than => 0, :less_than_or_equal_to => 3,
 								:only_integer => true }
-	validates :title, presence: true, uniqueness: true
+	validates :title, presence: true, uniqueness: { case_sensitive: false }
 	validates :answer, presence: true, :numericality => true
 
-	# Gets the number pf problems with a specific branch
+	# Gets the number of problems with a specific branch
 	def self.branch_count(branch)
 		count = Problem.select("p.id").
 												joins("as p inner join problem_categories as pc on p.id = pc.problem_id").

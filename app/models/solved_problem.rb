@@ -1,6 +1,6 @@
 class SolvedProblem < ApplicationRecord
-	belongs_to :user
-	belongs_to :problem
+  belongs_to :user
+  belongs_to :problem
 
-	validates_uniqueness_of :problem_id, scope: :user_id
+  validates_uniqueness_of :problem_id, scope: :user_id
 end

@@ -27,6 +27,10 @@ class User < ApplicationRecord
   #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 	validates :email, presence: true, length: { maximum: 255 },
 										uniqueness: { case_sensitive: false }
+  validates :bio, length: { maximum: 500 }
+  validates :name, length: { maximum: 70 }
+  validates :occupation, length: { maximum: 70 }
+  validates :school, length: { maximum: 70 }
 	#has_secure_password
 	#validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 	validate :profile_image_size

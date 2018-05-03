@@ -3,6 +3,7 @@ class Message < ApplicationRecord
 	belongs_to :user
 
 	validates_presence_of :body, :conversation_id, :user_id
+  validates :body, length: { maximum: 1000 }
 	validate :validate_conversation_id
 	validate :validate_user_id
 

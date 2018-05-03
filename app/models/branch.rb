@@ -1,7 +1,7 @@
 class Branch < ApplicationRecord
 	has_many :subtopics, :dependent => :destroy
 	#has_many :problems, through: :problem_categories
-	validates :name, presence: true, uniqueness: true
+	validates :name, presence: true, uniqueness: { case_sensitive: false }
 
 	def unique_topics
 		topics = Subtopic.select('DISTINCT name').
