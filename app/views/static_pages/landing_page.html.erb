@@ -15,15 +15,7 @@
           <p class="tm-white font-weight-600">Project Heisenberg is a 
 	platform for the curious mind to delve into the world of physics and learn 
 	mathematical and physical concepts in a fun and recrational way.</p>
-          <% if signed_in? %>
-            <%= link_to dashboard_path do %>
-              <button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>SOLVE NOW!</button>
-            <% end %>	
-          <% else %>
-            <%= link_to signup_path do %>
-              <button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>START NOW FREE</button>
-            <% end %>
-          <% end %>
+          <%= puts_landing_page_home_button %>
         </div>
         <div class="col-md-1"></div>
       </div>
@@ -154,19 +146,11 @@
 		</section>
 		<!-- end feature2 -->
 
-		<section class="cta">
+		<section class="cta" id="cta">
       <div class="cta-content">
         <div class="container">
           <h2>Stop waiting.<br>Start Solving.</h2>
-					<% if signed_in? %>
-						<%= link_to dashboard_path do %>
-							<button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>Start Solving!</button>
-						<% end %>
-					<% else %>
-						<%= link_to signup_path do %>
-							<button class='btn g-mt-10 g-mb-10 g-rounded-20 g-pv-12 g-btn-home'>Let's Get Started!</button>
-						<% end %>
-					<% end %>
+					<%= puts_landing_page_cta_button %>
         </div>
       </div>
       <div class="overlay"></div>

@@ -36,7 +36,7 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
-	Rails.application.routes.default_url_options[:host] = 'mighty-wave-85570.herokuapp.com'
+	#Rails.application.routes.default_url_options[:host] = 'mighty-wave-85570.herokuapp.com'
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
