@@ -64,9 +64,10 @@ group :development, :test do
   #gem 'capybara', '~> 2.13'
   #gem 'selenium-webdriver'
 	gem 'sqlite3'
+  gem 'selenium-webdriver'
+  gem 'capybara', '~> 2.15'
   gem 'rspec-rails', '~> 3.7.2'
   gem 'factory_bot_rails'
-  gem 'capybara'
 
 end
 
@@ -85,7 +86,6 @@ group :test do
   gem 'capybara-screenshot'
 	gem 'guard', '2.13.0'
 	gem 'guard-minitest', '2.4.4'
-  gem 'selenium-webdriver'
 end
 
 group :production do

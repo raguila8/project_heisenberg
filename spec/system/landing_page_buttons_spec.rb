@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "landing page buttons" do
   context "user that is not logged in" do
-
     describe "main banner button" do
       it "contains 'START NOW FREE'" do
         visit landing_page_path
