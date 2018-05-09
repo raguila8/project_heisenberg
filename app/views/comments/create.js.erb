@@ -3,12 +3,12 @@ $('.alert, #error_explanation').remove();
 	$('#comment-section-<%=@comment.post_id%>').append("<%= escape_javascript render(:partial => '/comments/comments', locals: { comment: @comment }) %>");
 	$('#comment-text-area-<%=@comment.post_id%>').val('');
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#comment-<%=@comment.id%>')[0]]);
-	var html = "<div class='flash-top alert alert-success'> New comment created!</div>";
+	var html = "<div class='flash-top alert alert-success text-center'> <img class='inline-icon g-mr-10' src='/success.png'> New comment created!</div>";
 	$('body').append(html);
-	$('.flash-top').slideDown(500);
+	$('.flash-top').slideDown(750);
 	setTimeout(function(){
-    $('.flash-top').slideUp(500);
-  }, 3500);
+    $('.flash-top').slideUp(750);
+  }, 4000);
 
 <% else %>
 	var html = "<div id='error_explanation'><ul style='margin:0;'><li>" + "<%=@comment.errors.full_messages.first%>" + "</li></ul></div>";

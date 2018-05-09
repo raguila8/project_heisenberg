@@ -202,20 +202,6 @@ button:focus {outline:0 !important; }
 }
 
 
-.flash-top {
-	display: none;
-	position: fixed;
-	bottom: 0;
-	width: 50%;
-	z-index: 10000;
-	margin: 5px auto;
-	left: 0;
-	right: 0;
-	color: rgba(216,216,216,0.8);
-	font-weight: 600;
-	background-image: radial-gradient(circle, #39424e, #2c3749, #212c44, #17213e, #0f1638);
-
-}
 
 /* text styles */
 
@@ -364,6 +350,10 @@ button:focus {outline:0 !important; }
 
 .g-mr-5 {
 	margin-right: 5px !important;
+}
+
+.g-mr-10 {
+  margin-right: 10px !important;
 }
 
 .g-mr-20 {
@@ -815,6 +805,7 @@ label {
 	color: #394251;
 }
 
+/* flash messages */
 
 #error_explanation {
   color: red;
@@ -829,6 +820,76 @@ label {
 		}
   }
 }
+
+#warning-message {
+  display: none;
+	position: fixed;
+	bottom: 0;
+	max-width: 66%;
+  min-width: 25%;
+	z-index: 10000;
+	margin: 5px auto;
+	font-weight: 600;
+  color: #fff;
+
+  background-image: url('/form-bg1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.flash-message {
+  display: none;
+	position: fixed;
+	bottom: 0;
+	max-width: 66%;
+	z-index: 10000;
+	margin: 5px auto;
+	font-weight: 600;
+  color: #fff;
+
+  background-image: url('/form-bg1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.warning {
+  background: rgba(255,87,87, 0.6);
+}
+
+.success {
+  background: rgba(121, 210, 121, 0.6);
+}
+
+.flash-message-overlay {
+  border-radius: 5px;
+  padding: 25px;
+  height: 100%;
+}
+
+.flash-top {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	max-width: 66%;
+  min-width: 25%;
+	z-index: 10000;
+	margin: 5px auto;
+  color: #fff;
+	font-weight: 600;
+	background-image: radial-gradient(circle, #39424e, #2c3749, #212c44, #17213e, #0f1638);
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 h1 {
   font-size: 3em;

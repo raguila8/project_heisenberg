@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 		# Makes sure user is logged in
 		def logged_in_user
 			unless signed_in?
-				flash[:danger] = "Please log in."
+				flash[:alert] = "You need to sign in or sign up berofre continuing."
 				redirect_to new_user_session_path
 			end
 		end
@@ -25,7 +25,10 @@ class ApplicationController < ActionController::Base
 		# Confirms the correct user
 		def correct_user
 			@user = User.find(params[:id])
-			redirect_to(root_url) unless @user == current_user
+      if @user != current_user
+        flash[:alert] = "Action not authorized"
+        redirect_to(root_url)
+      end
 		end
 
 		# Before action

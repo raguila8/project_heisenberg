@@ -101,4 +101,21 @@ module ApplicationHelper
 	def set_new_subtopic_class
 		((controller_name == "subtopics") && (action_name == "new" || action_name == "create")) ? "active-effect-4" : "non-active-effect-4" 
 	end
+
+  def flash_messages
+    if flash[:notice] || flash[:success]
+      type = "success"
+      msg = flash[:notice] ? flash[:notice] : flash[:success]
+    elsif flash[:alert]
+      type = "warning"
+      msg = flash[:alert]
+    else
+      return
+    end
+    html = "<div class='flash-message text-center'>\n"
+    html += "  <div class='flash-message-overlay #{type} text-center'>\n"
+    html += %Q{    <span class='text-center'><img class='inline-icon g-mr-5' \
+      src='/#{type}.png'> #{msg} </span>\n  </div>\n</div>}
+    return html.html_safe
+  end
 end

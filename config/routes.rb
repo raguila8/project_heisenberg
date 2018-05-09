@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:sessions, :registrations]
 	devise_scope :user do
-		get '/sign_in', to: 'devise/sessions#new', as: :new_user_session
-		post '/sign_in', to: 'devise/sessions#create', as: :user_session
-  	delete '/sign_out', to: 'devise/sessions#destroy', as: :logout
+		get '/sign_in', to: 'sessions#new', as: :new_user_session
+		post '/sign_in', to: 'sessions#create', as: :user_session
+  	delete '/sign_out', to: 'sessions#destroy', as: :logout
 		get 'cancel_registration', to: 'registrations#cancel', as: :cancel_user_registration
 		get 'sign_up', to: 'registrations#new', as: :signup
 		get 'change_password/:id', to: 'registrations#edit', as: :edit_user_registration
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get 'upvotes/new'
 
-  get 'sessions/new'
+  #get 'sessions/new'
 
   #get '/signup', to: 'users#new'
 	get '/landing', to: 'static_pages#landing_page', as: :landing_page

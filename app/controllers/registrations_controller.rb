@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 include ApplicationHelper
-
+  #before_action :logged_in_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 	before_action :configure_permitted_parameters, only: [:create]
 
 	# inherit from devise controller
@@ -10,16 +11,6 @@ include ApplicationHelper
 
 	# inherit form devise controller
 	def create
-=begin
-		@user = User.new(user_params)
-		if @user.save
-			sign_in(@user, scope: :user)
-			flash[:success] = "Welcome to Project Heisenberg!"
-			redirect_to dashboard_path
-		else
-			render 'new'
-		end
-=end
 		super
 	end
 

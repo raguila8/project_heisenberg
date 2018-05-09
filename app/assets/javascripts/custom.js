@@ -1,5 +1,13 @@
 $(document).on('ready turbolinks:load', function() {
 	var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+  
+  $('.flash-message').slideDown(800);
+  setTimeout(function(){
+    $('.flash-message').slideUp(800, function() {
+      $('.flash-message').remove();
+    });
+  }, 5000);
+
 
 /*************** Threads *******************/
 	if ($('.thread-body').length) {
@@ -141,12 +149,12 @@ $(document).on('ready turbolinks:load', function() {
 			} else {
 				//MathJax.Hub.Queue(["Typeset",MathJax.Hub, $postForm[0]]);
 				postPages.push(2);
-				var html = "<div class='flash-top post-post-alert alert alert-success'> New post created!</div>";
+				var html = "<div class='flash-top post-post-alert alert alert-success text-center'><img class='inline-icon g-mr-10' src='/success.png'> New post created!</div>";
 				$('body').append(html);
 				$('.flash-top').slideDown(500);
 				setTimeout(function(){
     			$('.flash-top').slideUp(500);
-  			}, 3500);
+  			}, 4000);
 
 			}
 		});

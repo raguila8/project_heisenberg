@@ -1,8 +1,8 @@
 $('#comment-<%=@comment_id%>').remove();
-var html = "<div class='flash-top alert alert-success'> Your comment was deleted. </div>";
+var html = "<div class='flash-top alert alert-success text-center'><img class='inline-icon g-mr-10' src='/success.png'> Your comment was deleted. </div>";
 $('body').append(html);
-$('.flash-top').slideDown(500);
+$('.flash-top').slideDown(750);
 setTimeout(function(){
-	$('.flash-top').slideUp(500);
-}, 3500);
+	$('.flash-top').slideUp(750);
+}, 4000);
 

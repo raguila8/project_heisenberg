@@ -1,23 +1,18 @@
-class SessionsController < ApplicationController
-  def new
+class SessionsController < Devise::SessionsController
+  before_action :failed_login_message, only: [:new]
+
+  private
+
+  # change flash type to error instead of alert
+  def failed_login_message
+    if failed_login?
+      flash.now[:error] = flash[:alert]
+      flash.now[:alert] = nil
+    end
   end
 
-	def create
-		user = User.find_by(username: params[:session][:username])
-		if user && user.authenticate(params[:session][:password])
-			# Log the user in and redirect to the user's show page.
-			log_in user
-			params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-			redirect_to user
-		else
-			# Create an error message.
-			flash.now[:danger] = 'Invalid username/password combination'
-			render 'new'
-		end
-	end
-
-	def destroy
-		log_out if logged_in?
-		redirect_to root_url
-	end
+  def failed_login?
+    puts request.env["warden.options"]
+    (options = request.env["warden.options"]) && options[:action] == "unauthenticated"
+  end 
 end

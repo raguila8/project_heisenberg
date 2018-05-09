@@ -4,12 +4,12 @@ if ($('.alert').length) {
 
 $('#post-count-<%=@post_count%>').closest('.row').replaceWith("<%= escape_javascript render(:partial => '/topics/more_posts', :locals => { :post => @post, :post_count => @post_count }) %>");
 <% if !@cancel %>
-	var html = "<div class='flash-top alert alert-success'> Post was updated!</div>";
+	var html = "<div class='flash-top alert alert-success text-center'> <img class='inline-icon g-mr-10' src='/success.png'> Post was updated!</div>";
 	$('body').append(html);
 	$('.flash-top').slideDown(500);
 	setTimeout(function(){
     $('.flash-top').slideUp(500);
-  }, 3500);
+  }, 4000);
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub, $('#post-count-<%=@post_count%> .forum_message')[0]]);
 <% end %>
 
