@@ -7,7 +7,11 @@ class BranchesController < ApplicationController
 	end
 
 	def index
-
+    @branches = Branch.all
+		@problems = Problem.all.order(:id).paginate(page: params[:page], :per_page => 30)
+		if signed_in? 
+			@solved_problems = current_user.problems.order(:id)
+		end
 	end
 
 	def problems_filter

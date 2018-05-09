@@ -6,34 +6,28 @@ RSpec.describe "static_pages/landing_page" do
       describe "main banner button" do
         it "contains 'START NOW FREE'" do
           render
-          within("#home") do
-            expect(rendered).to have_selector("#btn-home")
-            expect(find('#btn-home').value).to eq('START NOW FREE')
-          end
+          expect(rendered).to have_selector("#btn-home")
+          expect(rendered).to have_xpath("//input[@value='START NOW FREE']")
         end
 
         it "links user to sign up page" do
           render
-          within("#home") do
-            expect(rendered).to have_selector(:css, "a[href='#{signup_path}']")
-          end
+          expect(rendered).to have_selector(:css, 
+                                        "#home form[action='#{signup_path}']")
         end
       end
 
       describe "call to action button" do
         it "contains Let's Get Started" do
           render
-          within("#cta") do
-            expect(rendered).to have_selector("#btn-cta")
-            expect(find('#btn-cta').value).to eq("Let's Get Started")
-          end
+          expect(rendered).to have_selector("#btn-cta")
+          expect(rendered).to have_xpath("//input[@value=\"Let's Get Started\"]")
         end
 
         it "links user to sign up page" do
           render
-          within("#cta") do
-            expect(rendered).to have_selector(:css, "a[href='#{signup_path}']")
-          end
+          expect(rendered).to have_selector(:css, 
+                                        "#cta form[action='#{signup_path}']")
         end
       end
     end
@@ -47,36 +41,29 @@ RSpec.describe "static_pages/landing_page" do
       describe "main banner button" do
         it "contains 'SOLVE NOW!'" do
           render
-          within("#home") do
-            expect(rendered).to have_selector("#btn-home")
-            expect(find('#btn-home').value).to eq('SOLVE NOW!')
-          end
+          expect(rendered).to have_selector("#btn-home")
+          expect(rendered).to have_xpath("//input[@value=\"SOLVE NOW!\"]")
         end
 
         it "links user to dashboard" do
           render
-          within("#home") do
-            expect(rendered).to have_selector(:css, 
-                                                "a[href='#{dashboard_path}']")
-          end
+          expect(rendered).to have_selector(:css, 
+                                     "#home form[action='#{dashboard_path}']")
         end
       end
 
       describe "call to action button" do
         it "contains 'Start Solving!'" do
           render
-          within("#cta") do
-            expect(rendered).to have_selector("#btn-cta")
-            expect(find('#btn-cta').value).to eq("Start Solving!")
-          end
+          expect(rendered).to have_selector("#btn-cta")
+          expect(rendered).to have_xpath("//input[@value=\"Start Solving!\"]")
         end
 
         it "links user to dashboard" do
           render
-          within("#cta") do
-            expect(rendered).to have_selector(:css, 
-                                                "a[href='#{dashboard_path}']")
-          end
+          expect(rendered).to have_selector(:css, 
+                                     "#cta form[action='#{dashboard_path}']")
+
         end
       end
     end
