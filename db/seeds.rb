@@ -23,6 +23,7 @@ subtopics = [subtopic1, subtopic2, subtopic3, subtopic4, subtopic5]
 
 5.times do |n|
 	branch = Branch.new
+  puts n
 	branch.name = branches[n]
 	branch.save
 	subtopics[n].each do |topic|

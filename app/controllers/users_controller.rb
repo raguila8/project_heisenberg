@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	include UsersHelper
-	before_action :logged_in_user, only: [:edit, :update, :show, :update_profile_image, :edit_profile, :update_profile, :destroy]
+	before_action :logged_in_user, only: [:edit, :update, :update_profile_image, :edit_profile, :update_profile, :destroy]
 	before_action :correct_user,	 only: [:edit, :update, :update_profile, :edit_profile]
 	before_action :admin_user, only: :destroy
 
@@ -97,12 +97,12 @@ class UsersController < ApplicationController
 			flash[:success] = "Profile image updated"
 		else
 			#redirect_to edit_profile_path(@profile.id)
-			flash[:error] = "profile image did not update"
+			flash[:error] = "Unable to upload image"
 		end
 
-		if params[:path] == 'show'
-			redirect_to current_user
-		end
+		#if params[:path] == 'show'
+	 redirect_to current_user
+		#end
 	end
 
 	def edit_profile

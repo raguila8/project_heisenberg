@@ -32,7 +32,7 @@
 				</div>
 				<!-- End User Image -->
 				<!-- User Contact Buttons -->
-				<% if current_user != @user %>
+				<% if signed_in? and current_user != @user %>
 				<div class="user-contact-btns-<%=@user.id%>">
 					<% if !current_user.following?(@user) %>
 					<button class="btn btn-block g-mb-10 g-rounded-20 g-pv-12 g-btn-secondary relationship-btn follow-btn" id="follow-btn-<%=@user.id%>">Follow</button>

@@ -2073,17 +2073,17 @@ img {
 .filter-on-hover {
 
 }
-
+/*
 .filter-on-hover:hover {
-	background-color: rgba(0,0,0,.5);
+	background-color: rgba(0,0,0,.5) !important;
 	
 	transition: all .3s ease;
 	text-decoration: none;
 }
-
+*/
 .camera-toggle:hover {
-	img {
-		background-color: rgba(0,0,0,.5);
+	form label img {
+		background-color: rgba(0,0,0,.5) !important;
 		transition: all .3s ease;
 		text-decoration: none;
 	}
