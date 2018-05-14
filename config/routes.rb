@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   # End Branches Controller
 
   # Begin Posts Controller
-  resources :posts, only: [:new, :edit, :create, :update, :destroy]
+  resources :posts, only: [:edit, :create, :update, :destroy]
   # End Posts Controller
 
   # Begin Comments Controller

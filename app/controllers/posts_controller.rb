@@ -76,7 +76,10 @@ class PostsController < ApplicationController
 		# Makes sure post belongs to current_user
 		def correct_post
 			post = Post.find(params[:id])
-			redirect_to topic_path(post.topic.id) unless post.user == current_user
+      if post.user != current_user
+        flash[:alert] = "Action not authorized"
+			  redirect_to topic_path(post.topic.id)
+      end
 		end
 
 		def user_params
