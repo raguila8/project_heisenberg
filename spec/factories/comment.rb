@@ -4,4 +4,9 @@ FactoryBot.define do
     post
     user
   end
+
+  factory :other_comment, class: Comment do
+    content "This is another comment"
+    association :user, factory: :other_user
+  end
 end

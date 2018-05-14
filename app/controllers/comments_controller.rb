@@ -96,7 +96,10 @@ class CommentsController < ApplicationController
 	# Makes sure comment belongs to current_user
 	def correct_comment
 		comment = Comment.find(params[:id])
-		redirect_to topic_path(comment.post.topic.id) unless comment.user == current_user
+    if comment.user != current_user
+      flash[:alert] = "Action not authorized"
+      redirect_to topic_path(comment.post.topic.id)
+    end
 	end
 	
 	def comment_params
