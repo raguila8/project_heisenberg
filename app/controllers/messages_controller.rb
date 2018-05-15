@@ -10,10 +10,6 @@ class MessagesController < ApplicationController
 		end
 	end
 
-	def index
-
-	end
-
 	private
 
 	def message_params

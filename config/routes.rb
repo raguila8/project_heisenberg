@@ -45,11 +45,11 @@ Rails.application.routes.draw do
   # End Subtopics
 
   # Begin Messages Controller
-  resources :messages, only: [:create, :index]
+  resources :messages, only: [:create]
   # End Messages Controller
 
   # Begin Conversations 
-  resources :conversations, only: [:show, :index, :create]
+  resources :conversations, only: [:show, :create]
   # End Conversations
 
   # Begin Users Controller

@@ -58,7 +58,10 @@ class ConversationsController < ApplicationController
 
 	def correct_conversation
 		@conversation = Conversation.find(params[:id])
-		redirect_to(root_url) unless (current_user.id == @conversation.sender_id || current_user.id == @conversation.recipient_id)
+    if current_user.id != @conversation.sender_id && current_user.id != @conversation.recipient_id
+      flash[:alert] = "You need to sign in or sign up before continuing."
+      redirect_to root_url
+    end
 	end
 
 end

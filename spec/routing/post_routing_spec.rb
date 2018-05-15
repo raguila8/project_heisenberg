@@ -5,9 +5,6 @@ RSpec.describe 'post routing', :aggregate_failures, type: :routing do
     expect(post: "/posts").to route_to(
       controller: "posts", action: "create")
 
-    expect(get: "/posts/new").to route_to(
-      controller: "posts", action: "new")
-
     expect(get: "/posts/1/edit").to route_to(
       controller: "posts", action: "edit", id: "1")
 
