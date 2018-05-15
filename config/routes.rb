@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   # End Relationships
 
   # Begin Subtopics
-  resources :subtopics, only: [:show, :new, :create]
+  resources :subtopics, only: [:new, :create]
 
   # End Subtopics
 

@@ -34,7 +34,10 @@ class ApplicationController < ActionController::Base
 		# Before action
 		# Confirms user is an admin
 		def admin_user
-			redirect_to(root_url) unless current_user.admin?
+      if !current_user.admin?
+        flash[:alert] = "Action not authorized"
+        redirect_to(root_url)
+      end
 		end
 
 	

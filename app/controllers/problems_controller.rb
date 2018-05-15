@@ -151,8 +151,10 @@ class ProblemsController < ApplicationController
 				@problem.points = points_gained(@problem.difficulty)
 
 				@problem.save
-				@problem_attribution.problem_id = @problem.id
-				@problem_attribution.save
+        if params[:problem_attribution][:create] == "yes"
+				  @problem_attribution.problem_id = @problem.id
+				  @problem_attribution.save
+        end
 				params[:subtopic].each do |id|
 					ProblemCategory.create(problem_id: @problem.id, subtopic_id: id)
 				end
@@ -184,7 +186,7 @@ class ProblemsController < ApplicationController
 			user.save
 		end
 		problem.destroy
-		flash[:success] = "User deleted"
+		flash[:success] = "Problem deleted"
 		redirect_to dashboard_path
 	end
 
