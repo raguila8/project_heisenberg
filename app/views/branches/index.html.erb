@@ -7,7 +7,7 @@
 		<div class="row">
 			<%= link_to branch_path(branch) do %>
 			<div class="col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8 col-sm-12 col-xs-12 branch-card">
-				<div class= "dash-icon" style="background-image: url(/dash_icon<%=branch_num%>.png)"></div>
+        <span class="icon-container float-right g-ma-5"><img src="/<%=branch_icon(branch.name)%>.png" class="inline-icon-2"></span>
 				<h3 class="branch-name" ><%=branch.name%></h3>
 				<% if signed_in? %>
 					<% problems_solved = current_user.branch_problems_solved(branch) %>

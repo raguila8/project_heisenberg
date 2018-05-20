@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def branch_icon(branch_name)
+    branch_name.downcase.tr(" ", "_")
+  end
+
 	def landing_page?
 		controller_name == 'static_pages' && action_name == 'landing_page'
 	end
