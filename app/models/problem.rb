@@ -18,7 +18,7 @@ class Problem < ApplicationRecord
 	def self.branch_count(branch)
 		count = Problem.select("p.id").
 												joins("as p inner join problem_categories as pc on p.id = pc.problem_id").
-												joins("inner join subtopics as st on st.id = pc.subtopic_id AND st.branch_id = #{branch.id}").count
+												joins("inner join subtopics as st on st.id = pc.subtopic_id AND st.branch_id = #{branch.id}").distinct.count
 		return count
 	end
 

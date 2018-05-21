@@ -12,7 +12,7 @@ class Branch < ApplicationRecord
 	def problems
 		return Problem.
 			joins("inner join problem_categories as pc on pc.problem_id = problems.id").
-			joins("inner join subtopics as st on st.id = pc.subtopic_id AND st.branch_id = #{self.id}")
+			joins("inner join subtopics as st on st.id = pc.subtopic_id AND st.branch_id = #{self.id}").distinct
 	end
 
 	def problems_filter(topics, problem_status, difficulties, user_id)
@@ -104,7 +104,7 @@ class Branch < ApplicationRecord
 			end
 		end
 
-		problems = Problem.joins(filtered_problems)
+		problems = Problem.joins(filtered_problems).distinct
 		
 		#problems = ActiveRecord::Base.connection.exec_query(filtered_problems).entries
 		return problems
